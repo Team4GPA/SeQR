@@ -1,0 +1,2 @@
+# SeQR
+CMPUT 301 W24 Project
