@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">SeQR</string>
+    <string name="app_title">SeQR</string>
+    <string name="button_mainLogin">Login</string>
+    <string name="button_mainSignup">Signup</string>
+    <string name="floating_mainQR">Attendee Check-In</string>
 </resources>
