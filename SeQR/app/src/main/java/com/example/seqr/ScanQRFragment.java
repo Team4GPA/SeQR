@@ -38,7 +38,7 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.lifecycle.LifecycleOwner;
 
 //import com.example.seqr.databinding.ActivityMainBinding;
-//import com.example.seqr.databinding.FragmentScanQrBinding;
+import com.example.seqr.databinding.FragmentScanQrBinding;
 import com.google.common.util.concurrent.ListenableFuture;
 
 import java.util.ArrayList;
