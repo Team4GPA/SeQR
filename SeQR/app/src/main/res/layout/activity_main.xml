@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floatingAttendeeCheckin"
+        android:id="@+id/floatingOrganizerButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
@@ -32,6 +32,30 @@
         app:layout_constraintVertical_bias=".15"
         app:maxImageSize="52dp" />
 
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floatingOrganizerButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/floating_createQR"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="20sp"
+        app:backgroundTint="#E4E4E4"
+        app:elevation="6dp"
+        app:fabSize="auto"
+        app:icon="@drawable/baseline_qr_code_scanner_24"
+        app:iconGravity="end"
+        app:iconSize="54dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toTopOf="@+id/appTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".8"
+        app:maxImageSize="52dp" />
+
     <TextView
         android:id="@+id/appTitle"
         android:layout_width="wrap_content"
@@ -45,33 +69,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/mainLogin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/button_mainLogin"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appTitle"
-        app:layout_constraintVertical_bias="0.8" />
-
-    <Button
-        android:id="@+id/mainSignup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:fontFamily="sans-serif-black"
-        android:text="@string/button_mainSignup"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.85"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/appTitle"
-        app:layout_constraintVertical_bias="0.8" />
 </androidx.constraintlayout.widget.ConstraintLayout>
