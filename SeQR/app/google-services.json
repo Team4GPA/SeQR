@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "95616692348",
+    "project_id": "seqr-177ac",
+    "storage_bucket": "seqr-177ac.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:95616692348:android:ffc71eb0ea842a1f7399f9",
+        "android_client_info": {
+          "package_name": "com.example.seqr.database"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC_h7LaEQNEHLgUr1Zr2CiBhxw7GQEwhqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
