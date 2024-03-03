@@ -3,7 +3,18 @@
     <string name="app_title">SeQR</string>
     <string name="button_mainLogin">Login</string>
     <string name="button_mainSignup">Signup</string>
-    <string name="floating_mainQR">Attendee Check-In</string>
+    <string name="floating_mainQR">Tap here to scan a QR code</string>
     <string name="qr_capture_text">Scan a QR Code</string>
     <string name="floating_createQR">Generate QR Code</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="event_signed_up">Event Signed up</string>
+    <string name="tap_here_to_create_an_event">Tap here to create an event</string>
+    <string name="event_created">Event created</string>
+    <string name="event_lobby">Event Lobby</string>
+    <string name="back">Back</string>
+    <string name="browse_images">Browse Images</string>
+    <string name="browse_profiles">Browse Profiles</string>
+    <string name="browse_events">Browse Events</string>
+    <string name="administrator">Administrator</string>
 </resources>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">SeQR</string>
+    <string name="app_title">SeQR</string>
+    <string name="button_mainLogin">Login</string>
+    <string name="button_mainSignup">Signup</string>
+    <string name="floating_createQR">Generate QR Code</string>
+    <string name="floating_mainQR">Attendee Check-In</string>
+    <string name="qr_capture_text">Scan a QR Code</string>
+    <style name="Base.Theme.SeQR" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        
+    </style>
+    <style name="Theme.SeQR" parent="Base.Theme.SeQR"/>
+</resources>

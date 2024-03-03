@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.seqr.app-mergeDebugResources-36:/layout/activity_main.xml",
+        "source": "com.example.seqr.app-main-39:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.seqr.app-mergeDebugResources-36:/layout/fragment_scan_qr.xml",
+        "source": "com.example.seqr.app-main-39:/layout/fragment_scan_qr.xml"
+    }
+]
