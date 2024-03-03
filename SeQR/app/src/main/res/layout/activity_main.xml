@@ -31,6 +31,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/scanQRButton"
+            android:layout_width="100sp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|right"
+            android:layout_marginEnd="24sp"
+            android:layout_marginBottom="100sp"
+            android:clickable="true"
+            android:fontFamily="sans-serif-black"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="QR"
+            android:textSize="24sp"
+            app:icon="@drawable/baseline_qr_code_scanner_24"
+            app:iconGravity="start"
+            app:iconPadding="6sp" />
     </FrameLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -44,6 +61,7 @@
     </RelativeLayout>
 
     <!-- Navigation Drawer -->
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
