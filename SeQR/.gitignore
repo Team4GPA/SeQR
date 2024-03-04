@@ -31,9 +31,8 @@
 .gradle/
 /app/.gradle/
 /app/build/
-/app/local.properties
 # Local config file (needed for finding local SDK installed per user machine...)
-/local.properties
+local.properties
 # whatever proguard is
 R/proguard
 # Android Studio build files
