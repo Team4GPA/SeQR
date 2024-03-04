@@ -1,0 +1,44 @@
+# Folder-wide file-type ignores
+*.txt
+*.uniqueId3
+*.uniqueId4
+*.uniqueId5
+*.uniqueId0
+*.uniqueId1
+*.uniqueId2
+*.so
+*.jar
+*.bin
+*.webp
+*.flat
+*.lock
+
+###AndroidStudio Ignores
+#built-files (can build ourselves)
+*.apk
+*.ap_
+*.aab
+#virtual machine files
+*.dex
+#Java .class files (can build ourselves)
+*.class
+#JSON (for firebase etc; you will need to have a local copy of this!!!!)
+*.json
+#Generated build and temp files (can build ourselves)
+/bin/
+/gen/
+# Gradle build files and temp tiles (can build ourselves)
+/.gradle/
+/app/.gradle/
+/app/build/
+/app/local.properties
+# Local config file (needed for finding local SDK installed per user machine...)
+/local.properties
+# whatever proguard is
+R/proguard
+# Android Studio build files
+/*/build/
+# IntelliJ output files (can generate ourselves)
+*.iml
+*.iws
+
