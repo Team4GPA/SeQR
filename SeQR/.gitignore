@@ -41,5 +41,4 @@ R/proguard
 # IntelliJ output files (can generate ourselves)
 *.iml
 *.iws
-/app/.idea/
-/.idea/
+
