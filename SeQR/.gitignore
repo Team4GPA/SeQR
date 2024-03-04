@@ -28,7 +28,7 @@
 /bin/
 /gen/
 # Gradle build files and temp tiles (can build ourselves)
-.gradle
+.gradle/
 /app/.gradle/
 /app/build/
 /app/local.properties
