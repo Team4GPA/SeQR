@@ -36,6 +36,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.slidingpanelayout:slidingpanelayout:1.2.0")
     implementation("com.google.firebase:firebase-storage:20.3.0")
     var camerax_version = "1.2.2"
     implementation("androidx.camera:camera-core:${camerax_version}")
