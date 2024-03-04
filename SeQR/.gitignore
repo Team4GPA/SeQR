@@ -28,7 +28,7 @@
 /bin/
 /gen/
 # Gradle build files and temp tiles (can build ourselves)
-/.gradle/
+.gradle/
 /app/.gradle/
 /app/build/
 /app/local.properties
@@ -37,7 +37,7 @@
 # whatever proguard is
 R/proguard
 # Android Studio build files
-/*/build/
+build/
 # IntelliJ output files (can generate ourselves)
 *.iml
 *.iws
