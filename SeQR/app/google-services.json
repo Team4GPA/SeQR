@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:95616692348:android:ffc71eb0ea842a1f7399f9",
         "android_client_info": {
-          "package_name": "com.example.seqr.database"
+          "package_name": "com.example.seqr"
         }
       },
       "oauth_client": [],
