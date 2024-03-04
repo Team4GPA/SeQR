@@ -13,7 +13,9 @@ public class Profile {
     private List<Event> createdEvents; //list of Events created by this profile
     private List<Event> signedUpEvents; //list of signedUpEvents by this profile
 
+    public Profile(){
 
+    }
 
     //constructor for a profile
     public Profile(String username, String ID){

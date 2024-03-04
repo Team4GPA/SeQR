@@ -18,12 +18,17 @@ import android.view.View;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
+import com.example.seqr.controllers.ProfileController;
+import com.example.seqr.models.Profile;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        testAddProfile();
 
         //for testing: add a floating QR button over the main fragment view 'fragment_container'
         ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
@@ -91,5 +96,12 @@ public class MainActivity extends AppCompatActivity {
                 swapMain.commit();
             }
         });
+    }
+
+    private void testAddProfile(){
+        ProfileController profileController = new ProfileController();
+        Profile newProfile = new Profile("Testing Adding Again", "Placeholder for UUID");
+        profileController.addProfile(newProfile);
+
     }
 }
