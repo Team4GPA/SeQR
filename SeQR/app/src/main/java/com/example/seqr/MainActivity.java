@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
     private void startUpLogic(){
         setContentView(R.layout.start_up);
         EditText userNameEntry = findViewById(R.id.enteredUsername);
-        Button confirmButton = findViewById(R.id.signUpConfirmButton);
+        Button confirmButton = findViewById(R.id.createProfileConfirmButton);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
