@@ -17,4 +17,7 @@
     <string name="browse_profiles">Browse Profiles</string>
     <string name="browse_events">Browse Events</string>
     <string name="administrator">Administrator</string>
+    <string name="enter_here">Enter here...</string>
+    <string name="what_is_your_username">What is your username?</string>
+    <string name="welcome_to_seqr">Welcome to SeQR!</string>
 </resources>
