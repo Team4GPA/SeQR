@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
 
         //for testing: add a floating QR button over the main fragment view 'fragment_container'
         ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
+        String qrResult;
 
         //setup the main fragment view stuff
         FragmentManager fragMgr = getSupportFragmentManager();
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
 
         //handle clicks on the QR code button;
         //uses some variables set up earlier:
-        //mainFrag: a view in the XML for the main_activity
+        //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
         //fragMgr: Android manager of fragments
         //
         qrButton.setOnClickListener(new View.OnClickListener() {
