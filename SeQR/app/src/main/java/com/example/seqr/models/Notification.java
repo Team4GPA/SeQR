@@ -14,7 +14,7 @@ public class Notification {
         this.time = time;
         this.sender = sender;
         this.description = description;
-        //puts the notifcation into a map format
+        //puts the notification into a map format
         notif.put("description",description);
         notif.put("sender", sender);
         notif.put("time", time);
