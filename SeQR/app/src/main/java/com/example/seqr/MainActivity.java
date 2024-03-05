@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -62,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle on clicks for bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+
+        //Button to skip to Upload event poster fragment and test it
+        Button tester = findViewById(R.id.testImageUpFrag);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -114,6 +119,17 @@ public class MainActivity extends AppCompatActivity {
                 Fragment cameraFrag = new ScanQRFragment();
                 swapMain.replace(mainFrag.getId(), cameraFrag);
                 swapMain.commit();
+            }
+        });
+
+        tester.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentTransaction swapTo = fragMgr.beginTransaction();
+                Fragment posterUpFrag = new UploadPosterFragment();
+                Fragment tester = new AdminFragment();
+                swapTo.replace(R.id.fragment_container,posterUpFrag);
+                swapTo.commit();
             }
         });
     }
