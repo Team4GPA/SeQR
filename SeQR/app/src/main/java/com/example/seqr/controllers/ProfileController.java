@@ -1,26 +1,29 @@
-package com.example.seqr.database;
+package com.example.seqr.controllers;
 
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.example.seqr.database.Database;
+import com.example.seqr.models.Profile;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.CollectionReference;
-import com.example.seqr.models.Profile;
-public class ProfileFunctionality {
+import com.google.firebase.firestore.FirebaseFirestore;
 
+public class ProfileController {
     private FirebaseFirestore db;
     private CollectionReference profileCollection;
 
-    public ProfileFunctionality(){
+
+    public ProfileController(){
+
         db = Database.getFireStore();
         profileCollection = db.collection("Profiles");
 
     }
-
-    public void createProfile(Profile profile){
+    // Adds the profile into the firebase Profile collection, the documentid will be the profile ID so it can be easily queried later
+    public void addProfile(Profile profile){
         profileCollection.document(profile.getId()).set(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
@@ -35,4 +38,5 @@ public class ProfileFunctionality {
 
 
     }
+
 }

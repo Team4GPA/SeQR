@@ -9,6 +9,7 @@ public class Database {
     private static FirebaseStorage storage;
 
     private Database(){
+
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
 
@@ -19,6 +20,10 @@ public class Database {
     }
 
     public static FirebaseFirestore getFireStore(){
+        //make sure db is initialized
+        if (db == null){
+            db = FirebaseFirestore.getInstance();
+        }
         return db;
     }
 
