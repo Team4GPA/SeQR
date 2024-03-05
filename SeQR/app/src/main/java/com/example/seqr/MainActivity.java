@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -44,11 +45,10 @@ public class MainActivity extends AppCompatActivity {
         } else {
             setContentView(R.layout.activity_main);}
 
-
-
-
-
-
+        // initialize buttons for the side menu
+        Button editProfileButton = findViewById(R.id.edit_profile_button);
+        CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
+        Button adminButton = findViewById(R.id.admin_button);
 
 
 
@@ -125,6 +125,14 @@ public class MainActivity extends AppCompatActivity {
                 swapMain.commit();
             }
         });
+        adminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                fragMgr.beginTransaction().replace(R.id.fragment_container, new AdminFragment()).commit();
+                drawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+
     }
 
 //    private void openFragment(Fragment fragment) {
