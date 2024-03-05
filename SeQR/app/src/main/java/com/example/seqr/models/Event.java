@@ -13,7 +13,6 @@ public class Event {
     private String eventDesc;
     private Timestamp eventStartTime;
     private int maxCapacity;
-    private List<Notification> notifications;
     private QR qrCode;
     private List<Profile> attendees;
     private List<Profile> signedUp;

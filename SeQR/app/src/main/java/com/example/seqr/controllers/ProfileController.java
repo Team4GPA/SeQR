@@ -39,4 +39,23 @@ public class ProfileController {
 
     }
 
+    //Takes in the new
+    public void updateProfile(String uuid, String username, String homePage, Integer phoneNumber, String email){
+        profileCollection.document(uuid)
+                .update("username",username,"homePage",homePage,"phoneNumber",phoneNumber,"email",email)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG","Successfully updated profile");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating profile",e);
+                    }
+                });
+    }
+
+
+
 }
