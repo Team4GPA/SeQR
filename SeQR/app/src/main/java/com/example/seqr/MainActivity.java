@@ -27,7 +27,9 @@ import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Profile;
 
 public class MainActivity extends AppCompatActivity {
-
+    AttendeeFragment attendeeFragment = new AttendeeFragment();
+    EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
+    OrganizerFragment organizerFragment = new OrganizerFragment();
 
 
     @Override
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
             startUpLogic();
         } else {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main);}
 
 
 
@@ -56,9 +58,13 @@ public class MainActivity extends AppCompatActivity {
         //setup the main fragment view stuff
         FragmentManager fragMgr = getSupportFragmentManager();
         View mainFrag = findViewById(R.id.fragment_container);
+        // set the page to attendee view as initialization
+        fragMgr.beginTransaction().replace(R.id.fragment_container, attendeeFragment).commit();
 
         //sliding drawer layout on left-hand side of Activity window
         DrawerLayout drawerLayout = findViewById(R.id.my_drawer_layout);
+
+
 
         // Handle on clicks for bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -68,12 +74,15 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bottom_attendee) {
                     // Handle attendee button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, attendeeFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_organizer) {
                     // Handle organizer button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, organizerFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_events) {
                     // Handle events button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, eventLobbyFragment).commit();
                     return true;
                 }
 
@@ -117,7 +126,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-    }
+
+//    private void openFragment(Fragment fragment) {
+//        FragmentTransaction transaction = fragMgr.beginTransaction();
+//        transaction.replace(R.id.fragment_container, fragment);
+//        transaction.commit();
+//    }
 
     private void testAddProfile(){
         ProfileController profileController = new ProfileController();
