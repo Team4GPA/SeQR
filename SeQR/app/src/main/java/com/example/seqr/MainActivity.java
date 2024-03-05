@@ -128,7 +128,11 @@ public class MainActivity extends AppCompatActivity {
         adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragMgr.beginTransaction().replace(R.id.fragment_container, new AdminFragment()).commit();
+                AdminFragment adminFragment = new AdminFragment();
+                FragmentTransaction transaction = fragMgr.beginTransaction();
+                transaction.replace(R.id.fragment_container, adminFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
                 drawerLayout.closeDrawer(Gravity.LEFT);
             }
         });
