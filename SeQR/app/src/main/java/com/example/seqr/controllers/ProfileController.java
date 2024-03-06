@@ -39,7 +39,7 @@ public class ProfileController {
 
     }
 
-    //Takes in the new
+    //Takes in the new values and updates them
     public void updateProfile(String uuid, String username, String homePage, Integer phoneNumber, String email){
         profileCollection.document(uuid)
                 .update("username",username,"homePage",homePage,"phoneNumber",phoneNumber,"email",email)

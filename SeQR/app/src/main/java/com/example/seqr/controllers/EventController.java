@@ -20,7 +20,7 @@ public class EventController {
     }
 
     public void addEvent(Event event){
-        eventCollection.document(event.getEventUUID()).set(event).addOnSuccessListener(new OnSuccessListener<Void>() {
+        eventCollection.document(event.getEventID()).set(event).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void unused) {
                 Log.d("Debug", "Successfully added event");
@@ -31,5 +31,20 @@ public class EventController {
                 Log.d("Debug","Failure to add event",e);
             }
         });
+    }
+
+    public void removeEvent(Event event){
+        eventCollection.document(event.getEventID()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("Debug","Successfully Deleted");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug","Cant delete",e);
+                    }
+                });
     }
 }
