@@ -13,6 +13,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
+
+import com.example.seqr.controllers.EventController;
+import com.example.seqr.models.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -49,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         //gen = findViewById(R.id.tester);
         //dis = findViewById(R.id.testdisplay);
       
@@ -80,6 +87,8 @@ public class MainActivity extends AppCompatActivity {
             startUpLogic();
         } else {
             setContentView(R.layout.activity_main);}
+
+
 
         // initialize buttons for the side menu
         Button editProfileButton = findViewById(R.id.edit_profile_button);

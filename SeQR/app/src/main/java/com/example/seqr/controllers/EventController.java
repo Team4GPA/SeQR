@@ -6,10 +6,13 @@ import androidx.annotation.NonNull;
 
 import com.example.seqr.database.Database;
 import com.example.seqr.models.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 public class EventController {
     private FirebaseFirestore db;
     private CollectionReference eventCollection;
@@ -46,5 +49,9 @@ public class EventController {
                         Log.d("Debug","Cant delete",e);
                     }
                 });
+    }
+
+    public void getAllEvents(OnCompleteListener<QuerySnapshot> onCompleteListener){
+        db.collection("Events").get().addOnCompleteListener(onCompleteListener);
     }
 }
