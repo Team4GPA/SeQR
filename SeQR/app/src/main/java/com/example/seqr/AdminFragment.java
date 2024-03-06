@@ -19,7 +19,7 @@ public class AdminFragment extends Fragment {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getActivity().getSupportFragmentManager().popBackStack();
+                getParentFragmentManager().popBackStack();
             }
         });
         return view;
