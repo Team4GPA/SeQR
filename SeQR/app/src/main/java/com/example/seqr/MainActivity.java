@@ -8,9 +8,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
-
+import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Window;
+import android.widget.ImageView;
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.journeyapps.barcodescanner.BarcodeEncoder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -19,28 +26,53 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
-
 import com.example.seqr.models.ID;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Profile;
 
 public class MainActivity extends AppCompatActivity {
+
     AttendeeFragment attendeeFragment = new AttendeeFragment();
     EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     OrganizerFragment organizerFragment = new OrganizerFragment();
-
+    QRCodeGenerator test;
+    //Bitmap map;
+    //Button gen;
+    //ImageView dis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        //gen = findViewById(R.id.tester);
+        //dis = findViewById(R.id.testdisplay);
+      
+        /*gen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String id = "E0001";
+                //map = test.generate(id);
+                BitMatrix mMatrix;
+                MultiFormatWriter mWriter = new MultiFormatWriter();
+                BarcodeEncoder mEncoder = new BarcodeEncoder();
+                try{
+                    mMatrix = mWriter.encode(id, BarcodeFormat.QR_CODE, 400, 400);
+                    map = mEncoder.createBitmap(mMatrix);
+                    dis.setImageBitmap(map);
+                    //displayQR(map);
+                }
+                catch(WriterException e){
+                    e.printStackTrace();
+                }
+                //displayQR(map);
+            }
+        });*/
 
         String uuid = ID.getProfileId(this);
         //if device hasn't opened the app before and made a username need to add extra checks to make sure they actually created
         if (uuid == null) {
-
             startUpLogic();
         } else {
             setContentView(R.layout.activity_main);}
@@ -49,8 +81,6 @@ public class MainActivity extends AppCompatActivity {
         Button editProfileButton = findViewById(R.id.edit_profile_button);
         CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
         Button adminButton = findViewById(R.id.admin_button);
-
-
 
         //for testing: add a floating QR button over the main fragment view 'fragment_container'
         ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
@@ -63,8 +93,6 @@ public class MainActivity extends AppCompatActivity {
 
         //sliding drawer layout on left-hand side of Activity window
         DrawerLayout drawerLayout = findViewById(R.id.my_drawer_layout);
-
-
 
         // Handle on clicks for bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
@@ -125,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 swapMain.commit();
             }
         });
+      
         adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,20 +165,18 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawer(Gravity.LEFT);
             }
         });
-
     }
-
-//    private void openFragment(Fragment fragment) {
+  
+//  private void openFragment(Fragment fragment) {
 //        FragmentTransaction transaction = fragMgr.beginTransaction();
 //        transaction.replace(R.id.fragment_container, fragment);
 //        transaction.commit();
-//    }
+//  }
 
     private void testAddProfile(){
         ProfileController profileController = new ProfileController();
         Profile newProfile = new Profile("Testing Adding Again", "Placeholder for UUID");
         profileController.addProfile(newProfile);
-
     }
 
     private void startUpLogic(){
