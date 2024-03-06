@@ -42,21 +42,21 @@ public class AdminFragment extends Fragment {
         browseEventsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragMgr.beginTransaction().replace(R.id.fragment_container, eventFrag).commit();
+                fragMgr.beginTransaction().replace(R.id.fragment_container, eventFrag).addToBackStack(null).commit();
             }
         });
 
         browseProfilesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragMgr.beginTransaction().replace(R.id.fragment_container, profileFrag).commit();
+                fragMgr.beginTransaction().replace(R.id.fragment_container, profileFrag).addToBackStack(null).commit();
             }
         });
 
         browseImagesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fragMgr.beginTransaction().replace(R.id.fragment_container, imageFrag).commit();
+                fragMgr.beginTransaction().replace(R.id.fragment_container, imageFrag).addToBackStack(null).commit();
             }
         });
         return view;
