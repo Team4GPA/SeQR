@@ -23,6 +23,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.seqr.models.ID;
@@ -32,6 +33,10 @@ import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Profile;
 
 public class MainActivity extends AppCompatActivity {
+
+    AttendeeFragment attendeeFragment = new AttendeeFragment();
+    EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
+    OrganizerFragment organizerFragment = new OrganizerFragment();
     QRCodeGenerator test;
     //Bitmap map;
     //Button gen;
@@ -70,7 +75,12 @@ public class MainActivity extends AppCompatActivity {
         if (uuid == null) {
             startUpLogic();
         } else {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.activity_main);}
+
+        // initialize buttons for the side menu
+        Button editProfileButton = findViewById(R.id.edit_profile_button);
+        CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
+        Button adminButton = findViewById(R.id.admin_button);
 
         //for testing: add a floating QR button over the main fragment view 'fragment_container'
         ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
@@ -78,6 +88,8 @@ public class MainActivity extends AppCompatActivity {
         //setup the main fragment view stuff
         FragmentManager fragMgr = getSupportFragmentManager();
         View mainFrag = findViewById(R.id.fragment_container);
+        // set the page to attendee view as initialization
+        fragMgr.beginTransaction().replace(R.id.fragment_container, attendeeFragment).commit();
 
         //sliding drawer layout on left-hand side of Activity window
         DrawerLayout drawerLayout = findViewById(R.id.my_drawer_layout);
@@ -90,12 +102,15 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
                 if (id == R.id.bottom_attendee) {
                     // Handle attendee button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, attendeeFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_organizer) {
                     // Handle organizer button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, organizerFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_events) {
                     // Handle events button
+                    fragMgr.beginTransaction().replace(R.id.fragment_container, eventLobbyFragment).commit();
                     return true;
                 }
 
@@ -138,19 +153,36 @@ public class MainActivity extends AppCompatActivity {
                 swapMain.commit();
             }
         });
-        }
+      
+        adminButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AdminFragment adminFragment = new AdminFragment();
+                FragmentTransaction transaction = fragMgr.beginTransaction();
+                transaction.replace(R.id.fragment_container, adminFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+                drawerLayout.closeDrawer(Gravity.LEFT);
+            }
+        });
+    }
+  
+//  private void openFragment(Fragment fragment) {
+//        FragmentTransaction transaction = fragMgr.beginTransaction();
+//        transaction.replace(R.id.fragment_container, fragment);
+//        transaction.commit();
+//  }
 
     private void testAddProfile(){
         ProfileController profileController = new ProfileController();
         Profile newProfile = new Profile("Testing Adding Again", "Placeholder for UUID");
         profileController.addProfile(newProfile);
-
     }
 
     private void startUpLogic(){
         setContentView(R.layout.start_up);
         EditText userNameEntry = findViewById(R.id.enteredUsername);
-        Button confirmButton = findViewById(R.id.signUpConfirmButton);
+        Button confirmButton = findViewById(R.id.createProfileConfirmButton);
 
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
