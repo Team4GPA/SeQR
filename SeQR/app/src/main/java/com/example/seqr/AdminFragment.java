@@ -30,7 +30,7 @@ public class AdminFragment extends Fragment {
         AProfilesFragment profileFrag = new AProfilesFragment();
 
         // setup fragment manager to get back to this admin screen if we press one of the browse buttons
-        FragmentManager fragMgr = getSupportFragmentManager();
+        FragmentManager fragMgr = getFragmentManager();
 
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
