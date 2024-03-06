@@ -114,6 +114,5 @@
                 app:layout_constraintRight_toRightOf="parent"
                 android:text="Admin" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
