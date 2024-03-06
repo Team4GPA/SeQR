@@ -23,6 +23,7 @@ public class UploadPosterFragment extends Fragment{
     private ImageView posterdisplay;
 
     private Uri mImageUri;
+    private ImageUploader iuploader;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -30,6 +31,7 @@ public class UploadPosterFragment extends Fragment{
 
         uploadButton = view.findViewById(R.id.PosterUploadButton);
         posterdisplay = view.findViewById(R.id.PosterUploadDisplay);
+        new ImageUploader("EventPosters");
 
         uploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,6 +57,7 @@ public class UploadPosterFragment extends Fragment{
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             mImageUri = data.getData();
             Picasso.with(posterdisplay.getContext()).load(mImageUri).into(posterdisplay);
+            iuploader.upload(mImageUri);
         }
     }
 }
