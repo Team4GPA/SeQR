@@ -32,7 +32,7 @@
     <EditText
         android:id="@+id/eventNameInput"
         android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:hint="Enter the name of the event"
         android:inputType="text"
         android:textSize="20sp"
@@ -45,12 +45,11 @@
     <EditText
         android:id="@+id/eventTimeInput"
         android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:hint="Enter the time"
         android:inputType="text"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_margin="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventNameInput" />
@@ -58,12 +57,11 @@
     <EditText
         android:id="@+id/eventLocationInput"
         android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:hint="Enter the location"
         android:inputType="text"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_margin="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventTimeInput" />
@@ -71,13 +69,12 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/eventLocationInput"
-        android:layout_margin="15dp"
         android:orientation="horizontal">
-        <RadioButton
+        <CheckBox
             android:id="@+id/ifCapacity"
             android:layout_width="48dp"
             android:layout_height="48dp"
@@ -96,12 +93,11 @@
     <EditText
         android:id="@+id/eventDescriptionInput"
         android:layout_width="340dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:hint="Enter the description"
         android:inputType="text"
         android:textSize="20sp"
         android:textStyle="bold"
-        android:layout_margin="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout1" />
@@ -110,7 +106,7 @@
         android:id="@+id/cEventDetailNextButton"
         android:layout_width="140dp"
         android:layout_height="60dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="120dp"
         android:text="Next"
         android:textSize="15sp"
         android:textStyle="bold"
