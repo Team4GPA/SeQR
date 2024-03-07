@@ -34,4 +34,10 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
         Picasso.get().load(imageUrl).into(holder.imageView);
         holder.textView.setText(profile.getName()); // replace with real getter
     }
+
+    @Override
+    public int getItemCount() {
+        return profileList.size();
+    }
+
 }
