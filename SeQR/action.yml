@@ -20,3 +20,4 @@ runs:
     - name: Build with Gradle
       run: ./gradlew build -p ./SeQR
       shell: bash
+      working-directory: SeQR
