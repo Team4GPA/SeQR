@@ -12,4 +12,4 @@ jobs:
       - name: buildGradle
       - uses: actions/checkout@v3
       - id: build
-        uses: ./SeQR/.github/workflows/android.yml
+        uses: ./SeQR/.github/workflows/
