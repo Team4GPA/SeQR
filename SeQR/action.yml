@@ -21,6 +21,7 @@ runs:
 
     - name: chgDir
       run: cd ${{ github.action_path }}
+      shell: bash
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
