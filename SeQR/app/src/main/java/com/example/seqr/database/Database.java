@@ -16,6 +16,11 @@ public class Database {
     }
 
     public static FirebaseStorage getStorage(){
+        //make sure storage is initialized
+        if(storage == null){
+            storage= FirebaseStorage.getInstance();
+        }
+
         return storage;
     }
 

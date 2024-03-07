@@ -7,8 +7,9 @@
     <ImageView
         android:id="@+id/event_image"
         android:contentDescription="Image of event"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:scaleType="fitCenter"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
         android:paddingEnd="8dp"/>

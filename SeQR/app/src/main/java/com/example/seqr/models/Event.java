@@ -5,30 +5,112 @@ import android.app.Notification;
 
 import java.util.List;
 import com.google.firebase.Timestamp;
+import java.util.UUID;
 
 public class Event {
     private String eventName;
-    private String eventPoster;
-    private int checkInCount;
-    private String eventDesc;
-    private Timestamp eventStartTime;
-    private int maxCapacity;
-    private List<Notification> notifications;
-    private QR qrCode;
-    private List<Profile> attendees;
-    private List<Profile> signedUp;
-    private Profile organizer;
 
-    public Event(String eventName, String eventPoster, String eventDesc, int maxCapacity, QR qrCode, Profile organizer) {
+    private String eventDesc;
+    private int maxCapacity;
+    private String organizer;
+    private String location;
+    private String eventStartTime;
+    private String eventID;
+
+    private String promotionQR;
+
+    private String checkInQR;
+
+    public Event(){
+
+    }
+
+
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR) {
         this.eventName = eventName;
-        this.eventPoster = eventPoster;
+
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
-        this.qrCode = qrCode;
+        this.organizer = organizer;
+        this.location = location;
+        this.eventStartTime = eventStartTime;
+        this.eventID = eventID;
+        this.checkInQR = checkInQR;
+        this.promotionQR = promotionQR;
+
+    }
+
+    public String getPromotionQR() {
+        return promotionQR;
+    }
+
+    public void setPromotionQR(String promotionQR) {
+        this.promotionQR = promotionQR;
+    }
+
+    public String getCheckInQR() {
+        return checkInQR;
+    }
+
+    public void setCheckInQR(String checkInQR) {
+        this.checkInQR = checkInQR;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+
+
+    public String getEventDesc() {
+        return eventDesc;
+    }
+
+    public void setEventDesc(String eventDesc) {
+        this.eventDesc = eventDesc;
+    }
+
+    public int getMaxCapacity() {
+        return maxCapacity;
+    }
+
+    public void setMaxCapacity(int maxCapacity) {
+        this.maxCapacity = maxCapacity;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }
 
-    // Need to add getters/setters
+    public String getLocation() {
+        return location;
+    }
 
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
+    public String getEventStartTime() {
+        return eventStartTime;
+    }
+
+    public void setEventStartTime(String eventStartTime) {
+        this.eventStartTime = eventStartTime;
+    }
 }

@@ -31,8 +31,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
         Event event = eventList.get(position);
 
         // REPLACE the getters with actual names of functions
-        holder.imageView.setImageResource(event.getImage());
-        holder.textView.setText(event.getEventName());
+       holder.setEventImage(event.getEventID());
+       holder.textView.setText(event.getEventName());
     }
 
     @Override

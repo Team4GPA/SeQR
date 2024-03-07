@@ -13,6 +13,13 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.Window;
 import android.widget.ImageView;
+
+import com.example.seqr.controllers.EventController;
+import com.example.seqr.models.Event;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
@@ -23,7 +30,11 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+
+
+
 import android.widget.CheckBox;
+
 import android.widget.EditText;
 import android.widget.TextView;
 import com.example.seqr.models.ID;
@@ -45,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
+
         //gen = findViewById(R.id.tester);
         //dis = findViewById(R.id.testdisplay);
       
@@ -71,11 +82,14 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
         String uuid = ID.getProfileId(this);
+
         //if device hasn't opened the app before and made a username need to add extra checks to make sure they actually created
         if (uuid == null) {
             startUpLogic();
         } else {
             setContentView(R.layout.activity_main);}
+
+
 
         // initialize buttons for the side menu
         Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -97,6 +111,10 @@ public class MainActivity extends AppCompatActivity {
 
         // Handle on clicks for bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
+
+//        //Button to skip to Upload event poster fragment and test it
+//        Button tester = findViewById(R.id.testImageUpFrag);
+
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -154,7 +172,20 @@ public class MainActivity extends AppCompatActivity {
                 swapMain.commit();
             }
         });
-      
+
+
+//        tester.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+//              FragmentTransaction swapTo = fragMgr.beginTransaction();
+//              Fragment posterUpFrag = new UploadPosterFragment();
+//              Fragment tester = new AdminFragment();
+//              swapTo.replace(R.id.fragment_container, posterUpFrag);
+//              swapTo.commit();
+//          }
+//      });
+
+
         adminButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,10 +195,11 @@ public class MainActivity extends AppCompatActivity {
                 transaction.addToBackStack(null);
                 transaction.commit();
                 drawerLayout.closeDrawer(Gravity.LEFT);
+
             }
         });
     }
-  
+
 //  private void openFragment(Fragment fragment) {
 //        FragmentTransaction transaction = fragMgr.beginTransaction();
 //        transaction.replace(R.id.fragment_container, fragment);
