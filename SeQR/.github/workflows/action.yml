@@ -3,9 +3,6 @@ description: Builds with Gradle
 
 runs:
   using: "composite"
-
-    runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: set up JDK 11
@@ -14,7 +11,6 @@ runs:
         java-version: '11'
         distribution: 'temurin'
         cache: gradle
-
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
     - name: Build with Gradle
