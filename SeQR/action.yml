@@ -1,13 +1,13 @@
 name: Android CI
 description: Builds with Gradle
-defaults:
-  runs:
-    shell: bash
-    working-directory: ${{ github.action_path }}
 
 runs:
   using: "composite"
   steps:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ${{ github.action_path }}
     #- uses: actions/checkout@v3
 
     - name: set up JDK 11
