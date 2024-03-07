@@ -34,9 +34,9 @@ import com.example.seqr.models.Profile;
 
 public class MainActivity extends AppCompatActivity {
 
-    AttendeeFragment attendeeFragment = new AttendeeFragment();
-    EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
-    OrganizerFragment organizerFragment = new OrganizerFragment();
+    private AttendeeFragment attendeeFragment = new AttendeeFragment();
+    private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
+    private OrganizerFragment organizerFragment = new OrganizerFragment();
     QRCodeGenerator test;
     //Bitmap map;
     //Button gen;
