@@ -24,7 +24,7 @@ runs:
       shell: bash
 
     - name: chgDir
-      run: cd SeQR/
+      run: cd ./SeQR/
       shell: bash
 
     - name: cnfDir
