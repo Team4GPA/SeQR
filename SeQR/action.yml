@@ -26,6 +26,10 @@ runs:
     - name: chkDir
       run: ls -a
       shell: bash
+
+    - name: goToNestedDir
+      run: cd SeQR
+      shell: bash
         
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
