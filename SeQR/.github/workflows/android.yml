@@ -1,13 +1,8 @@
 name: Android CI
+description: Builds with Gradle
 
-on:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
-
-jobs:
-  build:
+runs:
+  using: "composite"
 
     runs-on: ubuntu-latest
 
