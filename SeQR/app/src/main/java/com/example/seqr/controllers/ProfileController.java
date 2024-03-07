@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 
 import com.example.seqr.database.Database;
 import com.example.seqr.models.Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileController {
@@ -54,6 +56,10 @@ public class ProfileController {
                         Log.d("DEBUG", "Error updating profile",e);
                     }
                 });
+    }
+
+    public void getProfileUsernameByDeviceId(String deviceId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        profileCollection.document(deviceId).get().addOnCompleteListener(onCompleteListener);
     }
 
 

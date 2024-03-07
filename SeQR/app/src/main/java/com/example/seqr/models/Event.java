@@ -9,30 +9,39 @@ import java.util.UUID;
 
 public class Event {
     private String eventName;
-    private String eventPoster;
+
     private String eventDesc;
     private int maxCapacity;
     private String organizer;
     private String location;
-    private Timestamp eventStartTime;
+    private String eventStartTime;
     private String eventID;
+
+    private String promotionQR;
+
+    private String checkInQR;
 
     public Event(){
 
     }
 
 
-    public Event(String eventName, String eventPoster, String eventDesc, int maxCapacity, String organizer, String location, Timestamp eventStartTime) {
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR) {
         this.eventName = eventName;
-        this.eventPoster = eventPoster;
+
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
         this.organizer = organizer;
         this.location = location;
         this.eventStartTime = eventStartTime;
-        if(this.eventID == null){
-            this.eventID = UUID.randomUUID().toString();
-        }
+        this.eventID = eventID;
+        this.checkInQR = checkInQR;
+        this.promotionQR = promotionQR;
+
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
     }
 
     public String getEventID() {
@@ -47,13 +56,7 @@ public class Event {
         this.eventName = eventName;
     }
 
-    public String getEventPoster() {
-        return eventPoster;
-    }
 
-    public void setEventPoster(String eventPoster) {
-        this.eventPoster = eventPoster;
-    }
 
     public String getEventDesc() {
         return eventDesc;
@@ -87,11 +90,11 @@ public class Event {
         this.location = location;
     }
 
-    public Timestamp getEventStartTime() {
+    public String getEventStartTime() {
         return eventStartTime;
     }
 
-    public void setEventStartTime(Timestamp eventStartTime) {
+    public void setEventStartTime(String eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
 }

@@ -52,6 +52,6 @@ public class EventController {
     }
 
     public void getAllEvents(OnCompleteListener<QuerySnapshot> onCompleteListener){
-        db.collection("Events").get().addOnCompleteListener(onCompleteListener);
+        eventCollection.get().addOnCompleteListener(onCompleteListener);
     }
 }

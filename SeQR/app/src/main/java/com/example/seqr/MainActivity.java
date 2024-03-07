@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
         });*/
 
         String uuid = ID.getProfileId(this);
+
         //if device hasn't opened the app before and made a username need to add extra checks to make sure they actually created
         if (uuid == null) {
             startUpLogic();
