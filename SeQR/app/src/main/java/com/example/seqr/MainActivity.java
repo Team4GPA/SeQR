@@ -97,8 +97,8 @@ public class MainActivity extends AppCompatActivity {
         Button adminButton = findViewById(R.id.admin_button);
 
         //for testing: add a floating QR button over the main fragment view 'fragment_container'
-        ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
-        String qrResult;
+//        ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
+//        String qrResult;
 
         //setup the main fragment view stuff
         FragmentManager fragMgr = getSupportFragmentManager();
@@ -166,15 +166,15 @@ public class MainActivity extends AppCompatActivity {
         //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
         //fragMgr: Android manager of fragments
         //
-        qrButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FragmentTransaction swapMain = fragMgr.beginTransaction();
-                Fragment cameraFrag = new ScanQRFragment();
-                swapMain.replace(mainFrag.getId(), cameraFrag);
-                swapMain.commit();
-            }
-        });
+//        qrButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                FragmentTransaction swapMain = fragMgr.beginTransaction();
+//                Fragment cameraFrag = new ScanQRFragment();
+//                swapMain.replace(mainFrag.getId(), cameraFrag);
+//                swapMain.commit();
+//            }
+//        });
 
 
 //        tester.setOnClickListener(new View.OnClickListener() {
