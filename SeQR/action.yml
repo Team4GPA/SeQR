@@ -18,22 +18,11 @@ runs:
     #  shell: bash
     #  env:
     #    GITHUB_ACTION_PATH: ${{ github.action_path }}
-
-    - name: chkDir
-      run: ls -a
-      shell: bash
-
-    - name: chgDir
-      run: cd ./SeQR/
-      shell: bash
-
-    - name: cnfDir
-      run: ls -a
-      shell: bash
         
     - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      run: chmod +x ${{ github.action_path }}gradlew
       shell: bash
+      
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ${{ github.action_path }}./gradlew build
       shell: bash
