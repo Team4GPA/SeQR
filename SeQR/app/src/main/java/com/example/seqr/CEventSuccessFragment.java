@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.squareup.picasso.Picasso;
 
 public class CEventSuccessFragment extends Fragment {
@@ -22,7 +21,7 @@ public class CEventSuccessFragment extends Fragment {
     private TextView eventCapacityTextView;
     private TextView eventDescriptionTextView;
     private ImageView eventImageView;
-    private Button goToQRCodeButton;
+    private Button cEventSuccessGoToButton;
 
 
     @Override
@@ -36,20 +35,18 @@ public class CEventSuccessFragment extends Fragment {
         eventTimeTextView = view.findViewById(R.id.cEventSuccessTime);
         eventCapacityTextView = view.findViewById(R.id.cEventSuccessCapacity);
         eventImageView = view.findViewById(R.id.photoPreview);
-        goToQRCodeButton = view.findViewById(R.id.cEventSuccessGoToButton);
+        cEventSuccessGoToButton = view.findViewById(R.id.cEventSuccessGoToButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
+      
         String organizerName = bundle.getString("organizerName","");
-
         String eventLocation = bundle.getString("eventLocation", "");
         String eventTime = bundle.getString("eventTime", "");
         String eventCapacity = bundle.getString("eventCapacity", "");
-
         String eventImageUriString = bundle.getString("imageUri", "");
 
         eventOrganizerTextView.setText(organizerName);
-
         eventLocationTextView.setText(eventLocation);
         eventTimeTextView.setText(eventTime);
         eventCapacityTextView.setText(eventCapacity);
@@ -59,7 +56,6 @@ public class CEventSuccessFragment extends Fragment {
         Uri eventImageUri = Uri.parse(eventImageUriString);
 
         Picasso.get().load(eventImageUri).into(eventImageView);
-
 
         return view;
     }

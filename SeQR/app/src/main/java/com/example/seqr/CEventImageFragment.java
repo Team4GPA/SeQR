@@ -8,6 +8,7 @@ import android.os.Bundle;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,21 +30,20 @@ public class CEventImageFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_c_event_image, container, false);
-
+      
+        Button backButton = view.findViewById(R.id.BackButton);
+        Button nextButton = view.findViewById(R.id.cEventImageNextButton);
         posterdisplay = view.findViewById(R.id.photoPreview);
         Button choosePhotoButton = view.findViewById(R.id.choosePhotoButton);
-        Button nextButton = view.findViewById(R.id.cEventImageNextButton);
-        Button backButton = view.findViewById(R.id.BackButton);
 
-        // Sets an onlClickListener for the back button so u can go back to the eventDetailsPage
+        // Sets an onlClickListener for the back button so you can go back to the eventDetailsPage
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().popBackStack();
             }
         });
-
-
+      
         //Sets an onclickListener for uploading images, this calls openFileChooser
         choosePhotoButton.setOnClickListener(new View.OnClickListener(){
 
@@ -62,10 +62,10 @@ public class CEventImageFragment extends Fragment {
                 Bundle bundle = getArguments();
                 assert bundle != null;
                 bundle.putString("imageUri", imageUri.toString());
-                CEventCQRFragment qrFragment = new CEventCQRFragment();
-                qrFragment.setArguments(bundle);
+                CEventCQRFragment cEventCQRFragment = new CEventCQRFragment();
+                cEventCQRFragment.setArguments(bundle);
                 getParentFragmentManager().beginTransaction()
-                        .replace(container.getId(), qrFragment)
+                        .replace(R.id.fragment_container, cEventCQRFragment)
                         .addToBackStack(null)
                         .commit();
 
@@ -94,5 +94,4 @@ public class CEventImageFragment extends Fragment {
 
         }
     }
-
 }

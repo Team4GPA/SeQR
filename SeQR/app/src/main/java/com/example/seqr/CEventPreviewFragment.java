@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -32,7 +34,7 @@ public class CEventPreviewFragment extends Fragment {
     private TextView eventCapacityTextView;
     private TextView eventDescriptionTextView;
     private ImageView eventImageView;
-    private Button createEventButton;
+    private Button cEventPreviewCreateButton;
 
 
     @Override
@@ -41,6 +43,14 @@ public class CEventPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_c_event_preview, container, false);
 
+        Button backButton = view.findViewById(R.id.BackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
         eventNameTextView = view.findViewById(R.id.cEventPreviewName);
         eventOrganizerTextView = view.findViewById(R.id.cEventPreviewOrganizer);
         eventLocationTextView = view.findViewById(R.id.cEventPreviewLocation);
@@ -48,9 +58,7 @@ public class CEventPreviewFragment extends Fragment {
         eventCapacityTextView = view.findViewById(R.id.cEventPreviewCapacity);
         eventDescriptionTextView = view.findViewById(R.id.cEventPreviewDescription);
         eventImageView = view.findViewById(R.id.photoPreview);
-        createEventButton = view.findViewById(R.id.cEventPreviewCreateButton);
-
-
+        cEventPreviewCreateButton = view.findViewById(R.id.cEventPreviewCreateButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -73,25 +81,27 @@ public class CEventPreviewFragment extends Fragment {
         Uri eventImageUri = Uri.parse(eventImageUriString);
         Picasso.get().load(eventImageUri).into(eventImageView);
 
-        createEventButton.setOnClickListener(new View.OnClickListener() {
+        cEventPreviewCreateButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // for poping out all the previous fragments in the view hierarchy
+                getParentFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 String eventID = bundle.getString("eventID","");
                 Uri imageUri = Uri.parse(eventImageUriString);
                 ImageUploader iuploader = new ImageUploader("EventPosters");
                 iuploader.upload(imageUri,eventID);
                 String checkInQR = bundle.getString("checkInQR","");
                 String promotionQR = bundle.getString("promotionQR","");
-                Event event = new Event(eventName, eventID, eventDescription, Integer.parseInt(eventCapacity), organizerName, eventLocation,eventTime,promotionQR,checkInQR);
+                Event event = new Event(eventName, eventID, eventDescription, Integer.parseInt(eventCapacity), organizerName, eventLocation, eventTime, promotionQR, checkInQR);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);
 
-                CEventSuccessFragment successFragment = new CEventSuccessFragment();
-                successFragment.setArguments(bundle);
+                CEventSuccessFragment cEventSuccessFragment = new CEventSuccessFragment();
+                cEventSuccessFragment.setArguments(bundle);
 
                 getParentFragmentManager().beginTransaction()
-                        .replace(container.getId(),successFragment)
+                        .replace(R.id.fragment_container, cEventSuccessFragment)
                         .addToBackStack(null)
                         .commit();
             }

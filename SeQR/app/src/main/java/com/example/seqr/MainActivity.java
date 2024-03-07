@@ -45,9 +45,9 @@ import com.example.seqr.models.Profile;
 
 public class MainActivity extends AppCompatActivity {
 
-    AttendeeFragment attendeeFragment = new AttendeeFragment();
-    EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
-    OrganizerFragment organizerFragment = new OrganizerFragment();
+    private AttendeeFragment attendeeFragment = new AttendeeFragment();
+    private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
+    private OrganizerFragment organizerFragment = new OrganizerFragment();
     QRCodeGenerator test;
     //Bitmap map;
     //Button gen;
@@ -120,15 +120,18 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 int id = item.getItemId();
                 if (id == R.id.bottom_attendee) {
-                    // Handle attendee button
+                    // Handle attendee button, popBackStack to empty the fragment back stack.
+                    fragMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     fragMgr.beginTransaction().replace(R.id.fragment_container, attendeeFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_organizer) {
                     // Handle organizer button
+                    fragMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     fragMgr.beginTransaction().replace(R.id.fragment_container, organizerFragment).commit();
                     return true;
                 } else if (id == R.id.bottom_events) {
                     // Handle events button
+                    fragMgr.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     fragMgr.beginTransaction().replace(R.id.fragment_container, eventLobbyFragment).commit();
                     return true;
                 }

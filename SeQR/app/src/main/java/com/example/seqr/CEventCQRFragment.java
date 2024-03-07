@@ -4,19 +4,18 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.ID;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
-
 import java.util.UUID;
 
 public class CEventCQRFragment extends Fragment {
@@ -30,7 +29,16 @@ public class CEventCQRFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_c_event_cqr, container, false);
-        Button generateQR = view.findViewById(R.id.generateQRButton);
+
+        Button backButton = view.findViewById(R.id.BackButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+      
+        Button generateQRButton = view.findViewById(R.id.generateQRButton);
         qrCodeGenerator = new QRCodeGenerator();
         String eventID = UUID.randomUUID().toString();
         Bundle bundle = getArguments();
@@ -48,17 +56,12 @@ public class CEventCQRFragment extends Fragment {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     String organizer = documentSnapshot.getString("username");
                     bundle.putString("organizerName",organizer);
-
-
-
-
                 }
 
             }
         });
 
-
-        generateQR.setOnClickListener(new View.OnClickListener() {
+        generateQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkInQR = qrCodeGenerator.generate(eventID + "_checkIn");
@@ -66,16 +69,15 @@ public class CEventCQRFragment extends Fragment {
                 bundle.putString("checkInQR", checkInQR);
                 bundle.putString("promotionQR",promotionQR);
 
-                CEventPreviewFragment previewFragment = new CEventPreviewFragment();
-                previewFragment.setArguments(bundle);
+                CEventPreviewFragment cEventPreviewFragment = new CEventPreviewFragment();
+                cEventPreviewFragment.setArguments(bundle);
 
                 getParentFragmentManager().beginTransaction()
-                        .replace(container.getId(),previewFragment)
+                        .replace(R.id.fragment_container, cEventPreviewFragment)
                         .addToBackStack(null)
                         .commit();
             }
         });
-
         return view;
     }
 }
