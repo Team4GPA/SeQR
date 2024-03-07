@@ -20,15 +20,11 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: chgDir
-      run: cd ${{ github.action_path }}
+      run: cd ${{ github.action_path }}/SeQR/
       shell: bash
 
     - name: chkDir
       run: ls -a
-      shell: bash
-
-    - name: goToNestedDir
-      run: cd SeQR
       shell: bash
         
     - name: Grant execute permission for gradlew
