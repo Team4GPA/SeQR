@@ -6,9 +6,11 @@ import androidx.annotation.NonNull;
 
 import com.example.seqr.database.Database;
 import com.example.seqr.models.Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ProfileController {
@@ -38,5 +40,28 @@ public class ProfileController {
 
 
     }
+
+    //Takes in the new values and updates them
+    public void updateProfile(String uuid, String username, String homePage, Integer phoneNumber, String email){
+        profileCollection.document(uuid)
+                .update("username",username,"homePage",homePage,"phoneNumber",phoneNumber,"email",email)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG","Successfully updated profile");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating profile",e);
+                    }
+                });
+    }
+
+    public void getProfileUsernameByDeviceId(String deviceId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        profileCollection.document(deviceId).get().addOnCompleteListener(onCompleteListener);
+    }
+
+
 
 }

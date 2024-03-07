@@ -2,12 +2,15 @@ package com.example.seqr;
 
 
 import android.graphics.Bitmap;
+import android.util.Base64;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.journeyapps.barcodescanner.BarcodeEncoder;
+
+import java.io.ByteArrayOutputStream;
 
 public class QRCodeGenerator {
     BitMatrix mMatrix;
@@ -20,15 +23,19 @@ public class QRCodeGenerator {
         mEncoder = new BarcodeEncoder();
     }
 
-    public Bitmap generate(String event_id){
+    //returns a string, when you want to display convert back into bitmap and then display in imageview
+    public String generate(String event_id){
         try {
-            mMatrix = mWriter.encode("test", BarcodeFormat.QR_CODE, 400, 400);
+            mMatrix = mWriter.encode(event_id, BarcodeFormat.QR_CODE, 400, 400);
             mBitmap = mEncoder.createBitmap(mMatrix);
-            return mBitmap;
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
+            return Base64.encodeToString(outputStream.toByteArray(), Base64.DEFAULT);
         }
         catch (WriterException e){
             e.printStackTrace();
+            return null;
         }
-        return mBitmap;
+
     }
 }

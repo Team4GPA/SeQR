@@ -12,6 +12,7 @@ public class Profile {
     private String profilePic;
     private List<Event> createdEvents; //list of Events created by this profile
     private List<Event> signedUpEvents; //list of signedUpEvents by this profile
+    private List<Notification> notifications;
 
     public Profile(){
 
@@ -21,6 +22,18 @@ public class Profile {
     public Profile(String username, String ID){
         this.username = username;
         this.id = ID;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     public String getId() {
