@@ -3,7 +3,6 @@ description: Builds with Gradle
 
 runs:
   using: "composite"
-  shell: bash
   steps:
     #- uses: actions/checkout@v3
 
@@ -15,5 +14,7 @@ runs:
         cache: gradle
     - name: Grant execute permission for gradlew
       run: chmod +x ./gradlew
+      shell: bash
     - name: Build with Gradle
       run: ./gradlew build
+      shell: bash
