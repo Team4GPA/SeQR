@@ -18,6 +18,6 @@ runs:
       working-directory: SeQR
       
     - name: Build with Gradle
-      run: ./gradlew build -p ./SeQR
+      run: ./gradlew build -p ./
       shell: bash
       working-directory: SeQR
