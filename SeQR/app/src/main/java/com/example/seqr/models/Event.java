@@ -40,6 +40,22 @@ public class Event {
 
     }
 
+    public String getPromotionQR() {
+        return promotionQR;
+    }
+
+    public void setPromotionQR(String promotionQR) {
+        this.promotionQR = promotionQR;
+    }
+
+    public String getCheckInQR() {
+        return checkInQR;
+    }
+
+    public void setCheckInQR(String checkInQR) {
+        this.checkInQR = checkInQR;
+    }
+
     public void setEventID(String eventID) {
         this.eventID = eventID;
     }

@@ -112,8 +112,8 @@ public class MainActivity extends AppCompatActivity {
         // Handle on clicks for bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_nav);
 
-        //Button to skip to Upload event poster fragment and test it
-        Button tester = findViewById(R.id.testImageUpFrag);
+//        //Button to skip to Upload event poster fragment and test it
+//        Button tester = findViewById(R.id.testImageUpFrag);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -174,16 +174,16 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        tester.setOnClickListener(new View.OnClickListener() {
-          @Override
-          public void onClick(View v) {
-              FragmentTransaction swapTo = fragMgr.beginTransaction();
-              Fragment posterUpFrag = new UploadPosterFragment();
-              Fragment tester = new AdminFragment();
-              swapTo.replace(R.id.fragment_container, posterUpFrag);
-              swapTo.commit();
-          }
-      });
+//        tester.setOnClickListener(new View.OnClickListener() {
+//          @Override
+//          public void onClick(View v) {
+//              FragmentTransaction swapTo = fragMgr.beginTransaction();
+//              Fragment posterUpFrag = new UploadPosterFragment();
+//              Fragment tester = new AdminFragment();
+//              swapTo.replace(R.id.fragment_container, posterUpFrag);
+//              swapTo.commit();
+//          }
+//      });
 
 
         adminButton.setOnClickListener(new View.OnClickListener() {

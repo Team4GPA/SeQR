@@ -38,17 +38,17 @@
         android:textSize="30sp"
         android:textStyle="bold"
         android:layout_margin="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/floatingScanQR" />
+        app:layout_constraintTop_toBottomOf="@id/floatingScanQR"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
 
 
-    <ListView
-        android:id="@+id/eventSignedUpListview"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventSignedUpRecyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_margin="15dp"
         app:layout_constraintTop_toBottomOf="@id/eventSignedUpText"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
  />
