@@ -3,7 +3,7 @@ description: Builds with Gradle
 
 runs:
   using: "composite"
-  runs-on: ubuntu-latest
+  shell: bash
   steps:
     #- uses: actions/checkout@v3
 
