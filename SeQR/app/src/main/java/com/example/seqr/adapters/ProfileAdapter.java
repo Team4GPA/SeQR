@@ -30,8 +30,13 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
         Profile profile = profileList.get(position);
-        String imageUrl = profile.getProfilePicture(); // replace with real getter
-        Picasso.get().load(imageUrl).into(holder.imageView);
-        holder.textView.setText(profile.getName()); // replace with real getter
+        //String imageUrl = profile.getProfilePicture(); // replace with real getter
+        //Picasso.get().load(imageUrl).into(holder.imageView);
+        holder.textView.setText(profile.getUsername()); // replace with real getter
+    }
+
+    @Override
+    public int getItemCount() {
+        return 0;
     }
 }

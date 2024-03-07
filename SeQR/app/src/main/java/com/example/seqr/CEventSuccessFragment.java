@@ -57,7 +57,8 @@ public class CEventSuccessFragment extends Fragment {
 
         //loads the image onto the event text
         Uri eventImageUri = Uri.parse(eventImageUriString);
-        Picasso.with(getContext()).load(eventImageUri).into(eventImageView);
+
+        Picasso.get().load(eventImageUri).into(eventImageView);
 
 
         return view;

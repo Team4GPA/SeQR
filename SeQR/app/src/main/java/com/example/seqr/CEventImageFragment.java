@@ -90,7 +90,7 @@ public class CEventImageFragment extends Fragment {
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             imageUri = data.getData();
             posterdisplay.setImageURI(imageUri);
-            Picasso.with(posterdisplay.getContext()).load(imageUri).into(posterdisplay);
+            Picasso.get().load(imageUri).into(posterdisplay);
 
         }
     }

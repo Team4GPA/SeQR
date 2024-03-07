@@ -54,7 +54,8 @@ public class UploadPosterFragment extends Fragment{
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
             mImageUri = data.getData();
-            Picasso.with(posterdisplay.getContext()).load(mImageUri).into(posterdisplay);
+            Picasso.get().load(mImageUri).into(posterdisplay);
+
         }
     }
 }
