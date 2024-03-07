@@ -20,7 +20,7 @@ runs:
         GITHUB_ACTION_PATH: ${{ github.action_path }}
 
     - name: chgDir
-      run: cd ${{ github.action_path }}/SeQR/
+      run: cd ${{ github.action_path }}SeQR/
       shell: bash
 
     - name: chkDir
