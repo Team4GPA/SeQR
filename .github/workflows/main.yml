@@ -1,0 +1,15 @@
+name: Build Android files with Gradle
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+    
+jobs:
+  buildGradle:
+    runs-on: ubuntu-latest
+    steps:
+      - name: buildGradle
+      - uses: actions/checkout@v3
+      - id: build
+        uses: ./SeQR/.github/workflows/android.yml
