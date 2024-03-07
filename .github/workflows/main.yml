@@ -5,8 +5,12 @@ on:
   pull_request:
     branches: [ "main" ]
 jobs:
-  build:
+  buildWithGradle:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./SeQR
     steps:
       - uses: actions/checkout@v3
       - id: builder
