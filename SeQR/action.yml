@@ -1,9 +1,5 @@
 name: Android CI
 description: Builds with Gradle
-defaults:
-  run:
-    shell: bash
-    working-directory: ./SeQR
 
 runs:
   using: "composite"
