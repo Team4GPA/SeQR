@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ public class EventInfoFragment extends Fragment {
         TextView eventCapacity = view.findViewById(R.id.eventInfoCapacity);
         ImageView eventPhoto = view.findViewById(R.id.eventInfoPhotoPreview);
         TextView eventDescription = view.findViewById(R.id.eventInfoDescription);
+        Button signUpButton = view.findViewById(R.id.signUpButtonEventInfo);
 
         Bundle bundle = getArguments();
         assert bundle != null;
