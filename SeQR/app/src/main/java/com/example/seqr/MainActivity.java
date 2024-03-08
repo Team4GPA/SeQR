@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
         CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
         ProfileController profileController = new ProfileController();
 
-        profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+        /*profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             }
-        });
+        });*/
 
         // Add an event listener to the checkbox
-        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 // Update the geolocation setting in Firestore for the current user
@@ -92,14 +92,14 @@ public class MainActivity extends AppCompatActivity {
                     profileController.updateGeoLocation(uuid, isChecked);
                 }
             }
-        });
+        });*/
         Button adminButton = findViewById(R.id.admin_button);
 
         profileImageView = findViewById(R.id.profile_picture);
 
         String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
         String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-        Picasso.get().load(imageUrl).into(profileImageView);
+        //Picasso.get().load(imageUrl).into(profileImageView);
 
 
 
