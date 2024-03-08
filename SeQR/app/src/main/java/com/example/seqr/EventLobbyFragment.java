@@ -31,7 +31,12 @@ public class EventLobbyFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.eventLobbyRecyclerview);
         eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList);
+        eventAdapter = new EventAdapter(eventsList, new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Event event) {
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
 
