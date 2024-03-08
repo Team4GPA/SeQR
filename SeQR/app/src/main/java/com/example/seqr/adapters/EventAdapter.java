@@ -16,11 +16,6 @@ import java.util.List;
  */
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
 
-    /**
-     * Constructs an EventAdapter with the provided list of events.
-     *
-     * @param eventList The list of events to be displayed.
-     */
     public interface OnItemClickListener {
         void onItemClick(Event event);
     }
@@ -30,8 +25,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
 
 
 
-
-
+    /**
+     * Constructs an EventAdapter with the provided list of events.
+     *
+     * @param eventList The list of events to be displayed.
+     * @param listener  The click listener for handling item clicks.
+     */
     public EventAdapter(List<Event> eventList, OnItemClickListener listener) {
         this.eventList = eventList;
         this.listener = listener;

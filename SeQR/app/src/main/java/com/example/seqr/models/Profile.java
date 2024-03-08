@@ -207,7 +207,7 @@ public class Profile {
      *
      * @return The list of events created by this profile.
      */
-    public List<Event> getCreatedEvents() {
+    public List<String> getCreatedEvents() {
         return createdEvents;
     }
 
@@ -216,7 +216,7 @@ public class Profile {
      *
      * @param createdEvents The list of events created by this profile.
      */
-    public void setCreatedEvents(List<Event> createdEvents) {
+    public void setCreatedEvents(List<String> createdEvents) {
         this.createdEvents = createdEvents;
     }
 
@@ -225,7 +225,7 @@ public class Profile {
      *
      * @return The list of events signed up by this profile.
      */
-    public List<Event> getSignedUpEvents() {
+    public List<String> getSignedUpEvents() {
         return signedUpEvents;
     }
 
@@ -234,7 +234,7 @@ public class Profile {
      *
      * @param signedUpEvents The list of events signed up by this profile.
      */
-    public void setSignedUpEvents(List<Event> signedUpEvents) {
+    public void setSignedUpEvents(List<String> signedUpEvents) {
         this.signedUpEvents = signedUpEvents;
     }
 }
