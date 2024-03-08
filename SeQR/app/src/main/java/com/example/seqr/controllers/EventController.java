@@ -69,10 +69,7 @@ public class EventController {
         eventCollection.document(eventId).get().addOnCompleteListener(onCompleteListener);
     }
 
-    public void checkUserSignUp(String eventId, String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
-        db.collection("Events").document(eventId).collection("signups")
-                .document(userId).get().addOnCompleteListener(onCompleteListener);
-    }
+
 
     public void signUserUpForEvent(String eventId, SignUp signUp) {
         db.collection("Events").document(eventId).collection("signups")
