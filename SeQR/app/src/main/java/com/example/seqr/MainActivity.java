@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
 
+            //ID.removeProfileID(this.getBaseContext());
+
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
             CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
