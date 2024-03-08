@@ -62,17 +62,13 @@ public class ScanQRFragment extends Fragment {
                     Bundle result = new Bundle();
                     result.putString("resultQR", this.returnVal);
                     getParentFragmentManager().setFragmentResult("reqQR", result);
-
-                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    Fragment event = new CEventDetailFragment();
-                    transaction.replace(R.id.fragment_container, event);
-                    transaction.commit();
                 })
 
                 .addOnCanceledListener(()->
                 {
                     //canceled
                     Toast.makeText(getContext(), "Cancelled QR Code Scan!", Toast.LENGTH_SHORT).show();
+
                 })
                 .addOnFailureListener(e ->{
                     //task failed with an exception

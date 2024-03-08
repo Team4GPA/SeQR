@@ -92,7 +92,7 @@ public class AttendeeFragment extends Fragment {
 
     public void launchSuccess(){
         FragmentManager parent = getParentFragmentManager();
-        Fragment eventInfo = new Fragment();
+        Fragment eventInfo = new A_Test_Fragment();
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
 
     }
