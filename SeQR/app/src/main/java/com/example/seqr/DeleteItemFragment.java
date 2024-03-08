@@ -24,6 +24,14 @@ public class DeleteItemFragment extends DialogFragment {
         void onNoClicked(View v);
     }
 
+    /**
+     * creates a dialogue to prompt for deleting
+     * @param savedInstanceState The last saved instance state of the Fragment,
+     * or null if this is a freshly created Fragment.
+     *
+     * @return view
+     */
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -51,9 +59,18 @@ public class DeleteItemFragment extends DialogFragment {
         return builder.create();
     }
 
+    /**
+     * handles when Yes is pressed
+     * @param v view
+     */
     public void onYesClicked(View v){
 
     }
+
+    /**
+     * Handles when No is pressed
+     * @param v
+     */
 
     public void onNoClicked(View v){
 
