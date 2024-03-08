@@ -51,7 +51,7 @@ public class EventInfoFragment extends Fragment {
                     eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
                     eventDescription.setText(event.getEventDesc());
 
-                    String photoUri = "EventPosters/" + eventId + ".jpg"; // Adjust if necessary
+                    String photoUri = "EventPosters/" + eventId + ".jpg";
                     Picasso.get().load(Uri.parse(photoUri)).into(eventPhoto);
                 }else{
                     //for part 4 add a dialog that says event does not exist and redirect to main page
