@@ -64,6 +64,10 @@ public class EventController {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    public void getEventById(String eventId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
+        eventCollection.document(eventId).get().addOnCompleteListener(onCompleteListener);
+    }
+
 
 
 

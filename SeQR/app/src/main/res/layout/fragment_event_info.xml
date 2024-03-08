@@ -80,7 +80,7 @@
         app:layout_constraintTop_toBottomOf="@id/eventInfoLocation" />
 
     <ImageView
-        android:id="@+id/eventPhotoPreview"
+        android:id="@+id/eventInfoPhotoPreview"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:src="@drawable/baseline_image_placeholder_24"
@@ -99,6 +99,6 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventPhotoPreview" />
+        app:layout_constraintTop_toBottomOf="@id/eventInfoPhotoPreview" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
