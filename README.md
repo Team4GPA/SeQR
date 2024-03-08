@@ -23,6 +23,19 @@ With infinite love and support for the following resources:
 <li>[Picasso (square.github.io)](https://square.github.io/picasso/)
 <li>[zxing/zxing: ZXing ("Zebra Crossing") barcode scanning library for Java, Android (github.com)](https://github.com/zxing/zxing)
 
+<UL>OpenAI, 2024, ChatGPT Prompts Used:</UL>
+<li>fragmentStartup checkmark button</li>
+<li>promotionQR and checkInQr getAllEvents</li>
+<li>Explain Storage Reference Type in firebase</li>
+<li>How to get paths to documents in firebase storage</li>
+<li>RecyclerView onclicklistener implementation</li>
+<li>Data model deserialization error</li>
+<li>Firestore Java get method explanation</li>
+<li>Fitting vector images in RelativeLayout</li>
+<li>XML Toolbar and Bootom navigation clicks</li>
+<li>XML Toolbar item allignment</li>
+
+
 <UL>All of the CMPUT301 TA's and Instructors whose lab assignment slides and practice assignments came in handy for Unit Testing and JavaDocs
 
 ### The SeQR team is:
