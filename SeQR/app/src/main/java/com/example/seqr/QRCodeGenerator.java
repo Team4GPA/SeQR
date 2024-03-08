@@ -13,17 +13,30 @@ import com.journeyapps.barcodescanner.BarcodeEncoder;
 
 import java.io.ByteArrayOutputStream;
 
+
+/**
+ * A class for generating QR codes (both promotion and check-in) from event IDs.
+ */
 public class QRCodeGenerator {
     BitMatrix mMatrix;
     MultiFormatWriter mWriter;
     BarcodeEncoder mEncoder;
     Bitmap mBitmap;
 
+    /**
+     * Constructs a QRCodeGenerator object.
+     */
     public QRCodeGenerator() {
         mWriter = new MultiFormatWriter();
         mEncoder = new BarcodeEncoder();
     }
 
+    /**
+     * Generates a QR code bitmap as a Base64-encoded string from the given event ID.
+     *
+     * @param event_id The event ID to encode in the QR code.
+     * @return A Base64-encoded string representing the QR code bitmap.
+     */
     //returns a string, when you want to display convert back into bitmap and then display in imageview
     public String generate(String event_id){
         try {

@@ -27,6 +27,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+/**
+ * A fragment for editing profile information including profile picture, name, contact info and homepage.
+ */
 public class EditProfileFragment extends Fragment {
 
     EditText usernameEditText, phoneNumberEditText, emailEditText, homepageEditText;
@@ -112,6 +115,9 @@ public class EditProfileFragment extends Fragment {
         });
         return view;
     }
+    /**
+     * Opens a file chooser for selecting an image to upload as your profile picture.
+     */
     private void openFileChooser() {
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -119,7 +125,10 @@ public class EditProfileFragment extends Fragment {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
-
+    /**
+     * Called when an activity you launched exits, giving you the requestCode you started it with,
+     * the resultCode it returned, and any additional data (new profile picture) from it.
+     */
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 

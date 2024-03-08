@@ -26,10 +26,16 @@ import com.example.seqr.models.Event;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
 
+/**
+ * A fragment representing attendee dashboard, including attendee actions such as scanning QR codes and examining the signed up events.
+ */
 public class AttendeeFragment extends Fragment {
     String qrResult;
     String DBTAG = "AttendeeFragment";
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(DBTAG, "onCreate initialized.");
@@ -37,6 +43,11 @@ public class AttendeeFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned,
+     * but before any saved state has been restored in to the view. This gives subclasses a chance
+     * to initialize themselves once they know their view hierarchy has been completely created.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.d(DBTAG, "onViewCreated initialized.");
@@ -90,6 +101,9 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
+    /**
+     * Launches the event info window upon successful initialization on events.
+     */
     public void launchSuccess(String QRData) {
         Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
         FragmentManager parent = getParentFragmentManager();
@@ -100,6 +114,9 @@ public class AttendeeFragment extends Fragment {
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
     }
 
+    /**
+     * Launches the event info window upon failed initialization.
+     */
     public void launchNotFound() {
 
     }

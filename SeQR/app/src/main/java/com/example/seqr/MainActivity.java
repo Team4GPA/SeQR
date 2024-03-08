@@ -68,6 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
 
+            //ID.removeProfileID(this.getBaseContext());
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -188,11 +189,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+
             //handle clicks on the QR code button;
             //uses some variables set up earlier:
             //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
             //fragMgr: Android manager of fragments
             //
+
 
 
             adminButton.setOnClickListener(new View.OnClickListener() {
@@ -229,8 +232,6 @@ public class MainActivity extends AppCompatActivity {
 //    //==============================================================================================
 //    //Custom Methods
 //    //
-
-
 
 
     public void updateProfilePicture(Uri imageUri) {

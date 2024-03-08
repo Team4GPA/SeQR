@@ -24,6 +24,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment representing organizer dashboard, including organizer actions such as creating events and examining the past created events.
+ */
 public class OrganizerFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;

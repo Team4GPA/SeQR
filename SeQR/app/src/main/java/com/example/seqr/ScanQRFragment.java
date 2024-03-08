@@ -21,6 +21,7 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 /**
  * ScanQRFragment
  * <p>
+ * A fragment responsible for scanning QR codes using Google Play Services barcode scanner.s
  * This fragment should pop up a video window that shows a live feed for an Android
  * camera for scanning QR codes. It is currently a work in progress.
  * </p>
@@ -81,7 +82,11 @@ public class ScanQRFragment extends Fragment {
                     Log.e("ScanQR", "Exception: ", e);
                 });
     }
-
+    /**
+     * Retrieves the result of the QR code scan.
+     *
+     * @return The result of the QR code scan.
+     */
     public String reportQRResult(){
         return this.returnVal;
     }

@@ -11,11 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * A dialog fragment for confirming deletion.
+ */
 public class DeleteItemFragment extends DialogFragment {
 
+    /**
+     * Interface for handling dialog button clicks.
+     */
     public interface ConfirmationDialogListener {
-        void onYesClicked();
-        void onNoClicked();
+        void onYesClicked(View v);
+        void onNoClicked(View v);
     }
 
     @NonNull
@@ -30,7 +36,7 @@ public class DeleteItemFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ConfirmationDialogListener listener = (ConfirmationDialogListener) requireActivity();
-                listener.onYesClicked();
+                listener.onYesClicked(getDialog().findViewById(which));
             }
         });
 
@@ -38,18 +44,18 @@ public class DeleteItemFragment extends DialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 ConfirmationDialogListener listener = (ConfirmationDialogListener) requireActivity();
-                listener.onNoClicked();
+                listener.onNoClicked(getDialog().findViewById(which));
             }
         });
 
         return builder.create();
     }
 
-    public void onYesClicked(){
+    public void onYesClicked(View v){
 
     }
 
-    public void onNoClicked(){
+    public void onNoClicked(View v){
 
     }
 }

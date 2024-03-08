@@ -12,9 +12,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * A fragment for managing a specified event, including displaying QR codes, milestones, announcements, check-in map, attendance and users who signed up.
+ */
 public class EventManagementFragment extends Fragment {
 
     private ImageView eManagementPhoto;

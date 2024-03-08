@@ -42,7 +42,7 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation(platform("com.google.firebase:firebase-bom:32.7.1"))
     implementation("com.google.firebase:firebase-firestore")
-    implementation("com.squareup.picasso:picasso:2.71828")
+    implementation("com.squareup.picasso:picasso:2.8")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     testImplementation("junit:junit:4.13.2")
@@ -51,5 +51,7 @@ dependencies {
     //image upload stuff
     //implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
+    implementation("com.amplitude:android-sdk:2.34.1")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
 }
