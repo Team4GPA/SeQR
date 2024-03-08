@@ -2,15 +2,23 @@ package com.example.seqr;
 
 import androidx.fragment.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seqr.models.Event;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
+import com.google.firebase.firestore.DocumentSnapshot;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class AEventFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -35,7 +43,7 @@ public class AEventFragment extends Fragment {
         eventAdapter = new EventAdapter(eventList);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
-        recyclerView.setAdapter(profileAdapter);
+        recyclerView.setAdapter(eventAdapter);
 
         // Query to get all profiles
         EventController eventController = new EventController();
@@ -43,11 +51,11 @@ public class AEventFragment extends Fragment {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     Event event = document.toObject(Event.class);
-                    eventsList.add(event);
+                    eventList.add(event);
                 }
                 eventAdapter.notifyDataSetChanged();
             } else {
-                Log.d("DEBUG", "there was some error event in profile retrieval", task.getException());
+                Log.d("DEBUG", "there was some error event in Event retrieval", task.getException());
             }
         });
 
