@@ -92,7 +92,8 @@ public class CEventPreviewFragment extends Fragment {
                 iuploader.upload(imageUri,eventID);
                 String checkInQR = bundle.getString("checkInQR","");
                 String promotionQR = bundle.getString("promotionQR","");
-                Event event = new Event(eventName, eventID, eventDescription, Integer.parseInt(eventCapacity), organizerName, eventLocation, eventTime, promotionQR, checkInQR);
+                String uuid = ID.getProfileId(getContext());
+                Event event = new Event(eventName, eventID, eventDescription, Integer.parseInt(eventCapacity), organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);
