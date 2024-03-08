@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +51,12 @@ public class EventInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSignUpPressed(eventId);
+                AttendeeFragment attendeeFragment = new AttendeeFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
+                fragmentTransaction.commit();
+
             }
         });
         EventController eventController = new EventController();
@@ -97,6 +105,7 @@ public class EventInfoFragment extends Fragment {
                         EventController eventController = new EventController();
                         SignUp signUp = new SignUp(userID, userName);
                         eventController.signUserUpForEvent(eventId,signUp);
+
                     }
                 }else {
                     Log.d("DEBUG", "Error in getting the username");

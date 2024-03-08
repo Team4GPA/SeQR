@@ -193,15 +193,7 @@ public class MainActivity extends AppCompatActivity {
             //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
             //fragMgr: Android manager of fragments
             //
-//        qrButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                FragmentTransaction swapMain = fragMgr.beginTransaction();
-//                Fragment cameraFrag = new ScanQRFragment();
-//                swapMain.replace(mainFrag.getId(), cameraFrag);
-//                swapMain.commit();
-//            }
-//        });
+
 
             adminButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -237,27 +229,7 @@ public class MainActivity extends AppCompatActivity {
 //    //==============================================================================================
 //    //Custom Methods
 //    //
-//    private void startUpLogic(){
-//        setContentView(R.layout.start_up);
-//        EditText userNameEntry = findViewById(R.id.enteredUsername);
-//        Button confirmButton = findViewById(R.id.createProfileConfirmButton);
-//        Context thisContext = this;
-//
-//        confirmButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Log.d("DEBUG","Onclick reached");
-//                // call profile controller we are about to add a profile
-//                ProfileController profileController = new ProfileController();
-//                String username =  userNameEntry.getText().toString();
-//                String uuid = ID.createProfileID(thisContext);
-//                Profile newProfile = new Profile(username, uuid);
-//                profileController.addProfile(newProfile);
-//                setContentView(R.layout.activity_main);
-//            }
-//        });
-//    }
-//}
+
 
 
 
