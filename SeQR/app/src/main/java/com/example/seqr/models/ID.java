@@ -16,7 +16,8 @@ public class ID {
 
     /**
      * link for more info about shared prefs https://developer.android.com/training/data-storage/shared-preferences#java
-     * returns deviceID from sharedPrefs
+     * @param  context
+     * @return deviceID from sharedPrefs
      */
     public static String getProfileId(Context context){
         //SharedPref lets us store data on device
@@ -28,7 +29,9 @@ public class ID {
     }
 
     /**
-     * getter for organizerUUID
+     * function creates profile ids based on device
+     * @param context
+     * @return String deviceId
      */
     public static String createProfileID(Context context){
         //SharedPref lets us store data on device
@@ -48,7 +51,10 @@ public class ID {
 
     }
 
-    //functionality to remove the uuid from shared pref
+    /**
+     * functionality to remove the uuid from shared pref
+     * @param context
+     */
     public static void removeProfileID(Context context){
         SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);
         //removes uuid from the shared preferences
