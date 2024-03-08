@@ -1,6 +1,9 @@
 package com.example.seqr.models;
 import java.util.List;
 
+/**
+ * This model class represents profiles
+ */
 public class Profile {
     private String username;
     private String email;

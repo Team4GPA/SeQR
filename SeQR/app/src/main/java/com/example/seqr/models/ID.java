@@ -4,7 +4,9 @@ import android.content.SharedPreferences;
 
 import java.util.UUID;
 
-//this class checks if user has opened the app before and has an ID
+/**
+ * This model class checks if user has opened the app before and has an ID
+ */
 public class ID {
     private static final String prefs = "AppPreferences";
     private static final String deviceUUID = "id";
@@ -12,6 +14,10 @@ public class ID {
     // link for more info about shared prefs https://developer.android.com/training/data-storage/shared-preferences#java
     //returns deviceID from sharedPrefs
 
+    /**
+     * link for more info about shared prefs https://developer.android.com/training/data-storage/shared-preferences#java
+     * returns deviceID from sharedPrefs
+     */
     public static String getProfileId(Context context){
         //SharedPref lets us store data on device
         SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);
@@ -21,7 +27,9 @@ public class ID {
         return deviceId;
     }
 
-    //returns deviceID
+    /**
+     * getter for organizerUUID
+     */
     public static String createProfileID(Context context){
         //SharedPref lets us store data on device
         SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);

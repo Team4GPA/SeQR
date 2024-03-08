@@ -4,6 +4,9 @@ import com.google.firebase.Timestamp;
 
 import java.util.Map;
 
+/**
+ * This model class represents notification
+ */
 public class Notification {
     private Timestamp time;
     private Profile sender;
