@@ -56,7 +56,6 @@ public class AImagesFragment extends Fragment {
                     imageList.add(fileName);
                     imageAdapter.notifyDataSetChanged();
                 }
-                Log.d("DEBUGGER", Integer.toString(imageList.size()));
 
             }
 
@@ -66,16 +65,15 @@ public class AImagesFragment extends Fragment {
                 e.printStackTrace();
             }
         });
-        Log.d("DEBUGGER2", Integer.toString(imageList.size()));
+
         imageController.getListOfFiles("EventPosters/", new ImageController.FileListCallback() {
             @Override
             public void onSuccess(List<String> fileList) {
                 for (String fileName : fileList) {
-                    fileName = "EventPoster/" + fileName;
+                    fileName = "EventPosters/" + fileName;
                     imageList.add(fileName);
                     imageAdapter.notifyDataSetChanged();
                 }
-                Log.d("DEBUGGER3", Integer.toString(imageList.size()));
             }
 
             @Override
@@ -84,11 +82,8 @@ public class AImagesFragment extends Fragment {
                 e.printStackTrace();
             }
         });
-        Log.d("DEBUGGER4", Integer.toString(imageList.size()));
 
         
-
-
         return view;
     }
 }
