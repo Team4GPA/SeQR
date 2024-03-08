@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
 import com.example.seqr.models.Event;
+import com.example.seqr.models.ID;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -51,10 +52,10 @@ public class OrganizerFragment extends Fragment {
         eventAdapter = new EventAdapter(eventsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
-
+        String organizerUUID = ID.getProfileId(getContext());
         // get the events
         EventController eventController = new EventController();
-        eventController.getAllEvents(task -> {
+        eventController.getEventsByOrganizer(organizerUUID, task -> {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     Event event = document.toObject(Event.class);
