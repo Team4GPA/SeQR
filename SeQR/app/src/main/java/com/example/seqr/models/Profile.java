@@ -24,6 +24,15 @@ public class Profile {
         this.id = ID;
     }
 
+    public Profile(String username, String email, String phoneNumber, String homePage, String id, String profilePic) {
+        this.username = username;
+        this.id = id;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+        this.homePage = homePage;
+        this.profilePic = profilePic;
+    }
+
     public void setId(String id) {
         this.id = id;
     }

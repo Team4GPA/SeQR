@@ -38,37 +38,35 @@ public class AProfilesFragment extends Fragment {
             public void onClick(View v){getParentFragmentManager().popBackStack();}
         });
 
-
-
         // Create recycler view
         recyclerView = view.findViewById(R.id.admin_profiles);
         profileList = new ArrayList<>();
         profileAdapter = new ProfileAdapter(profileList);
-
-
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(profileAdapter);
 
         // Query to get all profiles
         ProfileController profileController = new ProfileController();
-        //comment this out to get a valid build
-
-        /*
         profileController.getAllProfiles(task -> {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
-                    Profile profile = document.toObject(Profile.class);
+                    String username = document.getString("username");
+                    String email = document.getString("email");
+                    String phoneNumber = document.getString("phoneNumber");
+                    String homePage = document.getString("homePage");
+                    String id = document.getString("id");
+                    String profilePic = document.getString("profilePic");
+                    Profile profile = new Profile(username, email, phoneNumber, homePage, id, profilePic);
                     profileList.add(profile);
                 }
                 profileAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error event in profile retrieval", task.getException());
-
             }
         });
 
-         */
+
 
         return view;
     }
