@@ -39,6 +39,11 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+
+/**
+ * MainActivity represents the main activity of the application. It handles both the top and bottom navigation bars,
+ * profile management, and displays various fragments such as lobby, attendee and organizer based on user interactions.
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AttendeeFragment attendeeFragment = new AttendeeFragment();
@@ -47,7 +52,14 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView profileImageView;
 
-
+    /**
+     * Called when the activity is starting. Initializes the main activity layout and sets up
+     * various UI components and listeners.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     *      stopped then this Bundle contains the data it most recently supplied in
+     *      onSaveInstanceState(Bundle).
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -230,6 +242,10 @@ public class MainActivity extends AppCompatActivity {
     //==============================================================================================
     //Custom Methods
     //
+    /**
+     * Initializes the startup logic for the application, which includes displaying the initial
+     * layout for creating a user profile (for first time user).
+     */
     private void startUpLogic(){
         setContentView(R.layout.start_up);
         EditText userNameEntry = findViewById(R.id.enteredUsername);
@@ -251,6 +267,11 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Updates the profile picture displayed in the profile image view with the provided image URI.
+     *
+     * @param imageUri The URI of the profile picture to be displayed.
+     */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
     }

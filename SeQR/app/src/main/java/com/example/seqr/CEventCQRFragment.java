@@ -18,6 +18,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.UUID;
 
+/**
+ * Fragment for creating event check-in QR codes.
+ */
 public class CEventCQRFragment extends Fragment {
     private QRCodeGenerator qrCodeGenerator;
     private String checkInQR;

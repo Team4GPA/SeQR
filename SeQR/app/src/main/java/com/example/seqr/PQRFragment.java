@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+/**
+ * A fragment displayed promotion QR code for an event.
+ */
 public class PQRFragment extends Fragment {
 
     @Override

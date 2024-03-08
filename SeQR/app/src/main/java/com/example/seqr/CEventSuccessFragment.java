@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
+/**
+ * A fragment displayed upon successful creation of an event.
+ */
 public class CEventSuccessFragment extends Fragment {
     private TextView eventNameTextView;
     private TextView eventOrganizerTextView;

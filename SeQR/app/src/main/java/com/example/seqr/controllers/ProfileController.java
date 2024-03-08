@@ -15,17 +15,27 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+/**
+ * Controller class for managing Profile data in database.
+ */
 public class ProfileController {
     private FirebaseFirestore db;
     private CollectionReference profileCollection;
 
-
+    /**
+     * Constructs a ProfileController and initializes Firestore database reference.
+     */
     public ProfileController(){
 
         db = Database.getFireStore();
         profileCollection = db.collection("Profiles");
 
     }
+    /**
+     * Adds a profile to Firestore.
+     *
+     * @param profile The Profile object to add.
+     */
     // Adds the profile into the firebase Profile collection, the documentid will be the profile ID so it can be easily queried later
     public void addProfile(Profile profile){
         profileCollection.document(profile.getId()).set(profile).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -41,19 +51,31 @@ public class ProfileController {
         });
     }
 
-
+    /**
+     * Retrieves profile username by device ID (uniquely for this device).
+     *
+     * @param deviceId The device ID associated with the profile.
+     * @param onCompleteListener Listener to be invoked when the data retrieval is complete.
+     */
     public void getProfileUsernameByDeviceId(String deviceId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         profileCollection.document(deviceId).get().addOnCompleteListener(onCompleteListener);
     }
 
+    /**
+     * Retrieves all profiles from database.
+     *
+     * @param onCompleteListener Listener to be invoked when the data retrieval is complete.
+     */
     public void getAllProfiles(OnCompleteListener<QuerySnapshot> onCompleteListener){
         profileCollection.get().addOnCompleteListener(onCompleteListener);
     }
 
-
-
-
-
+    /**
+     * Updates geolocation setting for a profile (device).
+     *
+     * @param uuid The UUID of the profile (device).
+     * @param enableGeoLocation Boolean value indicating whether geolocation tracking is enabled.
+     */
     public void updateGeoLocation(String uuid, boolean enableGeoLocation) {
         profileCollection.document(uuid)
                 .update("geoLocation", enableGeoLocation)
@@ -71,7 +93,15 @@ public class ProfileController {
                 });
     }
 
-
+    /**
+     * Updates profile information in database.
+     *
+     * @param uuid The UUID of the profile (device).
+     * @param username The updated username.
+     * @param phonenumber The updated phone number.
+     * @param email The updated email.
+     * @param homepage The updated homepage.
+     */
     public void updateProfile(String uuid, String username, String phonenumber, String email, String homepage) {
         profileCollection.document(uuid)
                 .update("username", username,"homePage",homepage,"phoneNumber",phonenumber,"email",email)
@@ -89,6 +119,14 @@ public class ProfileController {
                 });
     }
 
+    /**
+     * Updates profile picture URL in database.
+     *
+     * @param uuid The UUID of the profile (device).
+     * @param ImageURL The updated profile picture URL.
+     * @param onSuccessListener Listener to be invoked when the operation is successful.
+     * @param onFailureListener Listener to be invoked when the operation fails.
+     */
     public void updatePFP(String uuid, String ImageURL, OnSuccessListener<Void> onSuccessListener, OnFailureListener onFailureListener) {
         profileCollection.document(uuid)
                 .update("profilePic", ImageURL)
@@ -96,6 +134,12 @@ public class ProfileController {
                 .addOnFailureListener(onFailureListener);
     }
 
+    /**
+     * Retrieves the document reference for a profile by device ID.
+     *
+     * @param deviceId The device ID associated with the profile.
+     * @return The DocumentReference object for the profile.
+     */
     public DocumentReference getProfileDocument(String deviceId) {
         return profileCollection.document(deviceId);
     }

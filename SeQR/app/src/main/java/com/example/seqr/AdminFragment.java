@@ -13,6 +13,9 @@ import android.widget.Button;
 
 import org.checkerframework.checker.units.qual.A;
 
+/**
+ * A fragment representing the admin dashboard. Including browsing events, profiles and pictures.
+ */
 public class AdminFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

@@ -10,6 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+/**
+ * A fragment displayed check-in QR code for an event.
+ */
 public class CQRFragment extends Fragment {
 
     @Override
