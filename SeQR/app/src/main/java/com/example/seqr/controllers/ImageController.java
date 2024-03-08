@@ -14,18 +14,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+
+/**
+ * Controller class for managing Image data in Firestore database.
+ */
 public class ImageController {
 
     private FirebaseStorage storage;
 
+    /**
+     * Constructs an Image controller and sets its storage to the storage from our database
+     */
     public ImageController(){
         storage = Database.getStorage();
     }
 
+    /**
+     * Interface for people to make sure they implement callBacks
+     */
     public interface FileListCallback {
         void onSuccess(List<String> fileList);
         void onFailure(Exception e);
     }
+
+    /**
+     * returns an array with a list of strings with filenames from firebase storage based on the directory path given
+     *
+     * @param directoryPath string that represents where you want the function to search in the directory
+     * @param callback return method to send the array back to the user who called it
+     */
     public void getListOfFiles(String directoryPath, FileListCallback callback) {
         StorageReference storageRef = storage.getReference().child(directoryPath);
         // List all items in the directory
