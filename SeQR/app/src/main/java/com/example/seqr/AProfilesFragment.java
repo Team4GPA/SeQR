@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.seqr.models.Profile;
 import com.example.seqr.adapters.ProfileAdapter;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Profile;
@@ -45,11 +46,15 @@ public class AProfilesFragment extends Fragment {
         profileAdapter = new ProfileAdapter(profileList);
 
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(profileAdapter);
 
         // Query to get all profiles
         ProfileController profileController = new ProfileController();
+        //comment this out to get a valid build
+
+        /*
         profileController.getAllProfiles(task -> {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
@@ -59,8 +64,11 @@ public class AProfilesFragment extends Fragment {
                 profileAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error event in profile retrieval", task.getException());
+
             }
         });
+
+         */
 
         return view;
     }

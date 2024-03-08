@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
-
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <RelativeLayout
     android:layout_width="match_parent"
@@ -32,23 +28,6 @@
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:id="@+id/scanQRButton"
-            android:layout_width="100sp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="24sp"
-            android:layout_marginBottom="100sp"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="sans-serif-black"
-            android:gravity="center"
-            android:includeFontPadding="false"
-            android:text="QR"
-            android:textSize="24sp"
-            app:icon="@drawable/baseline_qr_code_scanner_24"
-            app:iconGravity="start"
-            app:iconPadding="6sp" />
 
 <!--        <Button-->
 <!--            android:id="@+id/testImageUpFrag"-->
