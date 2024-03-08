@@ -2,6 +2,7 @@ package com.example.seqr;
 
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Base64;
 
 import com.google.zxing.BarcodeFormat;
@@ -37,5 +38,16 @@ public class QRCodeGenerator {
             return null;
         }
 
+    }
+
+    public Bitmap convertToBitmap(String QRstring){
+        try{
+            byte [] encodeByte = Base64.decode(QRstring,Base64.DEFAULT);
+            Bitmap bitmap= BitmapFactory.decodeByteArray(encodeByte, 0, encodeByte.length);
+            return bitmap;
+        } catch (Exception e){
+            e.getMessage();
+            return null;
+        }
     }
 }
