@@ -90,7 +90,7 @@ public class AttendeeFragment extends Fragment {
     }
 
     public void launchSuccess() {
-        Log.d(DBTAG, "launch success method reached.");
+        Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
         FragmentManager parent = getParentFragmentManager();
         Fragment eventInfo = new A_Test_Fragment();
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
