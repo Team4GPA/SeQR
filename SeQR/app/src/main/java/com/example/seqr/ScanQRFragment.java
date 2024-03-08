@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.seqr.adapters.QRScanAdapter;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanner;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
@@ -25,8 +26,8 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
  * -KZ
  */
 public class ScanQRFragment extends Fragment {
-    private GmsBarcodeScanner scanner;
     private String returnVal;
+    private QRScanAdapter scanAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,14 +51,24 @@ public class ScanQRFragment extends Fragment {
                     Log.d("ScanQR", "successful QR scan: " + barcode.getRawValue());
                     Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
                     this.returnVal = barcode.getRawValue();
+
+                    //update the scanAdapter:
+                    //scanAdapter = new QRScanAdapter().get(QRScanAdapter.class);
+                    //scanAdapter.setQRCodeResult(this.returnVal);
+
+                    //use result listener:
+                    //
+                    //
+                    Bundle result = new Bundle();
+                    result.putString("resultQR", this.returnVal);
+                    getParentFragmentManager().setFragmentResult("reqQR", result);
+
                     FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
                     Fragment event = new CEventDetailFragment();
-                    Bundle eventID = new Bundle();
-                    eventID.putString("QR", this.returnVal);
-                    event.setArguments(eventID);
                     transaction.replace(R.id.fragment_container, event);
                     transaction.commit();
                 })
+
                 .addOnCanceledListener(()->
                 {
                     //canceled

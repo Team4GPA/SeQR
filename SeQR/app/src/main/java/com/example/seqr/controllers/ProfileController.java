@@ -37,8 +37,6 @@ public class ProfileController {
                 Log.d("DEBUG","Error adding profile",e);
             }
         });
-
-
     }
 
     //Takes in the new values and updates them
