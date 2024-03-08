@@ -65,7 +65,8 @@ public class AttendeeFragment extends Fragment {
                                 if (eventID.equals(event.getEventID())) {
                                     // QR code is valid
                                     Log.d(DBTAG, "QR Code is valid for event: " + event.getEventName());
-                                    launchSuccess();
+                                    launchSuccess(eventID);
+                                    return;
                                 }
                             }
                         }
@@ -89,10 +90,13 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
-    public void launchSuccess() {
+    public void launchSuccess(String QRData) {
         Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
         FragmentManager parent = getParentFragmentManager();
-        Fragment eventInfo = new A_Test_Fragment();
+        Fragment eventInfo = new EventInfoFragment();
+        Bundle passQR = new Bundle();
+        passQR.putString("eventId", QRData);
+        eventInfo.setArguments(passQR);
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
     }
 

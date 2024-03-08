@@ -10,8 +10,8 @@ public class Profile {
     private boolean isAdmin;
     private String id;
     private String profilePic;
-    private List<Event> createdEvents; //list of Events created by this profile
-    private List<Event> signedUpEvents; //list of signedUpEvents by this profile
+    private List<String> createdEvents; //list of Events created by this profile
+    private List<String> signedUpEvents; //list of signedUpEvents by this profile
     private List<Notification> notifications;
 
     public Profile(){
@@ -96,19 +96,19 @@ public class Profile {
         this.profilePic = profilePic;
     }
 
-    public List<Event> getCreatedEvents() {
+    public List<String> getCreatedEvents() {
         return createdEvents;
     }
 
-    public void setCreatedEvents(List<Event> createdEvents) {
+    public void setCreatedEvents(List<String> createdEvents) {
         this.createdEvents = createdEvents;
     }
 
-    public List<Event> getSignedUpEvents() {
+    public List<String> getSignedUpEvents() {
         return signedUpEvents;
     }
 
-    public void setSignedUpEvents(List<Event> signedUpEvents) {
+    public void setSignedUpEvents(List<String> signedUpEvents) {
         this.signedUpEvents = signedUpEvents;
     }
 }
