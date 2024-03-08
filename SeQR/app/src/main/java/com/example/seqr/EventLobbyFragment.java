@@ -33,12 +33,7 @@ public class EventLobbyFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.eventLobbyRecyclerview);
         eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList, new EventAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(Event event) {
-
-            }
-        });
+        eventAdapter = new EventAdapter(eventsList, this::eventClicked);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
 
@@ -56,5 +51,20 @@ public class EventLobbyFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void eventClicked(Event event){
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId", event.getEventID());
+
+        EventInfoFragment eventInfoFragment = new EventInfoFragment();
+        eventInfoFragment.setArguments(bundle);
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, eventInfoFragment)
+                .addToBackStack(null)
+                .commit();
+
+
     }
 }
