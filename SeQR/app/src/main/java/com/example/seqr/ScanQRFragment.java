@@ -19,12 +19,9 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 
 /**
-<<<<<<< HEAD
- * A fragment responsible for scanning QR codes using Google Play Services barcode scanner.
-=======
  * ScanQRFragment
  * <p>
->>>>>>> aa518e3d45d3bab48b9272daf41ee734d31cf815
+ * A fragment responsible for scanning QR codes using Google Play Services barcode scanner.s
  * This fragment should pop up a video window that shows a live feed for an Android
  * camera for scanning QR codes. It is currently a work in progress.
  * </p>

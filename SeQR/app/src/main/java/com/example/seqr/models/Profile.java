@@ -202,7 +202,6 @@ public class Profile {
         this.profilePic = profilePic;
     }
 
-<<<<<<< HEAD
     /**
      * Retrieves the list of events created by this profile.
      *
@@ -236,21 +235,6 @@ public class Profile {
      * @param signedUpEvents The list of events signed up by this profile.
      */
     public void setSignedUpEvents(List<Event> signedUpEvents) {
-=======
-    public List<String> getCreatedEvents() {
-        return createdEvents;
-    }
-
-    public void setCreatedEvents(List<String> createdEvents) {
-        this.createdEvents = createdEvents;
-    }
-
-    public List<String> getSignedUpEvents() {
-        return signedUpEvents;
-    }
-
-    public void setSignedUpEvents(List<String> signedUpEvents) {
->>>>>>> aa518e3d45d3bab48b9272daf41ee734d31cf815
         this.signedUpEvents = signedUpEvents;
     }
 }

@@ -101,14 +101,10 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
-<<<<<<< HEAD
     /**
      * Launches the event info window upon successful initialization on events.
      */
-    public void launchSuccess() {
-=======
     public void launchSuccess(String QRData) {
->>>>>>> aa518e3d45d3bab48b9272daf41ee734d31cf815
         Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
         FragmentManager parent = getParentFragmentManager();
         Fragment eventInfo = new EventInfoFragment();
