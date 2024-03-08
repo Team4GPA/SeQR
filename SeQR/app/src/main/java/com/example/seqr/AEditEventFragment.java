@@ -50,12 +50,12 @@ public class AEditEventFragment extends Fragment implements DeleteItemFragment.C
     }
 
     @Override
-    public void onYesClicked() {
+    public void onYesClicked(View v) {
         // Handle deletion
     }
 
     @Override
-    public void onNoClicked() {
+    public void onNoClicked(View v) {
         // Dismiss dialog
         Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("ConfirmationDialogFragment");
         if (dialogFragment != null) {

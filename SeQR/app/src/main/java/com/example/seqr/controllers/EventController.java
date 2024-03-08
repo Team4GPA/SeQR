@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 
 import com.example.seqr.database.Database;
 import com.example.seqr.models.Event;
+import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -93,6 +94,25 @@ public class EventController {
 
     public void getEventById(String eventId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         eventCollection.document(eventId).get().addOnCompleteListener(onCompleteListener);
+    }
+
+
+
+    public void signUserUpForEvent(String eventId, SignUp signUp) {
+        db.collection("Events").document(eventId).collection("signups")
+                .document(signUp.getUserId()).set(signUp)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Log.d("Debug","Successfully signedUp");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug","failedToSignup");
+                    }
+                });
     }
 
 
