@@ -9,6 +9,7 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -66,15 +67,15 @@ public class AttendeeFragment extends Fragment {
                                 // Check if the scanned QR code matches checkInQR or promotionQR of any event
                                 if (qrResult.equals(event.getCheckInQR()) || qrResult.equals(event.getPromotionQR())) {
                                     // QR code is valid, you can proceed with your logic here
-                                    Log.d("QRValidation", "QR Code is valid for event: " + event.getEventName());
+                                    Log.d(DBTAG, "QR Code is valid for event: " + event.getEventName());
                                     launchSuccess();
                                 }
                             }
                         }
                         // If loop completes and no match found, QR code is not valid for any event
-                        Log.d("QRValidation", "QR Code is not valid for any event.");
+                        Log.d(DBTAG, "QR Code is not valid for any event.");
                     } else {
-                        Log.e("QRValidation", "Error fetching events for QR validation", task.getException());
+                        Log.e(DBTAG, "Error fetching events for QR validation", task.getException());
                     }
                 });
             }
@@ -90,6 +91,9 @@ public class AttendeeFragment extends Fragment {
     }
 
     public void launchSuccess(){
+        FragmentManager parent = getParentFragmentManager();
+        Fragment eventInfo = new Fragment();
+        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
 
     }
 
