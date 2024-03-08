@@ -28,11 +28,12 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 public class ScanQRFragment extends Fragment {
     private String returnVal;
     private QRScanAdapter scanAdapter;
+    private String DBTAG = "ScanQRFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ScanQR","onCreate accessed.");
+        Log.d(DBTAG,"onCreate accessed.");
 
         //Set up a Google-provided QR code scanner focusing on QR code inputs
         //also does some cool automatic capture and zooming
@@ -48,20 +49,17 @@ public class ScanQRFragment extends Fragment {
         scanner.startScan()
                 .addOnSuccessListener(barcode -> {
                     //successful
-                    Log.d("ScanQR", "successful QR scan: " + barcode.getRawValue());
+                    Log.d(DBTAG, "successful QR scan: " + barcode.getRawValue());
                     Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
                     this.returnVal = barcode.getRawValue();
-
-                    //update the scanAdapter:
-                    //scanAdapter = new QRScanAdapter().get(QRScanAdapter.class);
-                    //scanAdapter.setQRCodeResult(this.returnVal);
 
                     //use result listener:
                     //
                     //
                     Bundle result = new Bundle();
-                    result.putString("resultQR", this.returnVal);
+                    result.putString("gotQR", this.returnVal);
                     getParentFragmentManager().setFragmentResult("reqQR", result);
+                    Log.d(DBTAG, "Sent bundle to FragmentResult with value " + result.getString("gotQR") + " and bundle is empty: " + result.isEmpty());
                 })
 
                 .addOnCanceledListener(()->
@@ -81,3 +79,7 @@ public class ScanQRFragment extends Fragment {
         return this.returnVal;
     }
 }
+
+//update the scanAdapter:
+//scanAdapter = new QRScanAdapter().get(QRScanAdapter.class);
+//scanAdapter.setQRCodeResult(this.returnVal);
