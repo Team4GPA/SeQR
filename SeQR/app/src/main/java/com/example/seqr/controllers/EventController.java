@@ -92,10 +92,22 @@ public class EventController {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    /**
+     * Retrieves the event by the given EventID
+     * @param eventId eventID of the event
+     * @param onCompleteListener Listener ot be invoked when data retrieval is complete
+     */
+
     public void getEventById(String eventId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         eventCollection.document(eventId).get().addOnCompleteListener(onCompleteListener);
     }
 
+
+    /**
+     * Signs the user up for an event
+     * @param eventId the eventID of the event
+     * @param signUp the signUp object that contains the id and username of someone who signed up
+     */
 
 
     public void signUserUpForEvent(String eventId, SignUp signUp) {
