@@ -44,4 +44,12 @@ public class DeleteItemFragment extends DialogFragment {
 
         return builder.create();
     }
+
+    public void onYesClicked(){
+
+    }
+
+    public void onNoClicked(){
+
+    }
 }

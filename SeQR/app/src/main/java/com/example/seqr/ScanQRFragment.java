@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.seqr.adapters.QRScanAdapter;
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanner;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
@@ -25,13 +26,14 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
  * -KZ
  */
 public class ScanQRFragment extends Fragment {
-    private GmsBarcodeScanner scanner;
     private String returnVal;
+    private QRScanAdapter scanAdapter;
+    private String DBTAG = "ScanQRFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("ScanQR","onCreate accessed.");
+        Log.d(DBTAG,"onCreate accessed.");
 
         //Set up a Google-provided QR code scanner focusing on QR code inputs
         //also does some cool automatic capture and zooming
@@ -47,21 +49,24 @@ public class ScanQRFragment extends Fragment {
         scanner.startScan()
                 .addOnSuccessListener(barcode -> {
                     //successful
-                    Log.d("ScanQR", "successful QR scan: " + barcode.getRawValue());
+                    Log.d(DBTAG, "successful QR scan: " + barcode.getRawValue());
                     Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
                     this.returnVal = barcode.getRawValue();
-                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
-                    Fragment event = new CEventDetailFragment();
-                    Bundle eventID = new Bundle();
-                    eventID.putString("QR", this.returnVal);
-                    event.setArguments(eventID);
-                    transaction.replace(R.id.fragment_container, event);
-                    transaction.commit();
+
+                    //use result listener:
+                    //
+                    //
+                    Bundle result = new Bundle();
+                    result.putString("gotQR", this.returnVal);
+                    getParentFragmentManager().setFragmentResult("reqQR", result);
+                    Log.d(DBTAG, "Sent bundle to FragmentResult with value " + result.getString("gotQR") + " and bundle is empty: " + result.isEmpty());
                 })
+
                 .addOnCanceledListener(()->
                 {
                     //canceled
                     Toast.makeText(getContext(), "Cancelled QR Code Scan!", Toast.LENGTH_SHORT).show();
+
                 })
                 .addOnFailureListener(e ->{
                     //task failed with an exception
@@ -74,3 +79,7 @@ public class ScanQRFragment extends Fragment {
         return this.returnVal;
     }
 }
+
+//update the scanAdapter:
+//scanAdapter = new QRScanAdapter().get(QRScanAdapter.class);
+//scanAdapter.setQRCodeResult(this.returnVal);
