@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/eventInfoMainText"
+        android:id="@+id/eventInfoNameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="50dp"
@@ -29,17 +29,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/eventInfoName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Event Name"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventInfoMainText" />
+
 
     <TextView
         android:id="@+id/eventInfoOrganizer"
@@ -51,7 +41,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventInfoMainText" />
+        app:layout_constraintTop_toBottomOf="@id/eventInfoNameText" />
 
     <TextView
         android:id="@+id/eventInfoLocation"
@@ -63,7 +53,7 @@
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/eventInfoMainText" />
+        app:layout_constraintTop_toBottomOf="@id/eventInfoNameText" />
 
     <TextView
         android:id="@+id/eventInfoTime"
