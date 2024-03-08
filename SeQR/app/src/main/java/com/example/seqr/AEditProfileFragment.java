@@ -41,12 +41,12 @@ public class AEditProfileFragment extends Fragment implements DeleteItemFragment
     }
 
     @Override
-    public void onYesClicked() {
+    public void onYesClicked(View v) {
         // Handle deletion
     }
 
     @Override
-    public void onNoClicked() {
+    public void onNoClicked(View v) {
         // Dismiss dialog
         Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("ConfirmationDialogFragment");
         if (dialogFragment != null) {
