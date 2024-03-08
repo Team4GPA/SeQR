@@ -1,5 +1,7 @@
 package com.example.seqr.adapters;
 
+import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
      */
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position){
-        String imageUrl = imageUrlList.get(position);
+        String path = Uri.encode(imageUrlList.get(position));
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
         Picasso.get().load(imageUrl).into(holder.imageView);
     }
 
