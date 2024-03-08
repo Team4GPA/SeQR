@@ -134,6 +134,7 @@ public class ProfileController {
                 .addOnFailureListener(onFailureListener);
     }
 
+
     /**
      * Retrieves the document reference for a profile by device ID.
      *

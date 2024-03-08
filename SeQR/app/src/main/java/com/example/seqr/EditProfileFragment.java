@@ -24,6 +24,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -58,6 +59,7 @@ public class EditProfileFragment extends Fragment {
         ProfileController profileController = new ProfileController();
 
         String uuid = ID.getProfileId(getContext());
+
 
         String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
         String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
