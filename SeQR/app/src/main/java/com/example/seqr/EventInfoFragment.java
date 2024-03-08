@@ -50,9 +50,9 @@ public class EventInfoFragment extends Fragment {
                     eventTime.setText(event.getEventStartTime());
                     eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
                     eventDescription.setText(event.getEventDesc());
-
-                    String photoUri = "EventPosters/" + eventId + ".jpg"; // Adjust if necessary
-                    Picasso.get().load(Uri.parse(photoUri)).into(eventPhoto);
+                    String path = Uri.encode("EventPosters/" + eventId + ".jpg");
+                    String photoUri = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+                    Picasso.get().load(photoUri).into(eventPhoto);
                 }else{
                     //for part 4 add a dialog that says event does not exist and redirect to main page
                     Log.d("Debug","There wasn't a document with that id");
