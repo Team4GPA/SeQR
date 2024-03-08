@@ -17,6 +17,19 @@ import org.checkerframework.checker.units.qual.A;
  * A fragment representing the admin dashboard. Including browsing events, profiles and pictures.
  */
 public class AdminFragment extends Fragment {
+    /**
+     * Creates a view and associated logic for the view and returns it to whoever built the fragment
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

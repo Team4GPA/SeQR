@@ -70,6 +70,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
 
     }
 
+    /**
+     * gets the event in the eventList at a certain index
+     *
+     * @param position the index in the array from which you want to get the event
+     * @return The event type object from the eventList
+     */
     public Event getEventAt(int position) {
         return eventList.get(position);
     }
