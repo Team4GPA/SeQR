@@ -46,7 +46,10 @@ public class AEventFragment extends Fragment {
         // Create recycler view
         recyclerView = view.findViewById(R.id.admin_events);
         eventList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventList);
+        eventAdapter = new EventAdapter(eventList, event -> {
+            Log.d("DEBUG", "hello");
+
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(eventAdapter);
