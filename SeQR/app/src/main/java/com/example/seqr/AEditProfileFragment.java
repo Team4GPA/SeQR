@@ -8,6 +8,9 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
+/**
+ * A fragment for editing profiles in the admin dashboard.
+ */
 public class AEditProfileFragment extends Fragment implements DeleteItemFragment.ConfirmationDialogListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,18 +38,21 @@ public class AEditProfileFragment extends Fragment implements DeleteItemFragment
         return view;
     }
 
+    /**
+     * Shows the confirmation dialog for profile deletion.
+     */
     private void showConfirmationDialog() {
         DeleteItemFragment dialogFragment = new DeleteItemFragment();
         dialogFragment.show(getParentFragmentManager(), "ConfirmationDialogFragment");
     }
 
     @Override
-    public void onYesClicked() {
+    public void onYesClicked(View v) {
         // Handle deletion
     }
 
     @Override
-    public void onNoClicked() {
+    public void onNoClicked(View v) {
         // Dismiss dialog
         Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("ConfirmationDialogFragment");
         if (dialogFragment != null) {

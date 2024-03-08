@@ -19,7 +19,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A fragment for displaying a list of possible events for users in the lobby.
+ */
 public class EventLobbyFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
@@ -31,7 +33,7 @@ public class EventLobbyFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.eventLobbyRecyclerview);
         eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList);
+        eventAdapter = new EventAdapter(eventsList, this::eventClicked);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
 
@@ -49,5 +51,20 @@ public class EventLobbyFragment extends Fragment {
             }
         });
         return view;
+    }
+
+    private void eventClicked(Event event){
+        Bundle bundle = new Bundle();
+        bundle.putString("eventId", event.getEventID());
+
+        EventInfoFragment eventInfoFragment = new EventInfoFragment();
+        eventInfoFragment.setArguments(bundle);
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, eventInfoFragment)
+                .addToBackStack(null)
+                .commit();
+
+
     }
 }

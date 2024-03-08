@@ -25,7 +25,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
-
+/**
+ * A fragment for previewing event before creation.
+ */
 public class CEventPreviewFragment extends Fragment {
     private TextView eventNameTextView;
     private TextView eventOrganizerTextView;

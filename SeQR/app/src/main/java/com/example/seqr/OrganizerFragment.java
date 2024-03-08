@@ -24,6 +24,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment representing organizer dashboard, including organizer actions such as creating events and examining the past created events.
+ */
 public class OrganizerFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
@@ -49,7 +52,7 @@ public class OrganizerFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.eventCreatedRecyclerview);
         eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList);
+        eventAdapter = new EventAdapter(eventsList, this::onItemClick);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
         String organizerUUID = ID.getProfileId(getContext());
@@ -67,8 +70,38 @@ public class OrganizerFragment extends Fragment {
             }
         });
 
+
+
+
+
+
+
+
         return view;
     }
+
+    public void onItemClick(Event event) {
+
+        Bundle bundle = new Bundle();
+        bundle.putString("eventID",event.getEventID());
+        bundle.putString("checkInQR",event.getCheckInQR());
+        bundle.putString("promotionQR",event.getPromotionQR());
+        bundle.putString("eventName",event.getEventName());
+
+        EventManagementFragment eventManagementFragment = new EventManagementFragment();
+        eventManagementFragment.setArguments(bundle);
+
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, eventManagementFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+
+
+
+
+
 
 
 
