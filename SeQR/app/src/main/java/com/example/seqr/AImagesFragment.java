@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.adapters.ImageAdapter;
 import com.example.seqr.controllers.EventController;
@@ -22,6 +23,11 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+
+/**
+ * A fragment showing all images for administrator.
+ */
 
 public class AImagesFragment extends Fragment {
 
