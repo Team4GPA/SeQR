@@ -21,12 +21,14 @@ public class Event {
 
     private String checkInQR;
 
+    private String organizerUUID;
+
     public Event(){
 
     }
 
 
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR) {
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID) {
         this.eventName = eventName;
 
         this.eventDesc = eventDesc;
@@ -37,7 +39,16 @@ public class Event {
         this.eventID = eventID;
         this.checkInQR = checkInQR;
         this.promotionQR = promotionQR;
+        this.organizerUUID = organizerUUID;
 
+    }
+
+    public String getOrganizerUUID() {
+        return organizerUUID;
+    }
+
+    public void setOrganizerUUID(String organizerUUID) {
+        this.organizerUUID = organizerUUID;
     }
 
     public String getPromotionQR() {

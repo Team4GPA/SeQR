@@ -10,8 +10,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ProfileController {
     private FirebaseFirestore db;
@@ -39,27 +41,62 @@ public class ProfileController {
         });
     }
 
-    //Takes in the new values and updates them
-    public void updateProfile(String uuid, String username, String homePage, Integer phoneNumber, String email){
-        profileCollection.document(uuid)
-                .update("username",username,"homePage",homePage,"phoneNumber",phoneNumber,"email",email)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("DEBUG","Successfully updated profile");
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Error updating profile",e);
-                    }
-                });
-    }
 
     public void getProfileUsernameByDeviceId(String deviceId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         profileCollection.document(deviceId).get().addOnCompleteListener(onCompleteListener);
     }
 
+    public void getAllProfiles(OnCompleteListener<QuerySnapshot> onCompleteListener){
+        profileCollection.get().addOnCompleteListener(onCompleteListener);
+    }
 
 
+
+
+
+    public void updateGeoLocation(String uuid, boolean enableGeoLocation) {
+        profileCollection.document(uuid)
+                .update("geoLocation", enableGeoLocation)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG", "Successfully updated geolocation setting");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating geolocation setting", e);
+                    }
+                });
+    }
+
+
+    public void updateProfile(String uuid, String username, String phonenumber, String email, String homepage) {
+        profileCollection.document(uuid)
+                .update("username", username,"homePage",homepage,"phoneNumber",phonenumber,"email",email)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG", "Successfully updated geolocation setting");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating geolocation setting", e);
+                    }
+                });
+    }
+
+    public void updatePFP(String uuid, String ImageURL, OnSuccessListener<Void> onSuccessListener, OnFailureListener onFailureListener) {
+        profileCollection.document(uuid)
+                .update("profilePic", ImageURL)
+                .addOnSuccessListener(onSuccessListener)
+                .addOnFailureListener(onFailureListener);
+    }
+
+    public DocumentReference getProfileDocument(String deviceId) {
+        return profileCollection.document(deviceId);
+    }
 }

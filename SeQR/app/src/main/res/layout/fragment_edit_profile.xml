@@ -5,7 +5,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
-        android:id="@+id/edit_profile_picture"
+        android:id="@+id/photoPreview"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:paddingTop="8dp"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Profile Picture"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/photoPreview"
         app:layout_constraintBottom_toTopOf="@+id/personal_information"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/remove_profile_picture_button">
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remove Profile Picture"
-        app:layout_constraintTop_toBottomOf="@+id/edit_profile_picture"
+        app:layout_constraintTop_toBottomOf="@+id/photoPreview"
         app:layout_constraintLeft_toRightOf="@+id/edit_profile_picture_button"
         app:layout_constraintRight_toRightOf="parent">
     </Button>
@@ -70,7 +70,8 @@
         android:padding="10dp"
         app:layout_constraintBottom_toTopOf="@id/profile_number"
         app:layout_constraintLeft_toRightOf="@+id/profile_name_title"
-        app:layout_constraintTop_toBottomOf="@+id/personal_information"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/personal_information">
+    </EditText>
 
 
     <TextView
@@ -91,7 +92,9 @@
         android:minHeight="48dp"
         android:padding="10dp"
         app:layout_constraintLeft_toRightOf="@+id/profile_number_title"
-        app:layout_constraintTop_toBottomOf="@+id/profile_name"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/profile_name">
+    </EditText>
+
     <TextView
         android:id="@+id/profile_email_title"
         android:layout_width="wrap_content"
@@ -110,7 +113,8 @@
         android:minHeight="48dp"
         android:padding="10dp"
         app:layout_constraintLeft_toRightOf="@+id/profile_email_title"
-        app:layout_constraintTop_toBottomOf="@+id/profile_number_title"></EditText>
+        app:layout_constraintTop_toBottomOf="@+id/profile_number_title">
+    </EditText>
 
     <TextView
         android:id="@+id/profile_homepage_title"
@@ -119,7 +123,8 @@
         android:padding="10dp"
         android:text="Homepage:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_email"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/profile_email">
+    </TextView>
 
     <EditText
         android:id="@+id/profile_homepage"
@@ -134,6 +139,7 @@
     </EditText>
 
     <Button
+        android:id="@+id/edit_personal_information"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Edit Personal Information"
