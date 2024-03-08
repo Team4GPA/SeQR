@@ -26,8 +26,25 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Event Info fragment shows the event details and has a button for signing up to an event
+ * uses who scan a QR code a directed here as well as users who click on an event in event lobby
+ */
 
 public class EventInfoFragment extends Fragment {
+
+    /**
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return view
+     */
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -90,6 +107,12 @@ public class EventInfoFragment extends Fragment {
         return view;
 
     }
+
+    /**
+     * When the signup button is pressed, get the Id and get the profile username using the id
+     * after getting the username create a signup object with the username and id then call the event controller method for signing a user up
+     * @param eventId this is the eventID
+     */
 
     private void onSignUpPressed(String eventId){
         String userID = ID.getProfileId(getContext());
