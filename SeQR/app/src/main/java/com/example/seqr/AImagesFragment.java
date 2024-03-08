@@ -48,33 +48,16 @@ public class AImagesFragment extends Fragment {
 
         // Query to get all profiles
         ImageController imageController = new ImageController();
-        imageController.getListOfFiles("EventPosters/", new ImageController.FileListCallback() {
-            @Override
-            public void onSuccess(List<String> fileList) {
-                // Do whatever you want with the file list
-                for (String fileName : fileList) {
-                    fileName = "EventPoster/" + fileName;
-                    imageList.add(fileName);
-                }
-                imageAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onFailure(Exception e) {
-                // Handle failure
-                e.printStackTrace();
-            }
-        });
-
         imageController.getListOfFiles("ProfilePictures/", new ImageController.FileListCallback() {
             @Override
             public void onSuccess(List<String> fileList) {
-                // Do whatever you want with the file list
                 for (String fileName : fileList) {
                     fileName = "ProfilePictures/" + fileName;
                     imageList.add(fileName);
+                    imageAdapter.notifyDataSetChanged();
                 }
-                imageAdapter.notifyDataSetChanged();
+                Log.d("DEBUGGER", Integer.toString(imageList.size()));
+
             }
 
             @Override
@@ -83,6 +66,27 @@ public class AImagesFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+        Log.d("DEBUGGER2", Integer.toString(imageList.size()));
+        imageController.getListOfFiles("EventPosters/", new ImageController.FileListCallback() {
+            @Override
+            public void onSuccess(List<String> fileList) {
+                for (String fileName : fileList) {
+                    fileName = "EventPoster/" + fileName;
+                    imageList.add(fileName);
+                    imageAdapter.notifyDataSetChanged();
+                }
+                Log.d("DEBUGGER3", Integer.toString(imageList.size()));
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                // Handle failure
+                e.printStackTrace();
+            }
+        });
+        Log.d("DEBUGGER4", Integer.toString(imageList.size()));
+
+        
 
 
         return view;
