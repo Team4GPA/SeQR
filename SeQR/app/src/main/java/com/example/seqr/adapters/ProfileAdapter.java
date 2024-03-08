@@ -35,10 +35,6 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
         holder.textView.setText(profile.getUsername()); // replace with real getter
     }
 
-    @Override
-    public int getItemCount() {
-        return 0;
-    }
 
     @Override
     public int getItemCount() {
