@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class ProfileController {
     private FirebaseFirestore db;
@@ -61,6 +62,12 @@ public class ProfileController {
     public void getProfileUsernameByDeviceId(String deviceId, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         profileCollection.document(deviceId).get().addOnCompleteListener(onCompleteListener);
     }
+
+    public void getAllProfiles(OnCompleteListener<QuerySnapshot> onCompleteListener){
+        profileCollection.get().addOnCompleteListener(onCompleteListener);
+    }
+
+
 
 
 

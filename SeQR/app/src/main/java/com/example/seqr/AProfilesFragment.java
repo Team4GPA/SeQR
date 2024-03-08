@@ -1,6 +1,7 @@
 package com.example.seqr;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,7 @@ import android.widget.Button;
 import com.example.seqr.models.Profile;
 import com.example.seqr.adapters.ProfileAdapter;
 import com.example.seqr.controllers.ProfileController;
+import com.example.seqr.models.Profile;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -44,6 +46,7 @@ public class AProfilesFragment extends Fragment {
         profileAdapter = new ProfileAdapter(profileList);
 
 
+
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(profileAdapter);
 
@@ -60,8 +63,8 @@ public class AProfilesFragment extends Fragment {
                 }
                 profileAdapter.notifyDataSetChanged();
             } else {
-                Log.d("DEBUG", "there was some error event in profile retrieval");
-                task.getException();
+                Log.d("DEBUG", "there was some error event in profile retrieval", task.getException());
+
             }
         });
 

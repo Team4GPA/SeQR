@@ -3,12 +3,15 @@ package com.example.seqr;
 // imports
 //
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.mlkit.vision.barcode.common.Barcode;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanner;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
@@ -47,6 +50,13 @@ public class ScanQRFragment extends Fragment {
                     Log.d("ScanQR", "successful QR scan: " + barcode.getRawValue());
                     Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
                     this.returnVal = barcode.getRawValue();
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    Fragment event = new CEventDetailFragment();
+                    Bundle eventID = new Bundle();
+                    eventID.putString("QR", this.returnVal);
+                    event.setArguments(eventID);
+                    transaction.replace(R.id.fragment_container, event);
+                    transaction.commit();
                 })
                 .addOnCanceledListener(()->
                 {
@@ -55,7 +65,12 @@ public class ScanQRFragment extends Fragment {
                 })
                 .addOnFailureListener(e ->{
                     //task failed with an exception
+                    Log.d("ScanQR", "Exception: error on QR scan.");
+                    Log.e("ScanQR", "Exception: ", e);
                 });
     }
 
+    public String reportQRResult(){
+        return this.returnVal;
+    }
 }

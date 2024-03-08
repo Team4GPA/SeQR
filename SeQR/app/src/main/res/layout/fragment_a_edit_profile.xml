@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Button
+        android:id="@+id/admin_edit_profile_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </Button>
+    <ImageView
+        android:id="@+id/admin_edit_profile_picture"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/profile_picture_drawer_navigation_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHeight_percent="0.25"
+        app:layout_constraintTop_toBottomOf="@id/admin_edit_profile_back_button">
+    </ImageView>
+
+    <Button
+        android:id="@+id/admin_edit_profile_picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Profile Picture"
+        app:layout_constraintTop_toBottomOf="@+id/admin_edit_profile_picture"
+        app:layout_constraintBottom_toTopOf="@+id/admin_personal_information"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/admin_remove_profile_picture_button">
+    </Button>
+
+    <Button
+        android:id="@+id/admin_remove_profile_picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Profile Picture"
+        app:layout_constraintTop_toBottomOf="@+id/admin_edit_profile_picture"
+        app:layout_constraintLeft_toRightOf="@+id/admin_edit_profile_picture_button"
+        app:layout_constraintRight_toRightOf="parent">
+    </Button>
+
+    <TextView
+        android:id="@+id/admin_personal_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Personal Information"
+        android:layout_marginTop="10dp"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/admin_edit_profile_picture_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </TextView>
+
+    <TextView
+        android:id="@+id/admin_profile_name_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/admin_personal_information"
+        app:layout_constraintBottom_toTopOf="@id/admin_profile_number"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <EditText
+        android:id="@+id/admin_profile_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Name goes here"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@id/admin_profile_number"
+        app:layout_constraintLeft_toRightOf="@+id/admin_profile_name_title"
+        app:layout_constraintTop_toBottomOf="@+id/admin_personal_information">
+    </EditText>
+
+
+    <TextView
+        android:id="@+id/admin_profile_number_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone Number:"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_name"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <EditText
+        android:id="@+id/admin_profile_number"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number goes here"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/admin_profile_number_title"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_name">
+    </EditText>
+    <TextView
+        android:id="@+id/admin_profile_email_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email:"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_number"
+        app:layout_constraintLeft_toLeftOf="parent">
+    </TextView>
+
+    <EditText
+        android:id="@+id/admin_profile_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Email goes here"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/admin_profile_email_title"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_number_title">
+    </EditText>
+
+    <TextView
+        android:id="@+id/admin_profile_homepage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="Homepage:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_email">
+    </TextView>
+
+    <EditText
+        android:id="@+id/admin_profile_homepage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Homepage goes here"
+        android:minHeight="48dp"
+        android:padding="10dp"
+        app:layout_constraintLeft_toRightOf="@+id/admin_profile_homepage_title"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_email">
+
+    </EditText>
+
+    <Button
+        android:id="@+id/admin_edit_personal_info_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit Info"
+        android:padding="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/admin_profile_homepage"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </Button>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Admin"
+        app:layout_constraintTop_toBottomOf="@+id/admin_edit_personal_info_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </CheckBox>
+
+    <Button
+        android:id="@+id/admin_delete_profile_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Delete Profile"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent">
+    </Button>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -54,4 +54,12 @@ public class EventController {
     public void getAllEvents(OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.get().addOnCompleteListener(onCompleteListener);
     }
+
+    //gets the events from the specific organizer/ basically passes in the profile/device ID.
+    public void getEventsByOrganizer(String organizerUUID, OnCompleteListener<QuerySnapshot> onCompleteListener) {
+        eventCollection
+                .whereEqualTo("organizerUUID", organizerUUID)
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
 }
