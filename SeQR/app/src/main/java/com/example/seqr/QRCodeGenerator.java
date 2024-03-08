@@ -53,6 +53,12 @@ public class QRCodeGenerator {
 
     }
 
+    /**
+     * Converts String representation of QRcode to Bitmap
+     *
+     * @param QRstring string representation of QRcode to be converted
+     * @return bitmap bitmap representation of QRcode
+     */
     public Bitmap convertToBitmap(String QRstring){
         try{
             byte [] encodeByte = Base64.decode(QRstring,Base64.DEFAULT);

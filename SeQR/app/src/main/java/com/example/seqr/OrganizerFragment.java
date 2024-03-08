@@ -32,7 +32,18 @@ public class OrganizerFragment extends Fragment {
     private EventAdapter eventAdapter;
     private List<Event> eventsList;
 
-
+    /**
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -80,6 +91,10 @@ public class OrganizerFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Adds functionality to click each item on recycler view
+     * @param event event to be viewed by user
+     */
     public void onItemClick(Event event) {
 
         Bundle bundle = new Bundle();

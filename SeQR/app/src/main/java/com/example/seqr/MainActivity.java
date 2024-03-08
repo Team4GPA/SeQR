@@ -39,6 +39,9 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
+/**
+ * Class representing MainActivity
+ */
 public class MainActivity extends AppCompatActivity {
 
     private AttendeeFragment attendeeFragment = new AttendeeFragment();
@@ -49,7 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
     private StartUpFragment startUpFragment = new StartUpFragment();
 
-
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -233,7 +242,10 @@ public class MainActivity extends AppCompatActivity {
 //    //Custom Methods
 //    //
 
-
+    /**
+     * Function to update profile pictures for changes to profile pictures
+     * @param imageUri profile picture that was changed
+     */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
     }

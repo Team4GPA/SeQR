@@ -25,6 +25,18 @@ public class EventManagementFragment extends Fragment {
     private Button pQRButton;
     private Button eManagementBackButton;
 
+    /**
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -56,6 +68,10 @@ public class EventManagementFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Send user to checkin QRcode of the event
+     * @param bundle data from the fragment
+     */
     public void setcQRButtonListener(Bundle bundle){
         cQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +90,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Send user to promotion QRcode of the event
+     * @param bundle data from the fragment
+     */
     public void setpQRButton(Bundle bundle){
         pQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
