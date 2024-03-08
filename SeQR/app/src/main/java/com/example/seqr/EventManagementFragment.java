@@ -48,6 +48,7 @@ public class EventManagementFragment extends Fragment {
         Picasso.get().load(imageUrl).into(eManagementPhoto);
 
         setcQRButtonListener(bundle);
+        setpQRButton(bundle);
 
         return view;
     }
@@ -66,6 +67,26 @@ public class EventManagementFragment extends Fragment {
                         .replace(R.id.fragment_container, cqrFragment)
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+    }
+
+    public void setpQRButton(Bundle bundle){
+        pQRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PQRFragment pqrFragment = new PQRFragment();
+                Bundle args = new Bundle();
+                args.putString("promotionQR",bundle.getString("promotionQR"));
+                args.putString("eventID", bundle.getString("eventID"));
+
+                pqrFragment.setArguments(args);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, pqrFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+
             }
         });
     }
