@@ -3,6 +3,7 @@ package com.example.seqr;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.util.Log;
@@ -14,7 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seqr.controllers.EventController;
+import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Event;
+import com.example.seqr.models.ID;
+import com.example.seqr.models.SignUp;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -39,6 +45,12 @@ public class EventInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String eventId = bundle.getString("eventId","");
+        signUpButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onSignUpPressed(eventId);
+            }
+        });
         EventController eventController = new EventController();
         eventController.getEventById(eventId,task -> {
             if(task.isSuccessful()){
@@ -68,6 +80,29 @@ public class EventInfoFragment extends Fragment {
         });
 
         return view;
+
+    }
+
+    private void onSignUpPressed(String eventId){
+        String userID = ID.getProfileId(getContext());
+        ProfileController profileController = new ProfileController();
+        profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null && doc.exists()){
+                        String userName = doc.getString("username");
+
+                        EventController eventController = new EventController();
+                        SignUp signUp = new SignUp(userID, userName);
+                        eventController.signUserUpForEvent(eventId,signUp);
+                    }
+                }else {
+                    Log.d("DEBUG", "Error in getting the username");
+                }
+            }
+        });
 
     }
 }
