@@ -2,6 +2,7 @@ package com.example.seqr.controllers;
 
 import android.util.Log;
 
+import com.example.seqr.database.Database;
 import com.google.android.gms.common.api.ResolvingResultCallbacks;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Tasks;
@@ -18,7 +19,7 @@ public class ImageController {
     private FirebaseStorage storage;
 
     public ImageController(){
-        storage = FirebaseStorage.getInstance();
+        storage = Database.getStorage();
     }
 
     public interface FileListCallback {

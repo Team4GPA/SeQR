@@ -53,6 +53,7 @@ public class AImagesFragment extends Fragment {
             public void onSuccess(List<String> fileList) {
                 // Do whatever you want with the file list
                 for (String fileName : fileList) {
+                    fileName = "EventPoster/" + fileName;
                     imageList.add(fileName);
                 }
                 imageAdapter.notifyDataSetChanged();
@@ -70,6 +71,7 @@ public class AImagesFragment extends Fragment {
             public void onSuccess(List<String> fileList) {
                 // Do whatever you want with the file list
                 for (String fileName : fileList) {
+                    fileName = "ProfilePictures/" + fileName;
                     imageList.add(fileName);
                 }
                 imageAdapter.notifyDataSetChanged();
@@ -81,6 +83,7 @@ public class AImagesFragment extends Fragment {
                 e.printStackTrace();
             }
         });
+
 
         return view;
     }

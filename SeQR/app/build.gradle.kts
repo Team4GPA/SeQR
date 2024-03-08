@@ -51,5 +51,7 @@ dependencies {
     //image upload stuff
     //implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
+    implementation("com.amplitude:android-sdk:2.34.1")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
 }
