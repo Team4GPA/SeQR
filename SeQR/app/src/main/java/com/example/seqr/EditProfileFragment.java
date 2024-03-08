@@ -148,7 +148,7 @@ public class EditProfileFragment extends Fragment {
                 @Override
                 public void onSuccess(Void aVoid) {
                     // Notify MainActivity about the profile picture update
-                    ((MainActivity) getActivity()).updateProfilePicture(imageUri);
+//                    ((MainActivity) getActivity()).updateProfilePicture(imageUri);
                 }
             }, new OnFailureListener() {
                 @Override
