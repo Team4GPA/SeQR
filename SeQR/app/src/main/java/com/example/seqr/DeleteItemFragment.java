@@ -11,8 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+/**
+ * A dialog fragment for confirming deletion.
+ */
 public class DeleteItemFragment extends DialogFragment {
 
+    /**
+     * Interface for handling dialog button clicks.
+     */
     public interface ConfirmationDialogListener {
         void onYesClicked();
         void onNoClicked();

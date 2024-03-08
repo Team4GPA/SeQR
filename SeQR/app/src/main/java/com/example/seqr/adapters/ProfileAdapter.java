@@ -13,13 +13,28 @@ import com.squareup.picasso.Picasso;
 import com.example.seqr.models.Profile;
 import java.util.List;
 
+/**
+ * An adapter class for managing profiles in a RecyclerView.
+ */
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
     private List<Profile> profileList;
 
+    /**
+     * Constructs a ProfileAdapter with the provided list of profiles.
+     *
+     * @param profileList The list of profiles to be displayed.
+     */
     public ProfileAdapter(List<Profile> profileList){
         this.profileList = profileList;
     }
 
+    /**
+     * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
+     *
+     * @param parent The ViewGroup into which the new View will be added after it is bound to an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new ProfileViewHolder that holds the View for each profile item.
+     */
     @NonNull
     @Override
     public ProfileViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -27,6 +42,12 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
         return new ProfileViewHolder(itemView);
     }
 
+    /**
+     * Called by RecyclerView to display the profile at the specified position.
+     *
+     * @param holder The ViewHolder which should be updated to represent the content of the profile at the given position in the data set.
+     * @param position The position of the profile within the adapter's data set.
+     */
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
         Profile profile = profileList.get(position);
@@ -35,6 +56,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
         holder.textView.setText(profile.getUsername()); // replace with real getter
     }
 
+    /**
+     * Returns the total number of profiles in the list held by the adapter.
+     *
+     * @return The total number of profiles in the list.
+     */
     @Override
     public int getItemCount() {
         return profileList.size();

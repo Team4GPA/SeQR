@@ -19,7 +19,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * A fragment for displaying a list of possible events for users in the lobby.
+ */
 public class EventLobbyFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
@@ -31,7 +33,12 @@ public class EventLobbyFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.eventLobbyRecyclerview);
         eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList);
+        eventAdapter = new EventAdapter(eventsList, new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Event event) {
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(eventAdapter);
 

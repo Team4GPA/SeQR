@@ -21,6 +21,9 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment showing all profiles for administrator.
+ */
 public class AProfilesFragment extends Fragment {
 
     private RecyclerView recyclerView;

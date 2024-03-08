@@ -9,7 +9,9 @@ import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 
-
+/**
+ * A fragment for editing events in the admin dashboard.
+ */
 public class AEditEventFragment extends Fragment implements DeleteItemFragment.ConfirmationDialogListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -39,6 +41,9 @@ public class AEditEventFragment extends Fragment implements DeleteItemFragment.C
 
         return view;
     }
+    /**
+     * Show confirmation dialog for deletion.
+     */
     private void showConfirmationDialog() {
         DeleteItemFragment dialogFragment = new DeleteItemFragment();
         dialogFragment.show(getParentFragmentManager(), "ConfirmationDialogFragment");

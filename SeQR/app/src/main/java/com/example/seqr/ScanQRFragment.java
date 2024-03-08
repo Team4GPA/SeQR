@@ -19,11 +19,21 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScannerOptions;
 import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 
 /**
+<<<<<<< HEAD
+ * A fragment responsible for scanning QR codes using Google Play Services barcode scanner.
+=======
+ * ScanQRFragment
+ * <p>
+>>>>>>> aa518e3d45d3bab48b9272daf41ee734d31cf815
  * This fragment should pop up a video window that shows a live feed for an Android
  * camera for scanning QR codes. It is currently a work in progress.
- *
+ * </p>
+ * ** This fragment requires API 31 at minimum to access Google Play functionality. **
+ * @author Kyle Zwarich
+ * @version .1
+ * <p>
  * Mar 4: replace camera with google play services barcode scanner to skip permissions
- * -KZ
+ * </p>
  */
 public class ScanQRFragment extends Fragment {
     private String returnVal;
@@ -65,6 +75,7 @@ public class ScanQRFragment extends Fragment {
                 .addOnCanceledListener(()->
                 {
                     //canceled
+                    Log.d("ScanQR", "scan cancelled by user.");
                     Toast.makeText(getContext(), "Cancelled QR Code Scan!", Toast.LENGTH_SHORT).show();
 
                 })
@@ -74,7 +85,11 @@ public class ScanQRFragment extends Fragment {
                     Log.e("ScanQR", "Exception: ", e);
                 });
     }
-
+    /**
+     * Retrieves the result of the QR code scan.
+     *
+     * @return The result of the QR code scan.
+     */
     public String reportQRResult(){
         return this.returnVal;
     }

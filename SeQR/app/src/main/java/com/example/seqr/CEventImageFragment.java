@@ -19,6 +19,9 @@ import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
+/**
+ * A fragment for selecting an image for event as poster.
+ */
 public class CEventImageFragment extends Fragment {
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
@@ -75,6 +78,9 @@ public class CEventImageFragment extends Fragment {
         return view;
 
     }
+    /**
+     * Opens a file chooser for selecting an image.
+     */
     private  void openFileChooser(){
         Intent intent = new Intent();
         intent.setType("image/*");
@@ -83,6 +89,10 @@ public class CEventImageFragment extends Fragment {
     }
 
 
+    /**
+     * Called when an activity you launched exits, giving you the requestCode you started it with,
+     * the resultCode it returned, and any additional data from it (new image in this case).
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
