@@ -1,20 +1,30 @@
 package com.example.seqr;
 
-import android.app.AlertDialog;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 /**
  * A fragment for editing events in the admin dashboard.
  */
-public class AEditEventFragment extends Fragment implements DeleteItemFragment.ConfirmationDialogListener {
+public class AEditEventFragment extends Fragment {
+    TextView eventNameTextView;
+    TextView eventOrganizerTextView;
+    TextView eventLocationTextView;
+    TextView eventTimeTextView;
+    TextView eventCapacityTextView;
+    TextView eventDescriptionTextView;
+    ImageView eventImageView;
+
     /**
      * Creates a view and associated logic for the view and returns it to whoever built the fragment
      *
@@ -35,6 +45,37 @@ public class AEditEventFragment extends Fragment implements DeleteItemFragment.C
         Button deleteProfileButton = view.findViewById(R.id.admin_event_edit_delete_button);
         Button backButton = view.findViewById(R.id.admin_edit_event_back_button);
 
+        eventNameTextView = view.findViewById(R.id.admin_event_edit_name);
+        eventOrganizerTextView = view.findViewById(R.id.admin_event_edit_organizer);
+        eventLocationTextView = view.findViewById(R.id.admin_event_edit_location);
+        eventTimeTextView = view.findViewById(R.id.admin_event_edit_time);
+        eventCapacityTextView = view.findViewById(R.id.admin_event_edit_capacity);
+        eventDescriptionTextView = view.findViewById(R.id.admin_event_edit_description);
+        eventImageView = view.findViewById(R.id.admin_event_edit_photo);
+
+        Bundle bundle = getArguments();
+        assert bundle != null;
+        String organizerName = bundle.getString("organizer","");
+        String eventName = bundle.getString("eventName", "");
+        String eventLocation = bundle.getString("location", "");
+        String eventTime = bundle.getString("eventStartTime", "");
+        String eventCapacity = bundle.getString("maxCapacity", "");
+        String eventDescription = bundle.getString("eventDesc", "");
+        String eventID = bundle.getString("eventID", "");
+
+        eventOrganizerTextView.setText(organizerName);
+        eventNameTextView.setText(eventName);
+        eventLocationTextView.setText(eventLocation);
+        eventTimeTextView.setText(eventTime);
+        eventCapacityTextView.setText(eventCapacity);
+        eventDescriptionTextView.setText(eventDescription);
+
+        // Convert the imageID into an event poster and replace the image view with it
+        String path = Uri.encode("EventPosters/"+eventID+".jpg");
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+        Uri eventImageUri = Uri.parse(imageUrl);
+        Picasso.get().load(eventImageUri).into(eventImageView);
+
         // Handle pressing back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,44 +88,24 @@ public class AEditEventFragment extends Fragment implements DeleteItemFragment.C
         deleteProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showConfirmationDialog();
+                Bundle bundle1 = new Bundle();
+                bundle1.putString("eventID", eventID);
+                showConfirmationDialog(bundle1);
             }
         });
-
-
 
         return view;
     }
     /**
      * Show confirmation dialog for deletion.
+     * @param bundle A bundle with the event ID for the event
      */
-    private void showConfirmationDialog() {
-        DeleteItemFragment dialogFragment = new DeleteItemFragment();
-        dialogFragment.show(getParentFragmentManager(), "ConfirmationDialogFragment");
+    private void showConfirmationDialog(Bundle bundle) {
+        DeleteEventFragment dialogFragment = new DeleteEventFragment();
+        dialogFragment.setArguments(bundle);
+        dialogFragment.show(getChildFragmentManager(), "DeleteItemFragment");
     }
 
-    /**
-     * Handle when you confirm to delete an item
-     *
-     * @param v the view from the fragment so you can find the delete button
-     */
-    @Override
-    public void onYesClicked(View v) {
-        // Handle deletion
-    }
 
-    /**
-     * Handle when you cancel deletion of an item
-     *
-     * @param v the view from the fragment so you can find the cancel deletion button
-     */
-    @Override
-    public void onNoClicked(View v) {
-        // Dismiss dialog
-        Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("ConfirmationDialogFragment");
-        if (dialogFragment != null) {
-            getParentFragmentManager().beginTransaction().remove(dialogFragment).commit();
-        }
-    }
 }
 

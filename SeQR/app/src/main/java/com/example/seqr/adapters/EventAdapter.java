@@ -34,8 +34,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
     public EventAdapter(List<Event> eventList, OnItemClickListener listener) {
         this.eventList = eventList;
         this.listener = listener;
-
-
     }
 
     /**

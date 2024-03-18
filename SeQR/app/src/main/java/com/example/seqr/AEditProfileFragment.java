@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 /**
  * A fragment for editing profiles in the admin dashboard.
  */
-public class AEditProfileFragment extends Fragment implements DeleteItemFragment.ConfirmationDialogListener {
+public class AEditProfileFragment extends Fragment{
     /**
      * Creates a view and associated logic for the view and returns it to whoever built the fragment
      *
@@ -55,31 +55,8 @@ public class AEditProfileFragment extends Fragment implements DeleteItemFragment
      * Shows the confirmation dialog for profile deletion.
      */
     private void showConfirmationDialog() {
-        DeleteItemFragment dialogFragment = new DeleteItemFragment();
-        dialogFragment.show(getParentFragmentManager(), "ConfirmationDialogFragment");
+        DeleteEventFragment dialogFragment = new DeleteEventFragment();
+        dialogFragment.show(getChildFragmentManager(), "ConfirmationDialogFragment");
     }
 
-    /**
-     * Handle when you confirm to delete an item
-     *
-     * @param v the view from the fragment so you can find the delete button
-     */
-    @Override
-    public void onYesClicked(View v) {
-        // Handle deletion
-    }
-
-    /**
-     * Handle when you cancel deletion of an item
-     *
-     * @param v the view from the fragment so you can find the cancel deletion button
-     */
-    @Override
-    public void onNoClicked(View v) {
-        // Dismiss dialog
-        Fragment dialogFragment = getParentFragmentManager().findFragmentByTag("ConfirmationDialogFragment");
-        if (dialogFragment != null) {
-            getParentFragmentManager().beginTransaction().remove(dialogFragment).commit();
-        }
-    }
 }
