@@ -33,7 +33,7 @@ import com.squareup.picasso.Picasso;
 public class EditProfileFragment extends Fragment {
 
     EditText usernameEditText, phoneNumberEditText, emailEditText, homepageEditText;
-    Button editPersonalInfoButton, editProfilePictureButton;
+    Button editPersonalInfoButton, editProfilePictureButton, editBackButton;
     private ImageView profileImageView;
 
     private static final int PICK_IMAGE_REQUEST = 1;
@@ -66,6 +66,7 @@ public class EditProfileFragment extends Fragment {
         editPersonalInfoButton = view.findViewById(R.id.edit_personal_information);
         profileImageView = view.findViewById(R.id.photoPreview);
         editProfilePictureButton = view.findViewById(R.id.edit_profile_picture_button);
+        editBackButton = view.findViewById(R.id.edit_back_button);
 
 
         ProfileController profileController = new ProfileController();
@@ -126,8 +127,17 @@ public class EditProfileFragment extends Fragment {
                 getParentFragmentManager().popBackStack();
             }
         });
+
+        //add listener to "back" button to pop the backstack and return to previous view.
+        editBackButton.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
+        });
+
         return view;
     }
+    //end of OnCreate
+    //==============================================================================================
+
     /**
      * Opens a file chooser for selecting an image to upload as your profile picture.
      */
