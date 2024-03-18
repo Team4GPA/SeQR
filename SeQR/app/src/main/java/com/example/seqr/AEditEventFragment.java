@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 /**
  * A fragment for editing events in the admin dashboard.
@@ -42,7 +44,6 @@ public class AEditEventFragment extends Fragment implements DeleteItemFragment.C
         });
 
         // Handle pressing delete button
-
         deleteProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
