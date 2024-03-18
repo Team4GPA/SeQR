@@ -21,11 +21,10 @@
             android:id="@+id/eventInfoNameText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="fill_vertical"
+            android:layout_gravity="center_horizontal"
             android:includeFontPadding="true"
             android:padding="15sp"
             android:text="Event Info"
-            android:textAlignment="center"
             android:textSize="30sp"
             android:textStyle="bold" />
     </ScrollView>
