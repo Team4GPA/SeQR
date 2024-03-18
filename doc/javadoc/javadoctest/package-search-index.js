@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"com.example.seqr"},{"l":"com.example.seqr.adapters"},{"l":"com.example.seqr.controllers"},{"l":"com.example.seqr.database"},{"l":"com.example.seqr.models"}];updateSearchResults();
