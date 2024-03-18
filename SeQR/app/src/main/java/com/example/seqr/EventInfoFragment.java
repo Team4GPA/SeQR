@@ -104,6 +104,11 @@ public class EventInfoFragment extends Fragment {
             }
         });
 
+        Button backButton = view.findViewById(R.id.backButtonEventInfo);
+        backButton.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
+        });
+
         return view;
 
     }
