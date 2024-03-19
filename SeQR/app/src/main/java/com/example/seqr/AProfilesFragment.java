@@ -72,7 +72,6 @@ public class AProfilesFragment extends Fragment {
                 bundle.putString("phoneNumber", profile.getPhoneNumber());
                 bundle.putString("homePage", profile.getHomePage());
                 bundle.putString("id", profile.getId());
-                bundle.putString("profilePic",profile.getProfilePic());
                 bundle.putBoolean("isAdmin",profile.isAdmin());
                 AEditProfileFragment editProfileFragment = new AEditProfileFragment();
                 editProfileFragment.setArguments(bundle);

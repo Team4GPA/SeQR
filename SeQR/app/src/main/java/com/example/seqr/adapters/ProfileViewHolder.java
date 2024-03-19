@@ -32,6 +32,6 @@ public class ProfileViewHolder extends RecyclerView.ViewHolder{
         String path = Uri.encode("ProfilePictures/" + profileID + ".jpg");
         //this is the URL that the image is stored in firebase, picasso uses this to download the image
         String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-        Picasso.get().load(imageUrl).into(imageView);
+        Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(imageView);
     }
 }

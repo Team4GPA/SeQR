@@ -103,7 +103,7 @@ public class AEditEventFragment extends Fragment {
     private void showConfirmationDialog(Bundle bundle) {
         DeleteEventFragment dialogFragment = new DeleteEventFragment();
         dialogFragment.setArguments(bundle);
-        dialogFragment.show(getChildFragmentManager(), "DeleteItemFragment");
+        dialogFragment.show(getChildFragmentManager(), "DeleteEventFragment");
     }
 
 
