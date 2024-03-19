@@ -65,6 +65,7 @@ public class ScanQRFragment extends Fragment {
                     //
                     Bundle result = new Bundle();
                     result.putString("gotQR", this.returnVal);
+
                     getParentFragmentManager().setFragmentResult("reqQR", result);
                     Log.d(DBTAG, "Sent bundle to FragmentResult with value " + result.getString("gotQR") + " and bundle is empty: " + result.isEmpty());
                 })
