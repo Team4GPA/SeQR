@@ -46,6 +46,7 @@ public class EventManagementFragment extends Fragment {
         eManagementPhoto = view.findViewById(R.id.EManagementPhoto);
         cQRButton = view.findViewById(R.id.CQRButton);
         pQRButton = view.findViewById(R.id.PQRButton);
+        eManagementBackButton = view.findViewById(R.id.EManagementBackButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -64,6 +65,7 @@ public class EventManagementFragment extends Fragment {
 
         setcQRButtonListener(bundle);
         setpQRButton(bundle);
+        seteManagementBackButton();
 
         return view;
     }
@@ -87,6 +89,17 @@ public class EventManagementFragment extends Fragment {
                         .addToBackStack(null)
                         .commit();
             }
+        });
+    }
+
+    /**
+     * Set the back button functionality
+     * @author Kyle Zwarich
+     *
+     */
+    public void seteManagementBackButton(){
+        eManagementBackButton.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
         });
     }
 

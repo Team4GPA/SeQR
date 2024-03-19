@@ -3,12 +3,9 @@ package com.example.seqr;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seqr.controllers.EventController;
-import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Event;
 import com.example.seqr.models.ID;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -58,7 +51,7 @@ public class CEventPreviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_c_event_preview, container, false);
 
-        Button backButton = view.findViewById(R.id.BackButton);
+        Button backButton = view.findViewById(R.id.QRCheckInBackButton);
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
