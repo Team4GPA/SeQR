@@ -9,6 +9,8 @@ public class Announcement {
     private String title;
     private String description;
     private Timestamp time;
+    private String eventID;
+    private String announcementID;
 
     /**
      * Constructs an Announcement object with the given title, description, and time.
@@ -76,4 +78,21 @@ public class Announcement {
     public void setTime(Timestamp time) {
         this.time = time;
     }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public String getAnnouncementID() {
+        return announcementID;
+    }
+
+    public void setAnnouncementID(String announcementID) {
+        this.announcementID = announcementID;
+    }
 }
+
