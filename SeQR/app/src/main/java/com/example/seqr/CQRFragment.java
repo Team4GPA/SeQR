@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 /**
@@ -33,6 +34,7 @@ public class CQRFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cqr, container, false);
+        Button checkinQRBack = view.findViewById(R.id.QRCheckInBackButton);
 
         QRCodeGenerator qrGen = new QRCodeGenerator();
         ImageView qrView = view.findViewById(R.id.ECQRQRCode);
@@ -42,6 +44,10 @@ public class CQRFragment extends Fragment {
         String qrcode = bundle.getString("checkInQR");
         Bitmap bitcode = qrGen.convertToBitmap(qrcode);
         qrView.setImageBitmap(bitcode);
+
+        checkinQRBack.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
+        });
 
         return view;
 
