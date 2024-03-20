@@ -24,7 +24,7 @@ public class EventManagementFragment extends Fragment {
     private Button cQRButton;
     private Button pQRButton;
     private Button eManagementBackButton;
-
+    private Button announcementListButton;
     /**
      *
      * @param inflater The LayoutInflater object that can be used to inflate
@@ -47,6 +47,7 @@ public class EventManagementFragment extends Fragment {
         cQRButton = view.findViewById(R.id.CQRButton);
         pQRButton = view.findViewById(R.id.PQRButton);
         eManagementBackButton = view.findViewById(R.id.EManagementBackButton);
+        announcementListButton = view.findViewById(R.id.AnnouncementButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -121,8 +122,23 @@ public class EventManagementFragment extends Fragment {
                         .replace(R.id.fragment_container, pqrFragment)
                         .addToBackStack(null)
                         .commit();
+            }
+        });
+    }
 
+    public void setAnnouncementListButton(Bundle bundle) {
+        announcementListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventAnnouncementListFragment eventAnnouncementListFragment = new EventAnnouncementListFragment();
+                Bundle args = new Bundle();
+                args.putString("eventID", bundle.getString("eventID"));
 
+                eventAnnouncementListFragment.setArguments(args);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, eventAnnouncementListFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
