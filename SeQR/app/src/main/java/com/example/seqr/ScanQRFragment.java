@@ -72,6 +72,9 @@ public class ScanQRFragment extends Fragment {
                 .addOnCanceledListener(()->
                 {
                     //canceled
+                    Bundle nullResult = new Bundle();
+                    nullResult.putString("gotQR", "NULL");
+                    getParentFragmentManager().setFragmentResult("reqQR", nullResult);
                     Log.d("ScanQR", "scan cancelled by user.");
                     Toast.makeText(getContext(), "Cancelled QR Code Scan!", Toast.LENGTH_SHORT).show();
 
