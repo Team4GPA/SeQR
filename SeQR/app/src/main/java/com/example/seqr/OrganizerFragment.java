@@ -102,6 +102,7 @@ public class OrganizerFragment extends Fragment {
         bundle.putString("checkInQR",event.getCheckInQR());
         bundle.putString("promotionQR",event.getPromotionQR());
         bundle.putString("eventName",event.getEventName());
+        bundle.putString("organizer", event.getOrganizer());
 
         EventManagementFragment eventManagementFragment = new EventManagementFragment();
         eventManagementFragment.setArguments(bundle);

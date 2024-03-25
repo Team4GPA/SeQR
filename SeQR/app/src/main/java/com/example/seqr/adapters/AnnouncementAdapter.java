@@ -39,7 +39,7 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementViewHo
 
         holder.titleView.setText(announcement.getTitle());
         holder.descView.setText(announcement.getDescription());
-        holder.timeView.setText(announcement.getTime().toString());
+        holder.timeView.setText(announcement.getTime().toDate().toString());
 
         holder.itemView.setOnClickListener(view -> listener.onItemClick(announcement));
     }

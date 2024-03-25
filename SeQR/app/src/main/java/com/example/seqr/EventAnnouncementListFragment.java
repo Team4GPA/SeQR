@@ -39,12 +39,8 @@ public class EventAnnouncementListFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(announcementAdapter);
         Button EALBackButton = view.findViewById(R.id.EALBackButton);
-        EALBackButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                getParentFragmentManager().popBackStack();
-            }
-        });
+        Button EALCreateButton = view.findViewById(R.id.EALCreateButton);
+
         Bundle bundle = getArguments();
         assert bundle != null;
         eventID = bundle.getString("eventID","");
@@ -61,6 +57,26 @@ public class EventAnnouncementListFragment extends Fragment {
                 Log.d("DEBUG", "there was some error in announcement retrieval", task.getException());
             }
         });
+
+        EALBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
+        EALCreateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              CAnnouncementFragment cAnnouncementFragment = new CAnnouncementFragment();
+              cAnnouncementFragment.setArguments(bundle);
+
+              getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, cAnnouncementFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
 
         return view;
     }

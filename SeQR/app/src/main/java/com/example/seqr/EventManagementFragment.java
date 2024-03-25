@@ -66,6 +66,7 @@ public class EventManagementFragment extends Fragment {
 
         setcQRButtonListener(bundle);
         setpQRButton(bundle);
+        setAnnouncementListButton(bundle);
         seteManagementBackButton();
 
         return view;
@@ -133,8 +134,9 @@ public class EventManagementFragment extends Fragment {
                 EventAnnouncementListFragment eventAnnouncementListFragment = new EventAnnouncementListFragment();
                 Bundle args = new Bundle();
                 args.putString("eventID", bundle.getString("eventID"));
-
+                args.putString("organizer", bundle.getString("organizer"));
                 eventAnnouncementListFragment.setArguments(args);
+
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, eventAnnouncementListFragment)
                         .addToBackStack(null)
