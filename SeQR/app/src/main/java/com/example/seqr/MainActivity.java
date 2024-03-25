@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).into(profileImageView);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
 
 
             //for testing: add a floating QR button over the main fragment view 'fragment_container'
