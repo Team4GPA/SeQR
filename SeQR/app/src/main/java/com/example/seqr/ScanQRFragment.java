@@ -80,6 +80,7 @@ public class ScanQRFragment extends Fragment {
                     //task failed with an exception
                     Log.d("ScanQR", "Exception: error on QR scan.");
                     Log.e("ScanQR", "Exception: ", e);
+                    getParentFragmentManager().popBackStack();
                 });
     }
     /**
