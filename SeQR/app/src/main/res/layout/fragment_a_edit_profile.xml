@@ -157,6 +157,7 @@
     </Button>
 
     <CheckBox
+        android:id="@+id/admin_edit_profile_admin_checkbox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Admin"

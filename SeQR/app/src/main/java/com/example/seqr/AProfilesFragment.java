@@ -1,6 +1,7 @@
 package com.example.seqr;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,6 +18,8 @@ import com.example.seqr.adapters.ProfileAdapter;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Profile;
 import com.google.firebase.firestore.DocumentSnapshot;
+
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,7 +61,23 @@ public class AProfilesFragment extends Fragment {
         // Create recycler view
         recyclerView = view.findViewById(R.id.admin_profiles);
         profileList = new ArrayList<>();
-        profileAdapter = new ProfileAdapter(profileList);
+
+        FragmentManager frgMgr = getParentFragmentManager();
+        profileAdapter = new ProfileAdapter(profileList, new ProfileAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Profile profile) {
+                Bundle bundle = new Bundle();
+                bundle.putString("username", profile.getUsername());
+                bundle.putString("email", profile.getEmail());
+                bundle.putString("phoneNumber", profile.getPhoneNumber());
+                bundle.putString("homePage", profile.getHomePage());
+                bundle.putString("id", profile.getId());
+                bundle.putBoolean("isAdmin",profile.isAdmin());
+                AEditProfileFragment editProfileFragment = new AEditProfileFragment();
+                editProfileFragment.setArguments(bundle);
+                frgMgr.beginTransaction().replace(R.id.fragment_container, editProfileFragment).addToBackStack(null).commit();
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
         recyclerView.setAdapter(profileAdapter);
