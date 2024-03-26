@@ -24,6 +24,7 @@ public class EventManagementFragment extends Fragment {
     private Button cQRButton;
     private Button pQRButton;
     private Button eManagementBackButton;
+    private Button viewSignUpsButton;
 
     /**
      *
@@ -47,6 +48,7 @@ public class EventManagementFragment extends Fragment {
         cQRButton = view.findViewById(R.id.CQRButton);
         pQRButton = view.findViewById(R.id.PQRButton);
         eManagementBackButton = view.findViewById(R.id.EManagementBackButton);
+        viewSignUpsButton =  view.findViewById(R.id.SignedUpButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -66,6 +68,7 @@ public class EventManagementFragment extends Fragment {
         setcQRButtonListener(bundle);
         setpQRButton(bundle);
         seteManagementBackButton();
+        setViewSignUpsButton(bundle);
 
         return view;
     }
@@ -119,6 +122,24 @@ public class EventManagementFragment extends Fragment {
                 pqrFragment.setArguments(args);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, pqrFragment)
+                        .addToBackStack(null)
+                        .commit();
+
+
+            }
+        });
+    }
+
+    public void setViewSignUpsButton(Bundle bundle){
+        viewSignUpsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SignUpsFragment signUpsFragment= new SignUpsFragment();
+                Bundle args = new Bundle();
+                args.putString("eventID",bundle.getString("eventID"));
+                signUpsFragment.setArguments(args);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, signUpsFragment)
                         .addToBackStack(null)
                         .commit();
 
