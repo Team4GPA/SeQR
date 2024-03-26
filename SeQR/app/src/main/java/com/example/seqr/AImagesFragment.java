@@ -1,6 +1,7 @@
 package com.example.seqr;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -61,9 +62,9 @@ public class AImagesFragment extends Fragment {
         // Create recycler view
         recyclerView = view.findViewById(R.id.admin_images);
         imageList = new ArrayList<>();
-        imageAdapter = new ImageAdapter(imageList);
+        imageAdapter = new ImageAdapter(imageList, this.getContext());
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));
+        recyclerView.setLayoutManager(new GridLayoutManager(this.getContext(),3));
         recyclerView.setAdapter(imageAdapter);
 
         // Query to get all profiles
@@ -74,9 +75,8 @@ public class AImagesFragment extends Fragment {
                 for (String fileName : fileList) {
                     fileName = "ProfilePictures/" + fileName;
                     imageList.add(fileName);
-                    imageAdapter.notifyDataSetChanged();
                 }
-
+                imageAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -92,8 +92,8 @@ public class AImagesFragment extends Fragment {
                 for (String fileName : fileList) {
                     fileName = "EventPosters/" + fileName;
                     imageList.add(fileName);
-                    imageAdapter.notifyDataSetChanged();
                 }
+                imageAdapter.notifyDataSetChanged();
             }
 
             @Override

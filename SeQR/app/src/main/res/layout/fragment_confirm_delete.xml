@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -31,7 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/delete_item_text"
         app:layout_constraintRight_toLeftOf="@+id/delete_item_cancel_button">
     </Button>
-    <!--android:onClick="onYesClicked"-->
+
     <Button
         android:id="@+id/delete_item_cancel_button"
         android:layout_width="wrap_content"
@@ -44,6 +44,6 @@
         app:layout_constraintLeft_toRightOf="@+id/delete_item_confirm_button"
         app:layout_constraintTop_toTopOf="@+id/delete_item_confirm_button">
     </Button>
-    <!--android:onClick="onNoClicked"-->
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
