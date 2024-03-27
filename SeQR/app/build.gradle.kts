@@ -33,6 +33,29 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    //if you add another subfolder in the res/layouts/... folder, you need
+    //to add it to this section, relative to the build.gradle.kts file:
+    //so, to add subfolder 'foo', add the line:
+    //      res.srcDir("/src/main/res/layouts/foo/")
+    //don't forget to add the "layout" (no 's') as a subfolder within that
+    //to properly populate the resource lists for any R.layout.[...] call!
+//    sourceSets{
+//        getByName("main"){
+//            java{
+//                res.srcDir("/src/main/res/layouts/administrator")
+//                res.srcDir("/src/main/res/layouts/announcements")
+//                res.srcDir("/src/main/res/layouts/attendee")
+//                res.srcDir("/src/main/res/layouts/events")
+//                res.srcDir("/src/main/res/layouts/helpers")
+//                res.srcDir("/src/main/res/layouts/organizer")
+//                res.srcDir("/src/main/res/layouts/profile")
+//                res.srcDir("/src/main/res/layouts/qr")
+//                res.srcDir("/src/main/res/layouts/")
+//                res.srcDir("/src/main/res/layout/")
+//                res.srcDir("/src/main/res/")
+//            }
+//        }
+//    }
 }
 
 dependencies {
