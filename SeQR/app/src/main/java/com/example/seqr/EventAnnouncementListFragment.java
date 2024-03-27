@@ -33,17 +33,37 @@ public class EventAnnouncementListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_event_announcement_list, container, false);
+
+        Bundle bundle = getArguments();
+        assert bundle != null;
+        eventID = bundle.getString("eventID","");
+        Boolean ifOrganizer = bundle.getBoolean("ifOrganizer", false);
+
         recyclerView = view.findViewById(R.id.EALRecyclerview);
         announcementList = new ArrayList<>();
-        announcementAdapter = new AnnouncementAdapter(announcementList, this::announcementClicked);
+        announcementAdapter = new AnnouncementAdapter(announcementList, (announcement) -> announcementClicked(announcement, ifOrganizer));
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(announcementAdapter);
         Button EALBackButton = view.findViewById(R.id.EALBackButton);
         Button EALCreateButton = view.findViewById(R.id.EALCreateButton);
 
-        Bundle bundle = getArguments();
-        assert bundle != null;
-        eventID = bundle.getString("eventID","");
+        if (ifOrganizer) {
+            EALCreateButton.setVisibility(View.VISIBLE);
+            EALCreateButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    CAnnouncementFragment cAnnouncementFragment = new CAnnouncementFragment();
+                    cAnnouncementFragment.setArguments(bundle);
+
+                    getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, cAnnouncementFragment)
+                            .addToBackStack(null)
+                            .commit();
+                }
+            });
+        }
+        else {
+            EALCreateButton.setVisibility(View.GONE);
+        }
 
         AnnouncementController announcementController = new AnnouncementController();
         announcementController.getAnnouncementsByEvent(eventID, task -> {
@@ -65,25 +85,19 @@ public class EventAnnouncementListFragment extends Fragment {
             }
         });
 
-        EALCreateButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              CAnnouncementFragment cAnnouncementFragment = new CAnnouncementFragment();
-              cAnnouncementFragment.setArguments(bundle);
-
-              getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, cAnnouncementFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
-        });
-
 
         return view;
     }
 
-    public void announcementClicked (Announcement announcement) {
+    public void announcementClicked (Announcement announcement, Boolean ifOrganizer) {
         Bundle bundle = new Bundle();
         bundle.putString("announcementID", announcement.getAnnouncementID());
+        if (ifOrganizer) {
+            bundle.putBoolean("ifAttendee", false);
+        }
+        else {
+            bundle.putBoolean("ifAttendee", true);
+        }
         //open announcement field
         AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
         announcementDetailFragment.setArguments(bundle);

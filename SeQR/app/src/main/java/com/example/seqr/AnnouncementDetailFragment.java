@@ -39,7 +39,20 @@ public class AnnouncementDetailFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String announcementID = bundle.getString("announcementID","");
+        Boolean ifAttendee = bundle.getBoolean("ifAttendee", false);
 
+        if (ifAttendee) {
+            seeDetailButton.setVisibility(View.VISIBLE);
+            seeDetailButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
+        else {
+            seeDetailButton.setVisibility(View.GONE);
+        }
         announcementDetailBackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
