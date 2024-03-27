@@ -33,6 +33,23 @@ android {
     buildFeatures {
         viewBinding = true
     }
+    sourceSets{
+        getByName("main"){
+            java{
+                res.srcDir("/src/main/res/layouts/administrator")
+                res.srcDir("/src/main/res/layouts/announcements")
+                res.srcDir("/src/main/res/layouts/attendee")
+                res.srcDir("/src/main/res/layouts/events")
+                res.srcDir("/src/main/res/layouts/helpers")
+                res.srcDir("/src/main/res/layouts/organizer")
+                res.srcDir("/src/main/res/layouts/profile")
+                res.srcDir("/src/main/res/layouts/qr")
+                res.srcDir("/src/main/res/layouts/")
+                res.srcDir("/src/main/res/layout/")
+                res.srcDir("/src/main/res/")
+            }
+        }
+    }
 }
 
 dependencies {

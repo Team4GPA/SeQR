@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".organizer.OrganizerFragment">
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/floatingCreateEvent"
+        android:layout_width="340dp"
+        android:layout_height="92dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="sans-serif-black"
+        android:text="@string/tap_here_to_create_an_event"
+        android:textColor="@color/black"
+        android:textColorLink="@color/black"
+        android:textSize="19sp"
+        app:backgroundTint="#E4E4E4"
+        app:elevation="6dp"
+        app:fabSize="auto"
+        app:icon="@drawable/baseline_event_create_24"
+        app:iconGravity="end"
+        app:iconSize="54dp"
+        app:iconTint="@color/black"
+        android:layout_margin="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:maxImageSize="52dp"
+         />
+
+    <TextView
+        android:id="@+id/eventCreatedText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:text="@string/event_created"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/floatingCreateEvent"
+        app:layout_constraintVertical_bias="0.0" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/eventCreatedRecyclerview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="15sp"
+        android:outlineProvider="paddedBounds"
+        android:padding="10sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eventCreatedText" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
