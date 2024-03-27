@@ -54,4 +54,5 @@ dependencies {
     implementation("com.amplitude:android-sdk:2.34.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
+
 }

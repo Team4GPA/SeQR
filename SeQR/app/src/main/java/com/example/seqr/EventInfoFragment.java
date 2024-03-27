@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.seqr.controllers.EventController;
 import com.example.seqr.controllers.ProfileController;
@@ -25,6 +26,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Event Info fragment shows the event details and has a button for signing up to an event
@@ -128,6 +132,23 @@ public class EventInfoFragment extends Fragment {
                 if (task.isSuccessful()){
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null && doc.exists()){
+                        List<String> signedUpEvents = (List<String>) doc.get("signedUpEvents");
+                        //Check if the users signedUpEvents is null first i.e they havent signed up for anything yet
+                        if(signedUpEvents == null){
+                            signedUpEvents = new ArrayList<>();
+                        }
+                        // if they already signed up tell them
+                        if (signedUpEvents.contains(eventId)){
+                            // make sure context isn't null, was throwing errors before
+                            if (getContext() != null){
+                                Toast.makeText(getContext(), "Already signedup for this event", Toast.LENGTH_SHORT).show();
+                            }
+
+                        }else{
+                            signedUpEvents.add(eventId);
+                            profileController.signedUpEventsUpdater(userID,signedUpEvents);
+
+                        }
                         String userName = doc.getString("username");
 
                         EventController eventController = new EventController();
