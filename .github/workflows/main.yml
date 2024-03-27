@@ -10,7 +10,7 @@ jobs:
     defaults:
       run:
         shell: bash
-        #working-directory: ./SeQR
+        working-directory: ./SeQR
     steps:
     - uses: actions/checkout@v3
     - name: set up JDK 17
@@ -29,6 +29,6 @@ jobs:
       run: chmod +x gradlew
       
     - name: Build with Gradle
-      run: ./gradlew build
+      run: gradle build
     #- name: Run Unit Tests
       #run: ./gradlew test
