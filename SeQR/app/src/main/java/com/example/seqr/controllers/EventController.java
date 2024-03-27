@@ -127,6 +127,12 @@ public class EventController {
                 });
     }
 
+    public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
+        eventCollection.document(eventID).collection("signups")
+                .get()
+                .addOnCompleteListener(onCompleteListener);
+    }
+
 
 
 
