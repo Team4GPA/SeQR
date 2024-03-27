@@ -67,7 +67,7 @@ public class EventInfoFragment extends Fragment {
 
         Bundle bundle = getArguments();
         assert bundle != null;
-        String eventId = bundle.getString("eventId","");
+        String eventId = bundle.getString("eventID","");
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

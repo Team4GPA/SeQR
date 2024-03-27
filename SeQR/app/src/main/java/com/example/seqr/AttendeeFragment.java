@@ -111,6 +111,8 @@ public class AttendeeFragment extends Fragment {
         ScanQRFragment scanQRFragment = new ScanQRFragment();
         ExtendedFloatingActionButton floatingScanQRButton = view.findViewById(R.id.floatingScanQR);
 
+        //to receive data from the QR Code scanner, set up a ResultListener on "MainActivity" to listen
+        //for any "Result" in the app;
         getParentFragmentManager().setFragmentResultListener("reqQR", this.getActivity(), new FragmentResultListener() {
             @Override
             public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
@@ -120,34 +122,42 @@ public class AttendeeFragment extends Fragment {
                 //
                 // is result valid?
                 //
-                String resultSplit[]= qrResult.split("_");
-                String eventID = resultSplit[0];
-                EventController eventController = new EventController();
-                eventController.getAllEvents(task -> {
-                    if (task.isSuccessful()) {
-                        for (DocumentSnapshot documentSnapshot : task.getResult()) {
-                            Event event = documentSnapshot.toObject(Event.class);
-                            if (event != null) {
-                                // Check if the scanned QR code matches checkInQR or promotionQR of any event
-                                if (eventID.equals(event.getEventID())) {
-                                    // QR code is valid
-                                    Log.d(DBTAG, "QR Code is valid for event: " + event.getEventName());
-                                    launchSuccess(eventID);
-                                    return;
+                if (!qrResult.contentEquals("NULL")){
+                    String resultSplit[]= qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
+                    String eventID = resultSplit[0];
+                    EventController eventController = new EventController();
+                    eventController.getAllEvents(task -> {
+                        if (task.isSuccessful()) {
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                Event event = documentSnapshot.toObject(Event.class);
+                                if (event != null) {
+                                    // Check if the scanned QR code matches checkInQR or promotionQR of any event
+                                    if (eventID.equals(event.getEventID())) {
+                                        // QR code is valid
+                                        Log.d(DBTAG, "QR Code is valid for event: " + event.getEventName());
+                                        launchSuccess(eventID); //fire the transaction for loading the event into fragment container
+                                        return;
+                                    }
                                 }
                             }
-                        }
-                        // If loop completes and no match found, QR code is not valid for any event
-                        Log.d(DBTAG, "QR Code is not valid for any event.");
-                        launchNotFound();
-                    } else {
-                        Log.e(DBTAG, "Error fetching events for QR validation", task.getException());
+                            // If loop completes and no match found, QR code is not valid for any event
+                            Log.d(DBTAG, "QR Code is not valid for any event.");
+                            launchNotFound();
+                        } else {
+                            Log.e(DBTAG, "Error fetching events for QR validation", task.getException());
 
-                    }
-                });
+                        }
+                    });
+                }
+                else if (qrResult.contentEquals("NULL")){
+                    Log.d(DBTAG, "Scan cancelled or failed.");
+                    qrFailed();
+                }
+
             }
         });
 
+        //if the button is clicked, start the QR scanner!
         floatingScanQRButton.setOnClickListener(v -> {
             Log.d(DBTAG, "button clicked; launching scanner fragment");
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
@@ -167,7 +177,17 @@ public class AttendeeFragment extends Fragment {
         Bundle passQR = new Bundle();
         passQR.putString("eventId", QRData);
         eventInfo.setArguments(passQR);
+
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
+
+
+        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
+    }
+
+    public void qrFailed(){
+        Log.d(DBTAG, "qr code scan not successful: return to attendee view");
+        Fragment attendee = new AttendeeFragment();
+        getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
 
     }
 
@@ -175,7 +195,9 @@ public class AttendeeFragment extends Fragment {
      * Launches the event info window upon failed initialization.
      */
     public void launchNotFound() {
-
+        Log.d(DBTAG, "qr code scan successful but event not matched: return to attendee view");
+        Fragment attendee = new AttendeeFragment();
+        getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
     }
 }
 

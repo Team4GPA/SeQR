@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -57,12 +59,27 @@ public class AEventFragment extends Fragment {
             }
         });
 
+        FragmentManager fragMgr = getFragmentManager();
         // Create recycler view
         recyclerView = view.findViewById(R.id.admin_events);
         eventList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventList, event -> {
-            Log.d("DEBUG", "hello");
+        eventAdapter = new EventAdapter(eventList, new EventAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Event event){
+                Bundle bundle = new Bundle();
+                bundle.putString("eventName",event.getEventName());
+                bundle.putString("eventDesc", event.getEventDesc());
+                bundle.putString("maxCapacity", Integer.toString(event.getMaxCapacity()));
+                bundle.putString("organizer", event.getOrganizer());
+                bundle.putString("location", event.getLocation());
+                bundle.putString("eventStartTime", event.getEventStartTime());
+                bundle.putString("eventID", event.getEventID());
 
+
+                AEditEventFragment editEventFragment = new AEditEventFragment();
+                editEventFragment.setArguments(bundle);
+                fragMgr.beginTransaction().replace(R.id.fragment_container, editEventFragment).addToBackStack(null).commit();
+            }
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this.getContext()));

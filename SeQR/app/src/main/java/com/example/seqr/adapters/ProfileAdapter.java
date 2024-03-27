@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seqr.R;
+import com.example.seqr.models.Event;
 import com.squareup.picasso.Picasso;
 import com.example.seqr.models.Profile;
 import java.util.List;
@@ -17,15 +18,21 @@ import java.util.List;
  * An adapter class for managing profiles in a RecyclerView.
  */
 public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
+
+    public interface OnItemClickListener {
+        void onItemClick(Profile profile);
+    }
     private List<Profile> profileList;
+    private OnItemClickListener listener;
 
     /**
      * Constructs a ProfileAdapter with the provided list of profiles.
      *
      * @param profileList The list of profiles to be displayed.
      */
-    public ProfileAdapter(List<Profile> profileList){
+    public ProfileAdapter(List<Profile> profileList, OnItemClickListener listener){
         this.profileList = profileList;
+        this.listener = listener;
     }
 
     /**
@@ -51,9 +58,11 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ProfileViewHolder holder, int position) {
         Profile profile = profileList.get(position);
-        String imageUrl = profile.getProfilePic(); // replace with real getter
-        Picasso.get().load(imageUrl).into(holder.imageView);
-        holder.textView.setText(profile.getUsername()); // replace with real getter
+
+        holder.setProfilePic(profile.getId());
+        holder.itemView.setOnClickListener(view -> listener.onItemClick(profile));
+
+        holder.textView.setText(profile.getUsername());
     }
 
     /**
