@@ -1,5 +1,6 @@
 package com.example.seqr;
 
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +38,7 @@ import java.util.List;
  */
 
 public class EventInfoFragment extends Fragment {
+    private ImageButton eventInfoAnnouncementButton;
 
     /**
      *
@@ -64,6 +67,7 @@ public class EventInfoFragment extends Fragment {
         ImageView eventPhoto = view.findViewById(R.id.eventInfoPhotoPreview);
         TextView eventDescription = view.findViewById(R.id.eventInfoDescription);
         Button signUpButton = view.findViewById(R.id.signUpButtonEventInfo);
+        eventInfoAnnouncementButton = view.findViewById(R.id.eventInfoAnnouncementButton);
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -80,6 +84,8 @@ public class EventInfoFragment extends Fragment {
 
             }
         });
+
+
         EventController eventController = new EventController();
         eventController.getEventById(eventId,task -> {
             if(task.isSuccessful()){
@@ -112,6 +118,8 @@ public class EventInfoFragment extends Fragment {
         backButton.setOnClickListener(v -> {
             getParentFragmentManager().popBackStack();
         });
+
+        setEventInfoAnnouncementButton(bundle);
 
         return view;
 
@@ -162,5 +170,23 @@ public class EventInfoFragment extends Fragment {
             }
         });
 
+    }
+
+    public void setEventInfoAnnouncementButton(Bundle bundle) {
+        eventInfoAnnouncementButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventAnnouncementListFragment eventAnnouncementListFragment = new EventAnnouncementListFragment();
+                Bundle args = new Bundle();
+                args.putString("eventID", bundle.getString("eventID"));
+                args.putBoolean("ifOrganizer", false);
+                eventAnnouncementListFragment.setArguments(args);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, eventAnnouncementListFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
     }
 }

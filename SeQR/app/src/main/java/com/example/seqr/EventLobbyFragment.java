@@ -73,6 +73,7 @@ public class EventLobbyFragment extends Fragment {
     private void eventClicked(Event event){
         Bundle bundle = new Bundle();
         bundle.putString("eventID", event.getEventID());
+        bundle.putString("organizer", event.getOrganizer());
 
         EventInfoFragment eventInfoFragment = new EventInfoFragment();
         eventInfoFragment.setArguments(bundle);

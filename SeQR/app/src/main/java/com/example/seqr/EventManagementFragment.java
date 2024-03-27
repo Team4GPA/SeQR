@@ -145,6 +145,7 @@ public class EventManagementFragment extends Fragment {
                 Bundle args = new Bundle();
                 args.putString("eventID", bundle.getString("eventID"));
                 args.putString("organizer", bundle.getString("organizer"));
+                args.putBoolean("ifOrganizer", true);
                 eventAnnouncementListFragment.setArguments(args);
 
                 getParentFragmentManager().beginTransaction()
