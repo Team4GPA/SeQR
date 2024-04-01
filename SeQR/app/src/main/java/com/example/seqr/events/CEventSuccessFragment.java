@@ -71,8 +71,13 @@ public class CEventSuccessFragment extends Fragment {
         eventOrganizerTextView.setText(organizerName);
         eventLocationTextView.setText(eventLocation);
         eventTimeTextView.setText(eventTime);
-        eventCapacityTextView.setText(eventCapacity);
 
+        if (!eventCapacity.contentEquals("-1")){
+            eventCapacityTextView.setText(eventCapacity);
+        }
+        else {
+            eventCapacityTextView.setText("No Capacity Limit");
+        }
 
         //loads the image onto the event text
         Uri eventImageUri = Uri.parse(eventImageUriString);
@@ -90,8 +95,6 @@ public class CEventSuccessFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, pqrFragment);
                 fragmentTransaction.commit();
-
-
             }
         });
 

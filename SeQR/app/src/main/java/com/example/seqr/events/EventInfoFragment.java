@@ -1,5 +1,6 @@
 package com.example.seqr.events;
 
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,6 +28,7 @@ import com.example.seqr.models.ID;
 import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -73,15 +75,18 @@ public class EventInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String eventId = bundle.getString("eventID","");
+        Log.d("DEBUG", "Event ID :" + eventId);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSignUpPressed(eventId);
+                onSignUpPressed(eventId, getContext());
                 AttendeeFragment attendeeFragment = new AttendeeFragment();
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
                 fragmentTransaction.commit();
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+                bottomNavigationView.setSelectedItemId(R.id.bottom_attendee);
 
             }
         });
@@ -98,7 +103,12 @@ public class EventInfoFragment extends Fragment {
                     eventOrganizer.setText(event.getOrganizer());
                     eventLocation.setText(event.getLocation());
                     eventTime.setText(event.getEventStartTime());
-                    eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
+                    if (event.getMaxCapacity() == -1){
+                        eventCapacity.setText("No Capacity Limit");
+                    }
+                    else {
+                        eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
+                    }
                     eventDescription.setText(event.getEventDesc());
 
 
@@ -111,7 +121,7 @@ public class EventInfoFragment extends Fragment {
                     Log.d("Debug","There wasn't a document with that id");
                 }
             }else{
-                Log.d("Debug", "error in retrieveing the document/event");
+                Log.d("Debug", "error in retrieving the document/event");
             }
         });
 
@@ -129,11 +139,13 @@ public class EventInfoFragment extends Fragment {
     /**
      * When the signup button is pressed, get the Id and get the profile username using the id
      * after getting the username create a signup object with the username and id then call the event controller method for signing a user up
+     *
      * @param eventId this is the eventID
+     * @param context
      */
 
-    private void onSignUpPressed(String eventId){
-        String userID = ID.getProfileId(getContext());
+    private void onSignUpPressed(String eventId, Context context){
+        String userID = ID.getProfileId(context);
         ProfileController profileController = new ProfileController();
         profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -149,8 +161,8 @@ public class EventInfoFragment extends Fragment {
                         // if they already signed up tell them
                         if (signedUpEvents.contains(eventId)){
                             // make sure context isn't null, was throwing errors before
-                            if (getContext() != null){
-                                Toast.makeText(getContext(), "Already signedup for this event", Toast.LENGTH_SHORT).show();
+                            if (context != null){
+                                Toast.makeText(context, "Already signed up for this event!", Toast.LENGTH_SHORT).show();
                             }
 
                         }else{
