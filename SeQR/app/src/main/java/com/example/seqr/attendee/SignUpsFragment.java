@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 
 import com.example.seqr.adapters.ProfileAdapter;
@@ -43,6 +44,8 @@ public class SignUpsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_sign_ups, container, false);
+
+        Button signupsBack = view.findViewById(R.id.signUps_back_button);
 
         recyclerView = view.findViewById(R.id.signUps_profiles);
         profileList = new ArrayList<>();
@@ -98,6 +101,12 @@ public class SignUpsFragment extends Fragment {
 
             }
         });
+
+        signupsBack.setOnClickListener(v -> {
+            getParentFragmentManager().popBackStack();
+        });
+
+
 
         return view;
     }

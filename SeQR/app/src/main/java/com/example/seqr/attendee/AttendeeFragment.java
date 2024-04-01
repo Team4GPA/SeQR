@@ -86,6 +86,7 @@ public class AttendeeFragment extends Fragment {
                                             if (event != null){
                                                 eventsList.add(event);
                                                 eventAdapter.notifyDataSetChanged();
+                                                recyclerView.setAdapter(eventAdapter);
                                             }
                                         }else {
                                             Log.d("DEBUG","event does not exist in firebase" + eventID);
@@ -303,87 +304,3 @@ public class AttendeeFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
     }
 }
-
-    /*
-
-    A Demonstration "model": AKA, The Data
-    public class ListViewModel extends ViewModel {
-        private final MutableLiveData<Set<Filter>> filters = new MutableLiveData<>();
-
-        private final LiveData<List<Item>> originalList = ...;
-        private final LiveData<List<Item>> filteredList = ...;
-
-        public LiveData<List<Item>> getFilteredList() {
-            return filteredList;
-        }
-
-        public LiveData<Set<Filter>> getFilters() {
-            return filters;
-        }
-
-        public void addFilter(Filter filter) { ... }
-
-        public void removeFilter(Filter filter) { ... }
-    }
-
-     */
-
-    /* Demo Class: The View, AKA the AttendeeFragment
-    public class ListFragment extends Fragment {
-        private ListViewModel viewModel;
-
-        @Override
-        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            super.onViewCreated(view, savedInstanceState);
-            viewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
-            viewModel.getFilteredList().observe(getViewLifecycleOwner(), list -> {
-                // Update the list UI.
-            });
-        }
-    }
-
-     */
-
-    /* DEMO: The Actor, AKA the ScanQRFragment
-    public class FilterFragment extends Fragment {
-        private ListViewModel viewModel;
-
-        @Override
-        public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-            viewModel = new ViewModelProvider(requireActivity()).get(ListViewModel.class);
-            viewModel.getFilters().observe(getViewLifecycleOwner(), set -> {
-                // Update the selected filters UI.
-            });
-        }
-
-        public void onFilterSelected(Filter filter) {
-            viewModel.addFilter(filter);
-        }
-
-        public void onFilterDeselected(Filter filter) {
-            viewModel.removeFilter(filter);
-        }
-    }
-
-     */
-
-    /*
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    getParentFragmentManager().setFragmentResultListener("requestKey", this, new FragmentResultListener() {
-        @Override
-        public void onFragmentResult(@NonNull String requestKey, @NonNull Bundle bundle) {
-            // We use a String here, but any type that can be put in a Bundle is supported.
-            String result = bundle.getString("bundleKey");
-            // Do something with the result.
-        }
-    });
-}
-     */
-
-    //To receive events, we watch the QRScanAdapter.
-    //QRScanAdapter scanAdapter = new ViewModelProvider(requireActivity()).get(QRScanAdapter.class);
-    //scanAdapter.getQRCodeResult().observe(getViewLifecycleOwner(), list -> {
-    // Update the list UI.
-    //});
