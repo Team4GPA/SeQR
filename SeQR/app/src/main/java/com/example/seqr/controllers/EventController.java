@@ -143,6 +143,18 @@ public class EventController {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    public void getEventCheckIns(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
+        eventCollection.document(eventID).collection("checkIns")
+                .get()
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Issue with getting the checkIns document");
+                    }
+                });
+    }
+
     public void checkInUser (String eventID, String userID, String username, OnSuccessListener<Void> onSuccessListener,OnFailureListener onFailureListener){
         DocumentReference checkInDocRef = eventCollection.document(eventID)
                 .collection("checkIns")
@@ -154,6 +166,19 @@ public class EventController {
         checkInDocRef.set(checkInData, SetOptions.merge())
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);
+    }
+
+    public void getUserCheckIns(String eventID, String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener){
+        eventCollection.document(eventID).collection("checkIns")
+                .document(userId)
+                .get()
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","issue with getting the user checkIns");
+                    }
+                });
     }
 
 
