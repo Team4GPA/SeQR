@@ -27,6 +27,7 @@ import com.example.seqr.models.ID;
 import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
@@ -73,6 +74,7 @@ public class EventInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String eventId = bundle.getString("eventID","");
+        Log.d("DEBUG", "Event ID :" + eventId);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +84,8 @@ public class EventInfoFragment extends Fragment {
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
                 fragmentTransaction.commit();
+                BottomNavigationView bottomNavigationView = getActivity().findViewById(R.id.bottom_nav);
+                bottomNavigationView.setSelectedItemId(R.id.bottom_attendee);
 
             }
         });

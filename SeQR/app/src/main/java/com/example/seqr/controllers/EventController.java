@@ -11,9 +11,18 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.Timestamp;
+import com.google.firebase.firestore.SetOptions;
+
+import java.util.Date;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Controller class for managing Event data in Firestore database.
@@ -29,6 +38,7 @@ public class EventController {
         db = Database.getFireStore();
         eventCollection = db.collection("Events");
     }
+
 
     /**
      * Adds an event to database.
@@ -131,6 +141,19 @@ public class EventController {
         eventCollection.document(eventID).collection("signups")
                 .get()
                 .addOnCompleteListener(onCompleteListener);
+    }
+
+    public void checkInUser (String eventID, String userID, String username, OnSuccessListener<Void> onSuccessListener,OnFailureListener onFailureListener){
+        DocumentReference checkInDocRef = eventCollection.document(eventID)
+                .collection("checkIns")
+                .document(userID);
+        Map<String, Object> checkInData = new HashMap<>();
+        checkInData.put("username",username);
+        Timestamp time = Timestamp.now();
+        checkInData.put("checkInTimes", FieldValue.arrayUnion(time));
+        checkInDocRef.set(checkInData, SetOptions.merge())
+                .addOnSuccessListener(onSuccessListener)
+                .addOnFailureListener(onFailureListener);
     }
 
 

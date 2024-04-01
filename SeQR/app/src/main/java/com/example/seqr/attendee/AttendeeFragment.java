@@ -25,8 +25,11 @@ import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.Event;
 import com.example.seqr.models.ID;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
@@ -45,6 +48,7 @@ public class AttendeeFragment extends Fragment {
     /**
      * Called to have the fragment instantiate its user interface view.
      */
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(DBTAG, "onCreate initialized.");
@@ -74,9 +78,9 @@ public class AttendeeFragment extends Fragment {
                         for(String eventID : signedUpEvents){
                             eventController.getEventById(eventID, new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
-                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                    if(task.isSuccessful()){
-                                        DocumentSnapshot eventDoc = task.getResult();
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task_two) {
+                                    if(task_two.isSuccessful()){
+                                        DocumentSnapshot eventDoc = task_two.getResult();
                                         if(eventDoc != null && eventDoc.exists()){
                                             Event event = eventDoc.toObject(Event.class);
                                             if (event != null){
@@ -111,6 +115,7 @@ public class AttendeeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         Log.d(DBTAG, "onViewCreated initialized.");
         super.onViewCreated(view, savedInstanceState);
+        // retrieveSignedUpEvents();
         ScanQRFragment scanQRFragment = new ScanQRFragment();
         ExtendedFloatingActionButton floatingScanQRButton = view.findViewById(R.id.floatingScanQR);
 
@@ -128,6 +133,9 @@ public class AttendeeFragment extends Fragment {
                 if (!qrResult.contentEquals("NULL")){
                     String resultSplit[]= qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
                     String eventID = resultSplit[0];
+                    String qrType = resultSplit[1];
+
+
                     EventController eventController = new EventController();
                     eventController.getAllEvents(task -> {
                         if (task.isSuccessful()) {
@@ -138,8 +146,16 @@ public class AttendeeFragment extends Fragment {
                                     if (eventID.equals(event.getEventID())) {
                                         // QR code is valid
                                         Log.d(DBTAG, "QR Code is valid for event: " + event.getEventName());
-                                        launchSuccess(eventID); //fire the transaction for loading the event into fragment container
-                                        return;
+                                        if (qrType.equals("promotion")){
+                                            launchSuccess(eventID); //fire the transaction for loading the event into fragment container
+                                            return;
+                                        }
+                                        else if (qrType.equals("checkIn")){
+                                            Log.d("DEBUG","this was a checkIN QR");
+                                            launchCheckInSuccess(eventID);
+                                            return;
+                                        }
+
                                     }
                                 }
                             }
@@ -170,6 +186,50 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
+    public void retrieveSignedUpEvents(){
+        String profileUUID = ID.getProfileId(getContext());
+        ProfileController profileController = new ProfileController();
+        EventController eventController = new EventController();
+
+        eventsList.clear(); // remove the existing events so no duplicates
+        eventAdapter.notifyDataSetChanged();
+        profileController.getProfileByUUID(profileUUID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot profileDoc = task.getResult();
+                    List<String> signedUpEvents = (List<String>) profileDoc.get("signedUpEvents");
+                    if (signedUpEvents != null && !signedUpEvents.isEmpty()){
+                        for(String eventID : signedUpEvents){
+                            eventController.getEventById(eventID, new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task_two) {
+                                    if(task_two.isSuccessful()){
+                                        DocumentSnapshot eventDoc = task_two.getResult();
+                                        if(eventDoc != null && eventDoc.exists()){
+                                            Event event = eventDoc.toObject(Event.class);
+                                            if (event != null){
+                                                eventsList.add(event);
+                                                eventAdapter.notifyDataSetChanged();
+                                            }
+                                        }else {
+                                            Log.d("DEBUG","event does not exist in firebase" + eventID);
+                                        }
+
+                                    } else{
+                                        Log.d("DEBUG","There was some error with getting the event");
+                                    }
+                                }
+                            });
+                        }
+                    }
+                } else{
+                    Log.d("DEBUG", "There was some error getting the profile");
+                }
+            }
+        });
+    }
+
     /**
      * Launches the event info window upon successful initialization on events.
      */
@@ -178,13 +238,53 @@ public class AttendeeFragment extends Fragment {
         FragmentManager parent = getParentFragmentManager();
         Fragment eventInfo = new EventInfoFragment();
         Bundle passQR = new Bundle();
-        passQR.putString("eventId", QRData);
+        passQR.putString("eventID", QRData);
         eventInfo.setArguments(passQR);
 
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
 
 
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
+    }
+
+    public void launchCheckInSuccess(String QRData){
+        Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
+
+        EventController eventController = new EventController();
+        String userID = ID.getProfileId(getContext());
+        ProfileController profileController = new ProfileController();
+        profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    String username = task.getResult().getString("username");
+                    if (username!= null) {
+                        eventController.checkInUser(QRData, userID, username, new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                Log.d("DEBUG", "successfully checked in the user");
+                            }
+                        }, new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.d("DEBUG","there was an issue with checking In");
+                            }
+                        });
+                    }
+                }
+            }
+        });
+        FragmentManager parent = getParentFragmentManager();
+        Fragment eventInfo = new EventInfoFragment();
+        Bundle passQR = new Bundle();
+        passQR.putString("eventID", QRData);
+        eventInfo.setArguments(passQR);
+
+        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
+
+
+        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
+
     }
 
     public void qrFailed(){
