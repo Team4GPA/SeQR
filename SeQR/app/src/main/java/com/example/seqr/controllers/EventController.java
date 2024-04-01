@@ -108,8 +108,6 @@ public class EventController {
      * @param eventId the eventID of the event
      * @param signUp the signUp object that contains the id and username of someone who signed up
      */
-
-
     public void signUserUpForEvent(String eventId, SignUp signUp) {
         db.collection("Events").document(eventId).collection("signups")
                 .document(signUp.getUserId()).set(signUp)

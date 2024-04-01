@@ -142,6 +142,7 @@ public class EventInfoFragment extends Fragment {
                     DocumentSnapshot doc = task.getResult();
                     if (doc != null && doc.exists()){
                         List<String> signedUpEvents = (List<String>) doc.get("signedUpEvents");
+                        List<String> notification = (List<String>) doc.get("notification");
                         //Check if the users signedUpEvents is null first i.e they havent signed up for anything yet
                         if(signedUpEvents == null){
                             signedUpEvents = new ArrayList<>();
