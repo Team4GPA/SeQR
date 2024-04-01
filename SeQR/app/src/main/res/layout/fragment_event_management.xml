@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:isScrollContainer="true"
-    tools:context=".EventManagementFragment">
+    tools:context=".events.EventManagementFragment">
 
     <ScrollView
         android:id="@+id/event_management_title_holder"
