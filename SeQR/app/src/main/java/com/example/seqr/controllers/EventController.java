@@ -15,12 +15,27 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
+
 /**
  * Controller class for managing Event data in Firestore database.
  */
 public class EventController {
     private FirebaseFirestore db;
     private CollectionReference eventCollection;
+    //insert any new database fields here for checkEventValid
+    private final String[] databaseFields = {
+            "checkInQR",
+            "eventDesc",
+            "eventID",
+            "eventName",
+            "eventStartTime",
+            "location",
+            "maxCapacity",
+            "organizer",
+            "organizerUUID",
+            "promotionQR",
+    };
 
     /**
      * Constructs an EventController and initializes Firestore database reference.
@@ -133,8 +148,38 @@ public class EventController {
                 .addOnCompleteListener(onCompleteListener);
     }
 
-
-
-
-
+    /**
+     * Checks an event document for validity of all fields.
+     * A single event fields are defined in the databaseFields array in this class; see EventController's
+     * private attributes to modify this array.
+     * <ul>
+     * <li>checkInQR       string      a QR code PNG converted into base64 to enable storage as a string
+     * <li>eventDesc       string      the description of the event
+     * <li>eventID         string      a 128-bit unique identifier randomly generated upon event creation
+     * <li>eventName       string      the event's name as entered by the user
+     * <li>eventStartTime  string      an arbitrary string allowing for flexible time entry
+     * <li>location        string      a text field describing the event location
+     * <li>maxCapacity     number      value for the maximum capacity of an event
+     * <li>organizer       string      the user's entered name during first-load of the SeQR app
+     * <li>organizerUUID   string      generated UUID from the device, or created during event creation
+     * <li>promotionQR     string      see checkInQR above
+     * </ul>
+     * @param eventID The eventID to check
+     * @author Kyle Zwarich
+     */
+    public void checkEventValid(String eventID){
+        final DocumentSnapshot[] dbEvent = new DocumentSnapshot[1];
+        eventCollection.document(eventID).get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                dbEvent[0] = task.getResult();
+                for (String field : databaseFields) {
+                    if (!dbEvent[0].contains(field)) {
+                        Log.d("EVENT CONTROLLER", "Event with ID " + eventID + " is missing field: " + field);
+                    } else if (dbEvent[0].contains(field) && (dbEvent[0].get(field) == null || dbEvent[0].get(field) == "null")) {
+                        Log.d("EVENT CONTROLLER", "Event with ID" + eventID + " has a null entry for field: " + field);
+                    }
+                }
+            }
+        });
+    }
 }

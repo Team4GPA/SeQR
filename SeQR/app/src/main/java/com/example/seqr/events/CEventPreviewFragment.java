@@ -6,6 +6,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,8 @@ public class CEventPreviewFragment extends Fragment {
     private TextView eventDescriptionTextView;
     private ImageView eventImageView;
     private Button cEventPreviewCreateButton;
+
+
 
     /**
      *
@@ -76,7 +79,7 @@ public class CEventPreviewFragment extends Fragment {
         String eventName = bundle.getString("eventName", "");
         String eventLocation = bundle.getString("eventLocation", "");
         String eventTime = bundle.getString("eventTime", "");
-        String eventCapacity = bundle.getString("eventCapacity", "");
+        String eventCapacity = bundle.getString("eventCapacity", "-1");
         String eventDescription = bundle.getString("eventDescription", "");
         String eventImageUriString = bundle.getString("imageUri", "");
 
@@ -84,7 +87,12 @@ public class CEventPreviewFragment extends Fragment {
         eventNameTextView.setText(eventName);
         eventLocationTextView.setText(eventLocation);
         eventTimeTextView.setText(eventTime);
-        eventCapacityTextView.setText(eventCapacity);
+        if (!eventCapacity.contentEquals("-1")){
+            eventCapacityTextView.setText(eventCapacity);
+        }
+        else {
+            eventCapacityTextView.setText("No Capacity Limit");
+        }
         eventDescriptionTextView.setText(eventDescription);
 
         //loads the image onto the event text
@@ -103,7 +111,17 @@ public class CEventPreviewFragment extends Fragment {
                 String checkInQR = bundle.getString("checkInQR","");
                 String promotionQR = bundle.getString("promotionQR","");
                 String uuid = ID.getProfileId(getContext());
-                Event event = new Event(eventName, eventID, eventDescription, Integer.parseInt(eventCapacity), organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid);
+                Integer convertCapacity = 0;
+                if (eventCapacity.contentEquals("-1")){
+                    eventCapacityTextView.setText("No Capacity Limit");
+                    convertCapacity = -1;
+                }
+                else{
+                    convertCapacity = Integer.parseInt(eventCapacity);
+                }
+
+
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);
@@ -119,4 +137,6 @@ public class CEventPreviewFragment extends Fragment {
         });
         return view;
     }
+
+
 }

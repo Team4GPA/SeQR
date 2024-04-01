@@ -57,6 +57,7 @@ public class EventLobbyFragment extends Fragment {
             if (task.isSuccessful()) {
                 for (DocumentSnapshot document : task.getResult()) {
                     Event event = document.toObject(Event.class);
+                    eventController.checkEventValid(event.getEventID());
                     eventsList.add(event);
                 }
                 eventAdapter.notifyDataSetChanged();
