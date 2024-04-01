@@ -39,4 +39,32 @@ public class Notification {
     public Map<String, Object> getNotif() {
         return notif;
     }
+
+    public Timestamp getTime() {
+        return time;
+    }
+
+    public void setTime(Timestamp time) {
+        this.time = time;
+    }
+
+    public Profile getSender() {
+        return sender;
+    }
+
+    public void setSender(Profile sender) {
+        this.sender = sender;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setNotif(Map<String, Object> notif) {
+        this.notif = notif;
+    }
 }

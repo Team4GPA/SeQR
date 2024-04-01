@@ -70,16 +70,23 @@ public class AttendeeFragment extends Fragment {
                 if (task.isSuccessful()){
                     DocumentSnapshot profileDoc = task.getResult();
                     List<String> signedUpEvents = (List<String>) profileDoc.get("signedUpEvents");
-                    if (signedUpEvents != null){
+                    if (signedUpEvents != null && !signedUpEvents.isEmpty()){
                         for(String eventID : signedUpEvents){
                             eventController.getEventById(eventID, new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                                     if(task.isSuccessful()){
                                         DocumentSnapshot eventDoc = task.getResult();
-                                        Event event = eventDoc.toObject(Event.class);
-                                        eventsList.add(event);
-                                        eventAdapter.notifyDataSetChanged();
+                                        if(eventDoc != null && eventDoc.exists()){
+                                            Event event = eventDoc.toObject(Event.class);
+                                            if (event != null){
+                                                eventsList.add(event);
+                                                eventAdapter.notifyDataSetChanged();
+                                            }
+                                        }else {
+                                            Log.d("DEBUG","event does not exist in firebase" + eventID);
+                                        }
+
                                     } else{
                                         Log.d("DEBUG","There was some error with getting the event");
                                     }
