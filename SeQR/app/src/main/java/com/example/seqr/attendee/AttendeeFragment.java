@@ -241,10 +241,6 @@ public class AttendeeFragment extends Fragment {
         Bundle passQR = new Bundle();
         passQR.putString("eventID", QRData);
         eventInfo.setArguments(passQR);
-
-        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
-
-
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
     }
 
@@ -280,12 +276,7 @@ public class AttendeeFragment extends Fragment {
         Bundle passQR = new Bundle();
         passQR.putString("eventID", QRData);
         eventInfo.setArguments(passQR);
-
-        parent.beginTransaction().replace(R.id.fragment_container, eventInfo).commit();
-
-
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
-
     }
 
     public void qrFailed(){
