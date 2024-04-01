@@ -4,6 +4,8 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.example.seqr.R;
 import com.example.seqr.controllers.AnnouncementController;
 import com.example.seqr.controllers.EventController;
+import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.models.Announcement;
 import com.example.seqr.models.Event;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -40,6 +43,7 @@ public class AnnouncementDetailFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String announcementID = bundle.getString("announcementID","");
+        String eventID = bundle.getString("eventID","");
         Boolean ifAttendee = bundle.getBoolean("ifAttendee", false);
 
         if (ifAttendee) {
@@ -47,7 +51,16 @@ public class AnnouncementDetailFragment extends Fragment {
             seeDetailButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    bundle.putString("eventID",eventID);
 
+                    EventInfoFragment eventInfoFragment = new EventInfoFragment();
+                    eventInfoFragment.setArguments(bundle);
+                    FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container, eventInfoFragment);
+                    transaction.addToBackStack(null);
+
+                    transaction.commit();
                 }
             });
         }

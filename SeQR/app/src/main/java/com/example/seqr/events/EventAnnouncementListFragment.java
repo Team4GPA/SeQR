@@ -93,6 +93,7 @@ public class EventAnnouncementListFragment extends Fragment {
     public void announcementClicked (Announcement announcement, Boolean ifOrganizer) {
         Bundle bundle = new Bundle();
         bundle.putString("announcementID", announcement.getAnnouncementID());
+        bundle.putString("eventID", eventID);
         if (ifOrganizer) {
             bundle.putBoolean("ifAttendee", false);
         }
