@@ -168,6 +168,23 @@ public class ProfileController {
                 });
     }
 
+    public void notificationsUpdater(String uuid, List<String> notifications) {
+        profileCollection.document(uuid)
+                .update("notifications", notifications)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG","Successfully updated the users notifications");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Error with updating the users notifications",e);
+                    }
+                });
+    }
+
 
     /**
      * Gets a profile By a given ID
@@ -175,6 +192,10 @@ public class ProfileController {
      * @param onCompleteListener
      */
     public void getProfileByUUID(String uuid, OnCompleteListener<DocumentSnapshot> onCompleteListener){
+        profileCollection.document(uuid).get().addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getNotificationsByUUID(String uuid, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         profileCollection.document(uuid).get().addOnCompleteListener(onCompleteListener);
     }
 }
