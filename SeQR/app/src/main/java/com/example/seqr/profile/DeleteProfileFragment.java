@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.seqr.R;
+import com.example.seqr.controllers.ProfileController;
 
 public class DeleteProfileFragment extends DialogFragment {
 
@@ -23,11 +24,12 @@ public class DeleteProfileFragment extends DialogFragment {
         assert bundle != null;
         String profileID = bundle.getString("id","");
 
-        // IMPLEMENT THIS
         view.findViewById(R.id.delete_item_confirm_button).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Log.d("DEBUG", "hi");
+                ProfileController profileController = new ProfileController();
+                profileController.deleteProfile(profileID);
+                dismiss();
             }
         });
 
