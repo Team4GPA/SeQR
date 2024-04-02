@@ -48,6 +48,12 @@ public class NotificationFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(notificationAdapter);
         Button notificationBackButton = view.findViewById(R.id.notificationBackButton);
+        notificationBackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
         ProfileController profileController = new ProfileController();
         AnnouncementController announcementController = new AnnouncementController();
