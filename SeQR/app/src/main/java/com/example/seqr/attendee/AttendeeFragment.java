@@ -56,6 +56,17 @@ public class AttendeeFragment extends Fragment {
             @Override
             public void onItemClick(Event event) {
                 Log.d("Debug","Event has been clicked");
+                Bundle bundle = new Bundle();
+                bundle.putString("eventID", event.getEventID());
+                bundle.putString("organizer", event.getOrganizer());
+
+                EventInfoFragment eventInfoFragment = new EventInfoFragment();
+                eventInfoFragment.setArguments(bundle);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, eventInfoFragment)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

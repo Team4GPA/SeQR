@@ -15,7 +15,7 @@ public class Profile {
     private String profilePic;
     private List<String> createdEvents; //list of Events created by this profile
     private List<String> signedUpEvents; //list of signedUpEvents by this profile
-    private List<Announcement> notifications;
+    private List<String> notifications; //list of notifications for this profile
 
     /**
      * Default constructor for the Profile class.
@@ -31,9 +31,10 @@ public class Profile {
      * @param ID       The unique identifier (device ID) of the profile.
      */
     //constructor for a profile
-    public Profile(String username, String ID){
+    public Profile(String username, String ID, List<String> notifications){
         this.username = username;
         this.id = ID;
+        this.notifications = notifications;
     }
 
 
@@ -62,7 +63,7 @@ public class Profile {
      *
      * @return The list of notifications.
      */
-    public List<Announcement> getNotifications() {
+    public List<String> getNotifications() {
         return notifications;
     }
 
@@ -71,7 +72,7 @@ public class Profile {
      *
      * @param notifications The list of notifications to set.
      */
-    public void setNotifications(List<Announcement> notifications) {
+    public void setNotifications(List<String> notifications) {
         this.notifications = notifications;
     }
 
