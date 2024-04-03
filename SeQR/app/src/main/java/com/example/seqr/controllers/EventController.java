@@ -203,6 +203,23 @@ public class EventController {
                 });
     }
 
+    public void cancelSignUpForEvent(String eventId, SignUp signUp){
+        db.collection("Events").document(eventId).collection("signups")
+                .document(signUp.getUserId()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Log.d("Debug","Successfully removed sign up");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug","failed to remove sign up");
+                    }
+                });
+    }
+
     public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("signups")
                 .get()

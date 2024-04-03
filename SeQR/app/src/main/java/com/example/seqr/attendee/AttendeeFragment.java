@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.R;
+import com.example.seqr.models.SignUp;
 import com.example.seqr.qr.ScanQRFragment;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
@@ -52,11 +53,13 @@ public class AttendeeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.d(DBTAG, "onCreate initialized.");
+        Log.d(DBTAG, "AttendeeFragment loading with id " + this.getLifecycle());
         View view = inflater.inflate(R.layout.fragment_attendee, container, false);
-
         recyclerView = view.findViewById(R.id.eventSignedUpRecyclerview);
-        eventsList = new ArrayList<>();
-        eventAdapter = new EventAdapter(eventsList, new EventAdapter.OnItemClickListener() {
+
+        //wipe the arraylist
+        this.eventsList = new ArrayList<>();
+        this.eventAdapter = new EventAdapter(this.eventsList, new EventAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Event event) {
                 Log.d("Debug","Event has been clicked");
@@ -74,7 +77,7 @@ public class AttendeeFragment extends Fragment {
             }
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.setAdapter(eventAdapter);
+        recyclerView.setAdapter(this.eventAdapter);
 
         String profileUUID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
@@ -96,25 +99,36 @@ public class AttendeeFragment extends Fragment {
                                             Event event = eventDoc.toObject(Event.class);
                                             if (event != null){
                                                 eventsList.add(event);
-                                                eventAdapter.notifyDataSetChanged();
-                                                recyclerView.setAdapter(eventAdapter);
+                                                Log.d("TASK TWO", "Adding event " + event.getEventName() + " with ID " + event.getEventID());
+                                                eventAdapter.notifyItemChanged(eventsList.size());
                                             }
-                                        }else {
-                                            Log.d("DEBUG","event does not exist in firebase" + eventID);
+                                            else{
+                                                Log.d("TASK TWO", "Event is null; error.");
+                                            }
                                         }
-
-                                    } else{
-                                        Log.d("DEBUG","There was some error with getting the event");
+                                        else {
+                                            Log.d("TASK TWO","event does not exist in firebase: " + eventID);
+                                        }
+                                    }
+                                    else{
+                                        Log.d("TASK TWO","There was some error with getting the event");
                                     }
                                 }
                             });
                         }
                     }
-                } else{
-                    Log.d("DEBUG", "There was some error getting the profile");
+                    else{
+                        Log.d("EMPTY LIST", "The user does not have any signed up events.");
+                    }
+                }
+                else{
+                    Log.d("ATTENDEE", "There was some error getting the profile");
                 }
             }
         });
+
+        recyclerView.setAdapter(eventAdapter);
+
         return view;
     }
 
@@ -203,7 +217,7 @@ public class AttendeeFragment extends Fragment {
         ProfileController profileController = new ProfileController();
         EventController eventController = new EventController();
 
-        eventsList.clear(); // remove the existing events so no duplicates
+        this.eventsList.clear(); // remove the existing events so no duplicates
         eventAdapter.notifyDataSetChanged();
         profileController.getProfileByUUID(profileUUID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -256,7 +270,7 @@ public class AttendeeFragment extends Fragment {
     }
 
     public void launchCheckInSuccess(String QRData){
-        Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
+        Log.d(DBTAG, "launch success method reached. Checking in Guest. ");
 
         EventController eventController = new EventController();
         String userID = ID.getProfileId(getContext());
@@ -282,6 +296,7 @@ public class AttendeeFragment extends Fragment {
                 }
             }
         });
+
         FragmentManager parent = getParentFragmentManager();
         Fragment eventInfo = new EventInfoFragment();
         Bundle passQR = new Bundle();
