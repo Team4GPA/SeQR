@@ -63,7 +63,7 @@ public class AImagesFragment extends Fragment {
             public void onClick(View v){getParentFragmentManager().popBackStack();}
         });
         // Create recycler view
-        imageController = new ImageController();
+        imageController = new ImageController(this.getContext());
         recyclerView = view.findViewById(R.id.admin_images);
         imageList = new ArrayList<>();
         imageAdapter = new ImageAdapter(imageList, this.getContext(), new ImageAdapter.OnItemClickListener() {
@@ -78,7 +78,8 @@ public class AImagesFragment extends Fragment {
         recyclerView.setAdapter(imageAdapter);
 
         // Query to get all profiles
-        ImageController imageController = new ImageController();
+        ImageController imageController;
+        imageController = new ImageController(this.getContext());
         imageController.getListOfFiles("ProfilePictures/", new ImageController.FileListCallback() {
             @Override
             public void onSuccess(List<String> fileList) {
