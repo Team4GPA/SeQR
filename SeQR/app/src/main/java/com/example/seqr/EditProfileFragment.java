@@ -3,7 +3,9 @@ package com.example.seqr;
 import static android.app.Activity.RESULT_OK;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 
+import java.util.Objects;
+
 /**
  * A fragment for editing profile information including profile picture, name, contact info and homepage.
  */
@@ -39,6 +43,7 @@ public class EditProfileFragment extends Fragment {
 
     private static final int PICK_IMAGE_REQUEST = 1;
     private Uri imageUri;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -55,21 +60,18 @@ public class EditProfileFragment extends Fragment {
         profileImageView = view.findViewById(R.id.photoPreview);
         editProfilePictureButton = view.findViewById(R.id.edit_profile_picture_button);
 
+        loadProfilePicture();
 
         ProfileController profileController = new ProfileController();
 
         String uuid = ID.getProfileId(getContext());
 
 
-        String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
-        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-        Picasso.get().load(imageUrl).into(profileImageView);
-
 
         profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
                     String user = documentSnapshot.getString("username");
                     String email = documentSnapshot.getString("email");
@@ -84,14 +86,12 @@ public class EditProfileFragment extends Fragment {
         });
 
 
-
         editProfilePictureButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openFileChooser();
             }
         });
-
 
 
         // Set OnClickListener for the button
@@ -117,6 +117,38 @@ public class EditProfileFragment extends Fragment {
         });
         return view;
     }
+
+    private void loadProfilePicture() {
+        String storedUri = getStoredProfilePictureUri();
+
+        if (isValidUri(storedUri)) {
+            Picasso.get().load(storedUri).into(profileImageView);
+        } else {
+            String uuid = ID.getProfileId(getContext());
+            String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
+            String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+            Picasso.get().load(imageUrl).into(profileImageView);
+        }
+    }
+
+    private String getStoredProfilePictureUri() {
+        SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
+        return sharedPreferences.getString("profile_picture_uri", null);
+    }
+
+    private boolean isValidUri(String uriString) {
+        if (uriString == null || uriString.isEmpty()) {
+            return false;
+        }
+
+        try {
+            Uri uri = Uri.parse(uriString);
+            return uri != null;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     /**
      * Opens a file chooser for selecting an image to upload as your profile picture.
      */
@@ -134,28 +166,36 @@ public class EditProfileFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null){
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             profileImageView.setImageURI(imageUri);
             Picasso.get().load(imageUri).into(profileImageView);
             String uuid = ID.getProfileId(getContext());
-            ImageUploader iuploader = new ImageUploader("ProfilePictures");
-            iuploader.upload(imageUri, uuid);
+            if (uuid != null) {
+                ImageUploader iuploader = new ImageUploader("ProfilePictures");
+                iuploader.upload(imageUri, uuid);
 
-            // Update profile picture URL in Firestore
-            ProfileController profileController = new ProfileController();
-            profileController.updatePFP(uuid, imageUri.toString(), new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void aVoid) {
-                    // Notify MainActivity about the profile picture update
-//                    ((MainActivity) getActivity()).updateProfilePicture(imageUri);
-                }
-            }, new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Log.d("DEBUG", "Error updating profile picture", e);
-                }
-            });
+                // Update stored URI in SharedPreferences
+                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("profile_picture_uri", imageUri.toString());
+                editor.apply();
+
+                // Update profile picture URL in Firestore
+                ProfileController profileController = new ProfileController();
+                profileController.updatePFP(uuid, imageUri.toString(), new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        // Notify MainActivity about the profile picture update
+                        ((MainActivity) getActivity()).updateProfilePicture(imageUri);
+                    }
+                }, new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating profile picture", e);
+                    }
+                });
+            }
         }
     }
 }
