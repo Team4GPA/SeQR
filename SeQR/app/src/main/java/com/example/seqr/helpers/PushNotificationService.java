@@ -40,9 +40,9 @@ public class PushNotificationService extends FirebaseMessagingService {
     }
 
     private void displayNotification(String title, String body) {
-        String channelId = "@string/default_notification_channel_id";
+        String channelId = "Default";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.notification_navigation_icon)
+                .setSmallIcon(R.drawable.seqr_logo_icon)
                 .setContentTitle(title)
                 .setContentText(body)
                 .setPriority(NotificationManager.IMPORTANCE_MAX);
