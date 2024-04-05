@@ -33,6 +33,7 @@ import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.events.EventLobbyFragment;
 import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
+import com.example.seqr.notification.NotificationFragment;
 import com.example.seqr.organizer.OrganizerFragment;
 import com.example.seqr.profile.EditProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -75,15 +76,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FirebaseApp.initializeApp(this);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-                activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
-            }
-        }
 
         String uuid = ID.getProfileId(getBaseContext());
-
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -99,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
             Button editProfileButton = findViewById(R.id.edit_profile_button);
             CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
             ProfileController profileController = new ProfileController();
+
+            FirebaseApp.initializeApp(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                }
+            }
 
         profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
             @Override

@@ -13,6 +13,7 @@ public class Profile {
     private boolean isAdmin;
     private String id;
     private String profilePic;
+    private String fcmToken;
     private List<String> createdEvents; //list of Events created by this profile
     private List<String> signedUpEvents; //list of signedUpEvents by this profile
     private List<String> notifications; //list of notifications for this profile
@@ -213,6 +214,14 @@ public class Profile {
      */
     public void setProfilePic(String profilePic) {
         this.profilePic = profilePic;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     /**
