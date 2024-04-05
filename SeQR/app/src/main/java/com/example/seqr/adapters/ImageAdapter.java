@@ -13,22 +13,31 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.seqr.R;
 
 import java.util.List;
+
+import com.example.seqr.models.Event;
 import com.squareup.picasso.Picasso;
 
 /**
  * An adapter class for managing image items in a RecyclerView.
  */
 public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
+
+    public interface OnItemClickListener {
+        void onItemClick(int index);
+    }
     private List<String> imageUrlList; // Change if we have different data type
     private int itemWidth;
+
+    private OnItemClickListener listener;
 
     /**
      * Constructs an ImageAdapter with the provided list of image URLs.
      *
      * @param imageUrlList The list of image URLs to be displayed.
      */
-    public ImageAdapter(List<String> imageUrlList, android.content.Context context){
+    public ImageAdapter(List<String> imageUrlList, android.content.Context context, OnItemClickListener listener){
         this.imageUrlList = imageUrlList;
+        this.listener = listener;
         DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
         int screenWidth = displayMetrics.widthPixels;
         itemWidth = screenWidth / 3;
@@ -65,6 +74,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
         String path = Uri.encode(imageUrlList.get(position));
         String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
         Picasso.get().load(imageUrl).into(holder.imageView);
+
+        holder.itemView.setOnClickListener(view -> listener.onItemClick(position));
     }
 
     /**

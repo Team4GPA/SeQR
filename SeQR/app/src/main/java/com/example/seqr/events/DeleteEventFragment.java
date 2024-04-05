@@ -11,7 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 import com.example.seqr.R;
-
+import com.example.seqr.controllers.EventController;
 /**
  * A dialog fragment for confirming deletion.
  */
@@ -35,11 +35,12 @@ public class DeleteEventFragment extends DialogFragment {
         assert bundle != null;
         String eventID = bundle.getString("eventID", "");
 
-        // IMPLEMENT THIS
         view.findViewById(R.id.delete_item_confirm_button).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                Log.d("DEBUG", "hi");
+                EventController eventController = new EventController();
+                eventController.removeEventWithID(eventID);
+                dismiss();
             }
         });
 

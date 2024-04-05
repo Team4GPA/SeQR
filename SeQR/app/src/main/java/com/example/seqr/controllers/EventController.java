@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.SetOptions;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.Date;
 
@@ -84,7 +85,8 @@ public class EventController {
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Log.d("Debug","Successfully Deleted");
+                        deleteEventPoster(event.getEventID());
+                        removeEventFromUserProfile(event.getEventID());
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -94,6 +96,57 @@ public class EventController {
                 });
     }
 
+    public void removeEventWithID(String eventID){
+        eventCollection.document(eventID).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        deleteEventPoster(eventID);
+                        removeEventFromUserProfile(eventID);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug","Cant delete",e);
+                    }
+                });
+    }
+
+    public void deleteEventPoster(String eventID){
+        StorageReference eventPosterReference = Database.getStorage().getReference().child("EventPosters/" +eventID+ ".jpg");
+        eventPosterReference.delete().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DEBUG", "Failed to delete event poster", e);
+            }
+        });
+    }
+
+    public void removeEventFromUserProfile(String eventID) {
+        eventCollection.document(eventID).collection("signups").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot snapshot : queryDocumentSnapshots.getDocuments()) {
+                            String userID = snapshot.getId();
+                            Database.getFireStore().collection("Profiles").document(userID)
+                                    .update("signedUpEvents", FieldValue.arrayRemove(eventID))
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("Debug", "Failed to update user profile when deleting event", e);
+                                        }
+                                    });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug", "Failed to retrieve signups", e);
+                    }
+                });
+    }
     /**
      * Retrieves all events from database.
      *
