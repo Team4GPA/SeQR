@@ -1,27 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="5sp"
     tools:context=".events.CEventPreviewFragment">
-
-    <Button
-        android:id="@+id/QRCheckInBackButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/back"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/cEventPreviewMainText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_margin="15sp"
         android:text="Event Preview"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -29,98 +19,150 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/cEventPreviewName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Event Name"
-        android:textSize="15sp"
-        android:textStyle="bold"
+    <ScrollView
+        android:id="@+id/eventTitleScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10sp"
+        android:maxHeight="24sp"
+        android:minHeight="16sp"
+        app:layout_constraintBottom_toTopOf="@id/photoPreview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewMainText" />
+        app:layout_constraintTop_toBottomOf="@id/cEventPreviewMainText">
+
+        <TextView
+            android:id="@+id/cEventPreviewName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10sp"
+            android:includeFontPadding="true"
+            android:padding="15sp"
+            android:text="Event Title"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/cEventPreviewOrganizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         android:text="Organizer"
+        android:textAlignment="viewStart"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewMainText" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@id/photoPreview"
+        app:layout_constraintTop_toTopOf="@id/photoPreview" />
 
     <TextView
         android:id="@+id/cEventPreviewLocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
         android:text="Location"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/cEventPreviewTime"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewMainText" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/photoPreview"
+        app:layout_constraintTop_toBottomOf="@+id/cEventPreviewOrganizer" />
 
     <TextView
         android:id="@+id/cEventPreviewTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
         android:text="Time"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewOrganizer" />
+        app:layout_constraintBottom_toTopOf="@+id/cEventPreviewCapacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/photoPreview"
+        app:layout_constraintTop_toBottomOf="@+id/cEventPreviewLocation" />
 
     <TextView
         android:id="@+id/cEventPreviewCapacity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15sp"
+        android:layout_marginEnd="15sp"
         android:text="Capacity"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/photoPreview"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewLocation" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/photoPreview" />
 
     <ImageView
         android:id="@+id/photoPreview"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="15sp"
+        android:background="#E0EAEF"
+        android:cropToPadding="true"
+        android:padding="5sp"
+        android:scaleType="centerCrop"
         android:src="@drawable/baseline_image_placeholder_24"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cEventPreviewCapacity" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".3" />
 
-    <TextView
-        android:id="@+id/cEventPreviewDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Description"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <ScrollView
+        android:id="@+id/eventDescriptionScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toTopOf="@id/cEventPreviewCreateButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/photoPreview" />
+        app:layout_constraintTop_toBottomOf="@id/photoPreview"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/cEventPreviewDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:text="Description"
+            android:textSize="16sp" />
+    </ScrollView>
 
     <Button
         android:id="@+id/cEventPreviewCreateButton"
-        android:layout_width="140dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="120dp"
-        android:text="Create"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5sp"
+        android:text="Confirm Details"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/QRCheckInBackButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/QRCheckInBackButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/cEventPreviewCreateButton"
+        app:layout_constraintStart_toStartOf="@+id/cEventPreviewCreateButton" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

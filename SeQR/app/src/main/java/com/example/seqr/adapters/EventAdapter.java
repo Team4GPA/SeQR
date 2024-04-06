@@ -63,7 +63,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
         // REPLACE the getters with actual names of functions
        holder.setEventImage(event.getEventID());
        holder.textView.setText(event.getEventName());
-
        holder.itemView.setOnClickListener(view -> listener.onItemClick(event));
 
     }
@@ -86,6 +85,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
     @Override
     public int getItemCount(){
         return eventList.size();
+    }
+
+    public void refreshAdapter(){
+        this.notifyDataSetChanged();
     }
 
 }

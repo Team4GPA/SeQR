@@ -16,6 +16,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -148,6 +149,59 @@ public class ProfileController {
         return profileCollection.document(deviceId);
     }
 
+    public void deleteProfile(String userID){
+        profileCollection.document(userID).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        deleteProfilePicture(userID);
+                        removeUserFromEventSignups(userID);
+                        Log.d("DEBUG", "Profile deleted successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Failed to delete profile",e);
+                    }
+                });
+    }
+
+    private void deleteProfilePicture(String userID){
+        StorageReference profilePicReference = Database.getStorage().getReference().child("ProfilePictures/" + userID + ".jpg");
+        profilePicReference.delete().addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DEBUG", "Failed to delete profile picture", e);
+            }
+        });
+    }
+
+    private void removeUserFromEventSignups(String userID){
+        db.collection("Events").whereArrayContains("signups", userID).get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (DocumentSnapshot eventSnapshot : queryDocumentSnapshots.getDocuments()) {
+                            String eventID = eventSnapshot.getId();
+                            db.collection("Events").document(eventID).collection("signups")
+                                    .document(userID).delete()
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("DEBUG", "Failed to remove user from event");
+                                        }
+                                    });
+                        }
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Failed to retrieve events user is signed up for",e);
+                    }
+                });
+    }
     /**
      * This function will update the users signedUpEvents field in firebase with the new events added to the signedUpEvents
      * @param uuid The UUID of the profile

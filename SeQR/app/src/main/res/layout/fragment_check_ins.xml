@@ -1,29 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="5sp">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Button
-        android:id="@+id/signUps_back_button"
+        android:id="@+id/CheckIns_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
         android:text="Back"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewAttendeeTotal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signUps_profiles"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/signUps_title"
+        android:id="@+id/CheckIns_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="Pre-registered Guests"
+        android:text="@string/all_attendees"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,14 +33,25 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".025"/>
 
+
+    <TextView
+        android:id="@+id/textViewAttendeeTotal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/number_of_attendees"
+        android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintStart_toStartOf="@id/CheckIns_title"
+        app:layout_constraintEnd_toEndOf="@id/CheckIns_title"
+        app:layout_constraintTop_toBottomOf="@id/CheckIns_title" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/signUps_profiles"
+        android:id="@+id/CheckIns_profiles"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="15sp"
         android:padding="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/signUps_back_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signUps_title"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewAttendeeTotal"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

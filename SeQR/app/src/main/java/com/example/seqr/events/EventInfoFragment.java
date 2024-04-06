@@ -1,5 +1,7 @@
 package com.example.seqr.events;
 
+import android.app.PendingIntent;
+import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -27,8 +29,11 @@ import com.example.seqr.models.ID;
 import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
+
+import org.checkerframework.common.subtyping.qual.Bottom;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,17 +78,39 @@ public class EventInfoFragment extends Fragment {
         Bundle bundle = getArguments();
         assert bundle != null;
         String eventId = bundle.getString("eventID","");
+        Log.d("DEBUG", "Event ID :" + eventId);
         signUpButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onSignUpPressed(eventId);
-                AttendeeFragment attendeeFragment = new AttendeeFragment();
-                FragmentManager fragmentManager = getParentFragmentManager();
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
-                fragmentTransaction.commit();
+                onSignUpPressed(eventId, getContext());
+                //wait for confirmation before continuing!
 
+                BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
+                FragmentManager frgMgr = getParentFragmentManager();
+                FragmentTransaction trans = frgMgr.beginTransaction();
+                trans.addToBackStack(null);
+                trans.commit();
+                bnav.setSelectedItemId(R.id.bottom_attendee);
+
+//                AttendeeFragment attendeeFragment = new AttendeeFragment();
+//                FragmentManager fragmentManager = getParentFragmentManager();
+//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
+//                fragmentTransaction.addToBackStack(null);
+//                fragmentTransaction.commit();
             }
+        });
+
+        Button cancelButton = view.findViewById(R.id.cancelSignUpEventInfo);
+        cancelButton.setVisibility(View.INVISIBLE);
+        cancelButton.setOnClickListener(v -> {
+            onCancelSignUp(eventId, getContext());
+            AttendeeFragment attendeeFragment = new AttendeeFragment();
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fire = fragmentManager.beginTransaction();
+            fire.replace(R.id.fragment_container, attendeeFragment);
+            fire.addToBackStack(null);
+            fire.commit();
         });
 
 
@@ -98,8 +125,35 @@ public class EventInfoFragment extends Fragment {
                     eventOrganizer.setText(event.getOrganizer());
                     eventLocation.setText(event.getLocation());
                     eventTime.setText(event.getEventStartTime());
-                    eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
+                    if (event.getMaxCapacity() == -1){
+                        eventCapacity.setText("No Capacity Limit");
+                    }
+                    else {
+                        eventCapacity.setText(String.valueOf(event.getMaxCapacity()));
+                    }
                     eventDescription.setText(event.getEventDesc());
+
+                    ProfileController quickCheck = new ProfileController();
+                    String userID = ID.getProfileId(getContext());
+                    quickCheck.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                            if (task.isSuccessful()){
+                                DocumentSnapshot userProfile = task.getResult();
+                                List<String> usersEvents = (List<String>) userProfile.get("signedUpEvents");
+                                if (usersEvents.contains(event.getEventID())){
+                                    cancelButton.setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    cancelButton.setVisibility(View.INVISIBLE);
+                                }
+                            }
+                            else{
+                                Log.d("EVENTINFO", "Failed to fetch document from firebase.");
+                            }
+                        }
+                    });
+
 
 
                     String path = Uri.encode("EventPosters/" + eventId + ".jpg");
@@ -111,7 +165,7 @@ public class EventInfoFragment extends Fragment {
                     Log.d("Debug","There wasn't a document with that id");
                 }
             }else{
-                Log.d("Debug", "error in retrieveing the document/event");
+                Log.d("Debug", "error in retrieving the document/event");
             }
         });
 
@@ -129,11 +183,13 @@ public class EventInfoFragment extends Fragment {
     /**
      * When the signup button is pressed, get the Id and get the profile username using the id
      * after getting the username create a signup object with the username and id then call the event controller method for signing a user up
+     *
      * @param eventId this is the eventID
+     * @param context
      */
 
-    private void onSignUpPressed(String eventId){
-        String userID = ID.getProfileId(getContext());
+    private void onSignUpPressed(String eventId, Context context){
+        String userID = ID.getProfileId(context);
         ProfileController profileController = new ProfileController();
         profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -149,21 +205,19 @@ public class EventInfoFragment extends Fragment {
                         // if they already signed up tell them
                         if (signedUpEvents.contains(eventId)){
                             // make sure context isn't null, was throwing errors before
-                            if (getContext() != null){
-                                Toast.makeText(getContext(), "Already signedup for this event", Toast.LENGTH_SHORT).show();
+                            if (context != null){
+                                Toast.makeText(context, "Already signed up for this event!", Toast.LENGTH_SHORT).show();
                             }
 
                         }else{
                             signedUpEvents.add(eventId);
                             profileController.signedUpEventsUpdater(userID,signedUpEvents);
-
                         }
                         String userName = doc.getString("username");
 
                         EventController eventController = new EventController();
                         SignUp signUp = new SignUp(userID, userName);
                         eventController.signUserUpForEvent(eventId,signUp);
-
                     }
                 }else {
                     Log.d("DEBUG", "Error in getting the username");
@@ -171,6 +225,43 @@ public class EventInfoFragment extends Fragment {
             }
         });
 
+    }
+
+    /**
+     * Allow the user to cancel their sign up if they are already signed up for the event.
+     * @param eventID The eventid of the currently viewing event
+     * @param context The parent context
+     */
+    public void onCancelSignUp(String eventID, Context context){
+        String userID = ID.getProfileId(context);
+        ProfileController profileController = new ProfileController();
+        profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot doc = task.getResult();
+                    if (doc != null && doc.exists()){
+                        List<String> signedUpEvents = (List<String>) doc.get("signedUpEvents");
+                        if (signedUpEvents.contains(eventID)){
+                            // make sure context isn't null, was throwing errors before
+                            if (context != null){
+                                signedUpEvents.remove(eventID);
+                                profileController.signedUpEventsUpdater(userID, signedUpEvents);
+                                EventController eventController = new EventController();
+                                SignUp signUp = new SignUp(userID, null);
+                                eventController.cancelSignUpForEvent(eventID,signUp);
+                                Toast.makeText(context, "Removed this event from your collection!", Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            //should never see this...
+                            Toast.makeText(context, "Somehow this event is not in your collection...", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }else {
+                    Log.d("DEBUG", "Error in getting the username");
+                }
+            }
+        });
     }
 
     public void setEventInfoAnnouncementButton(Bundle bundle) {
