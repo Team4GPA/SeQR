@@ -21,6 +21,9 @@ import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.ID;
 import com.example.seqr.models.Profile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Fragment represents startup screen
  */
@@ -57,7 +60,8 @@ public class StartUpFragment extends Fragment {
                 } else{
                     ProfileController profileController = new ProfileController();
                     String uuid = ID.createProfileID(getContext());
-                    Profile newProfile = new Profile(username, uuid);
+                    List<String> notifications = new ArrayList<>();
+                    Profile newProfile = new Profile(username, uuid, notifications);
                     profileController.addProfile(newProfile);
 
                     //Restart the Main Activity so it loads all the buttons/click listeners and data.

@@ -62,6 +62,7 @@ public class PQRFragment extends Fragment {
 
         //Create some temporary storage
         File tempStorage = new File(requireContext().getFilesDir(), "temp");
+        tempStorage.mkdir();
         tempStorage = new File(tempStorage.getAbsolutePath()+"/pqr_temp/");
         tempStorage.mkdir();
         File tempFile;

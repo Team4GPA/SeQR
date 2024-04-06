@@ -186,8 +186,6 @@ public class EventController {
      * @param eventId the eventID of the event
      * @param signUp the signUp object that contains the id and username of someone who signed up
      */
-
-
     public void signUserUpForEvent(String eventId, SignUp signUp) {
         db.collection("Events").document(eventId).collection("signups")
                 .document(signUp.getUserId()).set(signUp)
@@ -205,10 +203,39 @@ public class EventController {
                 });
     }
 
+    public void cancelSignUpForEvent(String eventId, SignUp signUp){
+        db.collection("Events").document(eventId).collection("signups")
+                .document(signUp.getUserId()).delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+
+                        Log.d("Debug","Successfully removed sign up");
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Debug","failed to remove sign up");
+                    }
+                });
+    }
+
     public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("signups")
                 .get()
                 .addOnCompleteListener(onCompleteListener);
+    }
+
+    public void getEventCheckIns(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
+        eventCollection.document(eventID).collection("checkIns")
+                .get()
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Issue with getting the checkIns document");
+                    }
+                });
     }
 
     public void checkInUser (String eventID, String userID, String username, OnSuccessListener<Void> onSuccessListener,OnFailureListener onFailureListener){
@@ -222,6 +249,19 @@ public class EventController {
         checkInDocRef.set(checkInData, SetOptions.merge())
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);
+    }
+
+    public void getUserCheckIns(String eventID, String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener){
+        eventCollection.document(eventID).collection("checkIns")
+                .document(userId)
+                .get()
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","issue with getting the user checkIns");
+                    }
+                });
     }
 
 

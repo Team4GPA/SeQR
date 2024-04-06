@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.example.seqr.organizer.CheckInsFragment;
 import com.example.seqr.qr.CQRFragment;
 import com.example.seqr.qr.PQRFragment;
 import com.example.seqr.R;
@@ -31,6 +32,7 @@ public class EventManagementFragment extends Fragment {
 
     private Button viewSignUpsButton;
     private Button geoTrackButton;
+    private Button viewCheckInsButton;
 
 
     private Button announcementListButton;
@@ -60,7 +62,7 @@ public class EventManagementFragment extends Fragment {
         geoTrackButton = view.findViewById(R.id.GeoTrackingButton);
 
         viewSignUpsButton =  view.findViewById(R.id.SignedUpButton);
-
+        viewCheckInsButton = view.findViewById(R.id.CheckedInButton);
         announcementListButton = view.findViewById(R.id.AnnouncementButton);
 
 
@@ -85,6 +87,7 @@ public class EventManagementFragment extends Fragment {
         seteManagementBackButton();
         setViewSignUpsButton(bundle);
         setMapButton(bundle);
+        setViewCheckInsButton(bundle);
 
         return view;
     }
@@ -194,6 +197,21 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    public void setViewCheckInsButton(Bundle bundle){
+        viewCheckInsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CheckInsFragment checkInsFragment = new CheckInsFragment();
+                Bundle args = new Bundle();
+                args.putString("eventID",bundle.getString("eventID"));
+                checkInsFragment.setArguments(args);
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,checkInsFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+    }
 
 }
 
