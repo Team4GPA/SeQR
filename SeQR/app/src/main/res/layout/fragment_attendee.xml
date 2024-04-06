@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".AttendeeFragment">
+    tools:context=".attendee.AttendeeFragment">
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/floatingScanQR"
@@ -34,23 +34,25 @@
         android:id="@+id/eventSignedUpText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:text="@string/event_signed_up"
         android:textSize="30sp"
         android:textStyle="bold"
-        android:layout_margin="20dp"
-        app:layout_constraintTop_toBottomOf="@id/floatingScanQR"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/floatingScanQR"
+        app:layout_constraintVertical_bias="0.0" />
 
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/eventSignedUpRecyclerview"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        app:layout_constraintTop_toBottomOf="@id/eventSignedUpText"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
- />
+        app:layout_constraintTop_toBottomOf="@id/eventSignedUpText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.List;
+
 /**
  * Controller class for managing Profile data in database.
  */
@@ -143,5 +145,37 @@ public class ProfileController {
      */
     public DocumentReference getProfileDocument(String deviceId) {
         return profileCollection.document(deviceId);
+    }
+
+    /**
+     * This function will update the users signedUpEvents field in firebase with the new events added to the signedUpEvents
+     * @param uuid The UUID of the profile
+     * @param signedUpEvents the users signedUpEvents
+     */
+    public void signedUpEventsUpdater(String uuid, List<String> signedUpEvents){
+        profileCollection.document(uuid)
+                .update("signedUpEvents", signedUpEvents)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG","Successfully updated the users signedUpEvents");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Error with updating the users signedUpEvents",e);
+                    }
+                });
+    }
+
+
+    /**
+     * Gets a profile By a given ID
+     * @param uuid
+     * @param onCompleteListener
+     */
+    public void getProfileByUUID(String uuid, OnCompleteListener<DocumentSnapshot> onCompleteListener){
+        profileCollection.document(uuid).get().addOnCompleteListener(onCompleteListener);
     }
 }

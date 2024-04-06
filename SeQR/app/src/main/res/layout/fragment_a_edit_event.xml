@@ -1,26 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <Button
-        android:id="@+id/admin_edit_event_back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="15dp"
-        android:text="@string/back"
-        android:textSize="15sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    android:layout_margin="5sp">
 
     <TextView
         android:id="@+id/admin_event_edit_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="50dp"
+        android:layout_marginTop="15sp"
         android:text="Edit Event"
         android:textSize="30sp"
         android:textStyle="bold"
@@ -28,111 +18,150 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/admin_event_edit_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="Event Name"
-        android:textSize="15sp"
-        android:textStyle="bold"
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toTopOf="@id/admin_event_edit_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_text" />
+        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_text">
+
+        <TextView
+            android:id="@+id/admin_event_edit_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:includeFontPadding="true"
+            android:padding="15sp"
+            android:text="Event Name"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/admin_event_edit_organizer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15sp"
         android:text="Organizer"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_text" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/admin_event_edit_photo"
+        app:layout_constraintTop_toTopOf="@+id/admin_event_edit_photo" />
 
     <TextView
-        android:id="@+id/admin_event_preview_location"
+        android:id="@+id/admin_event_edit_location"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginStart="15sp"
         android:text="Location"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/admin_event_edit_time"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_text" />
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/admin_event_edit_photo"
+        app:layout_constraintTop_toBottomOf="@+id/admin_event_edit_organizer" />
 
     <TextView
         android:id="@+id/admin_event_edit_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15sp"
         android:text="Time"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_organizer" />
+        app:layout_constraintBottom_toTopOf="@+id/admin_event_edit_capacity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/admin_event_edit_photo"
+        app:layout_constraintTop_toBottomOf="@+id/admin_event_edit_location" />
 
     <TextView
         android:id="@+id/admin_event_edit_capacity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginStart="15sp"
         android:text="Capacity"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="@+id/admin_event_edit_photo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_preview_location" />
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toEndOf="@+id/admin_event_edit_photo" />
 
     <ImageView
         android:id="@+id/admin_event_edit_photo"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="15sp"
+        android:background="#E0EAEF"
         android:src="@drawable/baseline_image_placeholder_24"
-        android:layout_marginTop="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_capacity" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias=".3" />
 
-    <TextView
-        android:id="@+id/admin_event_edit_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:text="Description"
-        android:textSize="20sp"
-        android:textStyle="bold"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toTopOf="@id/admin_event_edit_delete_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_photo" />
+        app:layout_constraintTop_toBottomOf="@id/admin_event_edit_photo">
+
+        <TextView
+            android:id="@+id/admin_event_edit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:text="Description"
+            android:textSize="16sp"
+            android:textStyle="normal" />
+    </ScrollView>
 
     <Button
         android:id="@+id/admin_event_edit_edit_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="120dp"
-        android:text="Edit Profile"
+        android:layout_marginBottom="5sp"
+        android:text="Edit This Event"
         android:textSize="15sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/admin_edit_event_back_button"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/admin_event_edit_delete_button"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintRight_toLeftOf="@+id/admin_event_edit_delete_button" />
 
     <Button
         android:id="@+id/admin_event_edit_delete_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Delete Profile"
+        android:layout_height="0dp"
+        android:text="Delete This Event"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/admin_event_edit_edit_button"
         app:layout_constraintLeft_toRightOf="@+id/admin_event_edit_edit_button"
-        app:layout_constraintRight_toRightOf="parent">
-    </Button>
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/admin_event_edit_edit_button"></Button>
+
+    <Button
+        android:id="@+id/admin_edit_event_back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

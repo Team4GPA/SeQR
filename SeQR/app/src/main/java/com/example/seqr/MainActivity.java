@@ -1,6 +1,5 @@
 package com.example.seqr;
 
-import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,30 +17,27 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.seqr.administrator.AdminFragment;
+import com.example.seqr.attendee.AttendeeFragment;
 import com.example.seqr.controllers.ProfileController;
-import com.example.seqr.database.Database;
+import com.example.seqr.events.EventLobbyFragment;
+import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
-import com.example.seqr.models.Profile;
+import com.example.seqr.organizer.OrganizerFragment;
+import com.example.seqr.profile.EditProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
-import com.google.firebase.storage.FirebaseStorage;
 import com.squareup.picasso.Picasso;
 
-
 /**
- * MainActivity represents the main activity of the application. It handles both the top and bottom navigation bars,
- * profile management, and displays various fragments such as lobby, attendee and organizer based on user interactions.
+ * Class representing MainActivity
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -51,6 +46,10 @@ public class MainActivity extends AppCompatActivity {
     private OrganizerFragment organizerFragment = new OrganizerFragment();
 
     private ImageView profileImageView;
+
+    boolean firstTime = true;
+
+
 
     /**
      * Called when the activity is starting. Initializes the main activity layout and sets up
@@ -62,6 +61,14 @@ public class MainActivity extends AppCompatActivity {
      */
     private StartUpFragment startUpFragment = new StartUpFragment();
 
+
+    /**
+     *
+     * @param savedInstanceState If the activity is being re-initialized after
+     *     previously being shut down then this Bundle contains the data it most
+     *     recently supplied in {@link #onSaveInstanceState}.  <b><i>Note: Otherwise it is null.</i></b>
+     *
+     */
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -81,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
 
         } else {
 
+            //ID.removeProfileID(this.getBaseContext());
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -113,6 +121,32 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
             });
+        profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if(task.isSuccessful()){
+                    DocumentSnapshot documentSnapshot = task.getResult();
+                    if (documentSnapshot != null && documentSnapshot.exists()) {
+                        boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
+                        // Update the checkbox state based on the retrieved value
+                        enableGeoLocationCheckbox.setChecked(geoLocationEnabled);
+                    }
+                }
+            }
+        });
+
+            // Add an event listener to the checkbox
+        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Update the geolocation setting in Firestore for the current user
+                String uuid = ID.getProfileId(MainActivity.this);
+                if (uuid != null) {
+                    ProfileController profileController = new ProfileController();
+                    profileController.updateGeoLocation(uuid, isChecked);
+                }
+            }
+        });
             Button adminButton = findViewById(R.id.admin_button);
 
             profileImageView = findViewById(R.id.profile_picture);
@@ -121,6 +155,8 @@ public class MainActivity extends AppCompatActivity {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
             Picasso.get().load(imageUrl).into(profileImageView);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
+
 
 
             //for testing: add a floating QR button over the main fragment view 'fragment_container'
@@ -202,6 +238,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+
             //handle clicks on the QR code button;
             //uses some variables set up earlier:
             //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
@@ -229,12 +266,16 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProfileFragment editprofileFragment = new EditProfileFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("first_time", firstTime); // Pass firstTime to the fragment
+                    EditProfileFragment fragment = new EditProfileFragment();
+                    fragment.setArguments(bundle);
                     FragmentTransaction transaction = fragMgr.beginTransaction();
-                    transaction.replace(R.id.fragment_container, editprofileFragment);
+                    transaction.replace(R.id.fragment_container, fragment); // Use the created fragment
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
@@ -251,6 +292,7 @@ public class MainActivity extends AppCompatActivity {
 //    //==============================================================================================
 //    //Custom Methods
 //    //
+
 //    private void startUpLogic(){
 //        setContentView(R.layout.start_up);
 //        EditText userNameEntry = findViewById(R.id.enteredUsername);
@@ -302,13 +344,17 @@ public class MainActivity extends AppCompatActivity {
 //        });
 //    }
 
+
     /**
-     * Updates the profile picture displayed in the profile image view with the provided image URI.
-     *
-     * @param imageUri The URI of the profile picture to be displayed.
+     * Function to update profile pictures for changes to profile pictures
+     * @param imageUri profile picture that was changed
      */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
+    }
+
+    public void setFirstTime(boolean status) {
+        firstTime = status;
     }
     //==============================================================================================
     //End of MainActivity Class

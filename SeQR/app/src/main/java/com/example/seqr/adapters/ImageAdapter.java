@@ -1,5 +1,8 @@
 package com.example.seqr.adapters;
 
+import android.net.Uri;
+import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +20,18 @@ import com.squareup.picasso.Picasso;
  */
 public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
     private List<String> imageUrlList; // Change if we have different data type
+    private int itemWidth;
 
     /**
      * Constructs an ImageAdapter with the provided list of image URLs.
      *
      * @param imageUrlList The list of image URLs to be displayed.
      */
-    public ImageAdapter(List<String> imageUrlList){
+    public ImageAdapter(List<String> imageUrlList, android.content.Context context){
         this.imageUrlList = imageUrlList;
+        DisplayMetrics displayMetrics = context.getResources().getDisplayMetrics();
+        int screenWidth = displayMetrics.widthPixels;
+        itemWidth = screenWidth / 3;
     }
 
     /**
@@ -38,6 +45,12 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
     @Override
     public ImageViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.image_content, parent, false);
+
+        // Set the size of each image based on the size of the screen
+        ViewGroup.LayoutParams layoutParams = itemView.getLayoutParams();
+        layoutParams.width = itemWidth;
+        layoutParams.height = itemWidth;
+        itemView.setLayoutParams(layoutParams);
         return new ImageViewHolder(itemView);
     }
 
@@ -49,7 +62,8 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
      */
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position){
-        String imageUrl = imageUrlList.get(position);
+        String path = Uri.encode(imageUrlList.get(position));
+        String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
         Picasso.get().load(imageUrl).into(holder.imageView);
     }
 

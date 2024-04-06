@@ -9,6 +9,16 @@ public class Announcement {
     private String title;
     private String description;
     private Timestamp time;
+    private String eventID;
+    private String announcementID;
+    private String organizer;
+
+    /**
+     * Default constructor for the Announcement class.
+     */
+    public Announcement(){
+
+    }
 
     /**
      * Constructs an Announcement object with the given title, description, and time.
@@ -17,10 +27,13 @@ public class Announcement {
      * @param description The description of the announcement.
      * @param time        The timestamp indicating when the announcement was made.
      */
-    public Announcement(String title, String description, Timestamp time){
+    public Announcement(String title, String description, Timestamp time, String eventID, String announcementID, String organizer){
         this.title = title;
         this.description = description;
         this.time = time;
+        this.eventID = eventID;
+        this.announcementID = announcementID;
+        this.organizer = organizer;
     }
 
     /**
@@ -76,4 +89,30 @@ public class Announcement {
     public void setTime(Timestamp time) {
         this.time = time;
     }
+
+    public String getEventID() {
+        return eventID;
+    }
+
+    public void setEventID(String eventID) {
+        this.eventID = eventID;
+    }
+
+    public String getAnnouncementID() {
+        return announcementID;
+    }
+
+    public void setAnnouncementID(String announcementID) {
+        this.announcementID = announcementID;
+    }
+
+    public String getOrganizer() {
+        return organizer;
+    }
+
+    public void setOrganizer(String organizer) {
+        this.organizer = organizer;
+    }
+
 }
+
