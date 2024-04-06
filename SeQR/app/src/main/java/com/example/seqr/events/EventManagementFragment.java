@@ -186,6 +186,7 @@ public class EventManagementFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 EventMapFragment mapFrag = new EventMapFragment();
+                mapFrag.setArguments(bundle);
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, mapFrag)
                         .addToBackStack(null)
