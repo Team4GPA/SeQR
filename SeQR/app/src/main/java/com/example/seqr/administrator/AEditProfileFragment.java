@@ -2,6 +2,7 @@ package com.example.seqr.administrator;
 
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +90,7 @@ public class AEditProfileFragment extends Fragment{
             @Override
             public void onClick(View v) {
                 Bundle bundle1 = new Bundle();
-                bundle1.putString("profileID", id);
+                bundle1.putString("id", id);
                 showConfirmationDialog(bundle1);
             }
         });
