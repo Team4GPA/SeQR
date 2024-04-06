@@ -70,6 +70,7 @@ dependencies {
     implementation("com.google.android.material:material:1.11.0")
     implementation("com.google.firebase:firebase-messaging")
     implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-database:20.3.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -78,5 +79,10 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
     implementation("com.amplitude:android-sdk:2.34.1")
     implementation("com.squareup.okhttp3:okhttp:4.12.0")
+    implementation("com.squareup.okhttp3:okhttp:4.9.3")
+
+    //google maps
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
 
 }
