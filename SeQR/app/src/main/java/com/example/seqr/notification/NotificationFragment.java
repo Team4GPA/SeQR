@@ -1,4 +1,4 @@
-package com.example.seqr;
+package com.example.seqr.notification;
 
 import android.os.Bundle;
 
@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.seqr.R;
 import com.example.seqr.adapters.AnnouncementAdapter;
 import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.controllers.AnnouncementController;

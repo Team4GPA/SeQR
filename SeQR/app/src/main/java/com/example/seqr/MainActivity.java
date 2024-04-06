@@ -1,6 +1,9 @@
 package com.example.seqr;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -11,26 +14,34 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import android.widget.Toast;
+import android.Manifest;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.seqr.administrator.AdminFragment;
+import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.attendee.AttendeeFragment;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.events.EventLobbyFragment;
 import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
+import com.example.seqr.notification.NotificationFragment;
 import com.example.seqr.organizer.OrganizerFragment;
 import com.example.seqr.profile.EditProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.FirebaseApp;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FirebaseFirestoreException;
@@ -44,10 +55,16 @@ public class MainActivity extends AppCompatActivity {
     private AttendeeFragment attendeeFragment = new AttendeeFragment();
     private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     private OrganizerFragment organizerFragment = new OrganizerFragment();
-
     private ImageView profileImageView;
-
     private StartUpFragment startUpFragment = new StartUpFragment();
+    private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
+        @Override
+        public void onActivityResult(Boolean o) {
+            if (o) {
+                Toast.makeText(MainActivity.this, "Post notification permission granted!", Toast.LENGTH_SHORT).show();
+            }
+        }
+    });
 
     /**
      *
@@ -62,9 +79,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-
         String uuid = ID.getProfileId(getBaseContext());
-
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -81,32 +96,39 @@ public class MainActivity extends AppCompatActivity {
             CheckBox enableGeoLocationCheckbox = findViewById(R.id.enable_geo_location_checkbox);
             ProfileController profileController = new ProfileController();
 
-        profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+            FirebaseApp.initializeApp(this);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+                    activityResultLauncher.launch(Manifest.permission.POST_NOTIFICATIONS);
+                }
+            }
+
+            profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot != null && documentSnapshot.exists()) {
-                        boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
-                        // Update the checkbox state based on the retrieved value
-                        enableGeoLocationCheckbox.setChecked(geoLocationEnabled);
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
+                            boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
+                            // Update the checkbox state based on the retrieved value
+                            enableGeoLocationCheckbox.setChecked(geoLocationEnabled);
+                        }
                     }
                 }
-            }
-        });
+            });
 
             // Add an event listener to the checkbox
-        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Update the geolocation setting in Firestore for the current user
-                String uuid = ID.getProfileId(MainActivity.this);
-                if (uuid != null) {
-                    ProfileController profileController = new ProfileController();
-                    profileController.updateGeoLocation(uuid, isChecked);
+            enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // Update the geolocation setting in Firestore for the current user
+                    String uuid = ID.getProfileId(MainActivity.this);
+                    if (uuid != null) {
+                        ProfileController profileController = new ProfileController();
+                        profileController.updateGeoLocation(uuid, isChecked);
+                    }
                 }
-            }
-        });
+            });
 
             Button adminButton = findViewById(R.id.admin_button);
 
@@ -239,6 +261,26 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            // make sure this block of code is at the bottom, this is for redirecting to some pages when you click a notification
+            if (getIntent().getExtras() != null) {
+                Log.d("notfi", "main receieved");
+                String announcementID = getIntent().getExtras().getString("announcementID");
+                String eventID = getIntent().getExtras().getString("eventID");
+                Log.d("notfi", "Announcement id" + announcementID);
+                Log.d("notfi", "eventID" + eventID);
+                Boolean ifAttendee = true;
+                Bundle bundle = new Bundle();
+                bundle.putString("announcementID", announcementID);
+                bundle.putString("eventID", eventID);
+                bundle.putBoolean("ifAttendee", ifAttendee);
+                AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
+                announcementDetailFragment.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, announcementDetailFragment)
+                        .addToBackStack(null) // Add the fragment transaction to the back stack
+                        .commit();
+            }
         }
     }
 //

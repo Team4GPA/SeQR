@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
@@ -14,6 +15,7 @@
         android:fontFamily="sans-serif-black"
         android:textSize="30sp"
         android:text="Title"
+        android:maxLines="1"
         android:ellipsize="end"
         android:textStyle="bold" />
 
@@ -28,6 +30,7 @@
         android:fontFamily="sans-serif-black"
         android:textSize="20sp"
         android:text="Desc"
+        android:maxLines="3"
         android:ellipsize="end"
         android:textStyle="normal" />
 

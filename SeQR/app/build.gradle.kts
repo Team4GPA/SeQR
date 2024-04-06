@@ -68,6 +68,8 @@ dependencies {
     implementation("com.squareup.picasso:picasso:2.8")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
+    implementation("com.google.firebase:firebase-messaging")
+    implementation("com.google.firebase:firebase-analytics")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -75,7 +77,6 @@ dependencies {
     //implementation("com.squareup.picasso:picasso:2.5.2")
     implementation("com.journeyapps:zxing-android-embedded:4.1.0")
     implementation("com.amplitude:android-sdk:2.34.1")
-    implementation("com.squareup.okhttp3:okhttp:4.9.3")
-
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 
 }

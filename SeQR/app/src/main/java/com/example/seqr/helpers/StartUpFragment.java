@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -20,6 +21,9 @@ import com.example.seqr.R;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.ID;
 import com.example.seqr.models.Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +67,7 @@ public class StartUpFragment extends Fragment {
                     List<String> notifications = new ArrayList<>();
                     Profile newProfile = new Profile(username, uuid, notifications);
                     profileController.addProfile(newProfile);
-
+                    profileController.updateFCMToken(uuid);
                     //Restart the Main Activity so it loads all the buttons/click listeners and data.
                     Activity activity = getActivity();
                     if (activity != null) {
@@ -73,12 +77,11 @@ public class StartUpFragment extends Fragment {
                         startActivity(intent);
                         activity.finish();
                     }
-
-
                 }
 
             }
         });
         return view;
     }
+
 }

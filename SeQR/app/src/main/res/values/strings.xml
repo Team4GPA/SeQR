@@ -22,6 +22,7 @@
     <string name="welcome_to_seqr">Welcome to SeQR!</string>
     <string name="a_button_to_confirm_that_you_want_to_create_a_profile">Create profile confirmation</string>
     <string name="signup">Sign Up</string>
+    <string name="default_notification_channel_id">Default</string>
     <string name="all_attendees">All Attendees</string>
     <string name="number_of_attendees">%1$d Attendee(s) in total</string>
     <string name="check_in_s_in_total"># check-in(s) in total</string>

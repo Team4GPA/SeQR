@@ -17,7 +17,7 @@
         android:textColor="@color/black"
         android:textColorLink="@color/black"
         android:textSize="20sp"
-        app:backgroundTint="#E4E4E4"
+        app:backgroundTint="@color/light_gray"
         app:elevation="6dp"
         app:fabSize="auto"
         app:icon="@drawable/baseline_qr_code_scanner_24"
