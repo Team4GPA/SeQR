@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AttendeeCheckInsView extends Fragment {
+public class AttendeeCheckInsFragment extends Fragment {
     private TextView usernameText;
     private ListView checkInsView;
 
@@ -42,7 +42,7 @@ public class AttendeeCheckInsView extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_attendee_check_ins_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_attendee_check_ins, container, false);
         profilePic = view.findViewById(R.id.checkedIns_image);
         usernameText = view.findViewById(R.id.checkedIns_name);
         backButton = view.findViewById(R.id.attendeeCheckIns_back_button);
