@@ -77,5 +77,8 @@ dependencies {
     implementation("com.amplitude:android-sdk:2.34.1")
     implementation("com.squareup.okhttp3:okhttp:4.9.3")
 
+    //google maps
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
 
 }

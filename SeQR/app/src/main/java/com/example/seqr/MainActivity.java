@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
 
     private StartUpFragment startUpFragment = new StartUpFragment();
 
+
     /**
      *
      * @param savedInstanceState If the activity is being re-initialized after

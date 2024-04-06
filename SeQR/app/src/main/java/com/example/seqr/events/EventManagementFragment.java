@@ -30,6 +30,7 @@ public class EventManagementFragment extends Fragment {
     private Button eManagementBackButton;
 
     private Button viewSignUpsButton;
+    private Button geoTrackButton;
 
 
     private Button announcementListButton;
@@ -56,6 +57,7 @@ public class EventManagementFragment extends Fragment {
         cQRButton = view.findViewById(R.id.CQRButton);
         pQRButton = view.findViewById(R.id.PQRButton);
         eManagementBackButton = view.findViewById(R.id.EManagementBackButton);
+        geoTrackButton = view.findViewById(R.id.GeoTrackingButton);
 
         viewSignUpsButton =  view.findViewById(R.id.SignedUpButton);
 
@@ -82,6 +84,7 @@ public class EventManagementFragment extends Fragment {
         setAnnouncementListButton(bundle);
         seteManagementBackButton();
         setViewSignUpsButton(bundle);
+        setMapButton(bundle);
 
         return view;
     }
@@ -174,6 +177,19 @@ public class EventManagementFragment extends Fragment {
                         .commit();
 
 
+            }
+        });
+    }
+
+    public void setMapButton(Bundle bundle){
+        geoTrackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventMapFragment mapFrag = new EventMapFragment();
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, mapFrag)
+                        .addToBackStack(null)
+                        .commit();
             }
         });
     }
