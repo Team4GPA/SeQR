@@ -96,37 +96,6 @@ public class ProfileController {
                 });
     }
 
-    public void updateProfileCoordinates(String uuid, double latitude, double longitude) {
-        profileCollection.document(uuid)
-                .update("latitude", latitude)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("DEBUG", "Successfully updated geolocation setting");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Error updating geolocation setting", e);
-                    }
-                });
-        profileCollection.document(uuid)
-                .update("longitude",longitude)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Log.d("DEBUG", "Successfully updated geolocation setting");
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Error updating geolocation setting", e);
-                    }
-                });
-    }
-
     /**
      * Updates profile information in database.
      *

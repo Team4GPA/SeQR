@@ -195,43 +195,10 @@ public class AttendeeFragment extends Fragment {
             }
         });
 
-        // Get the profile to get its permissions and device location
-        String profileUUID = ID.getProfileId(getContext());
-        ProfileController profileController = new ProfileController();
-        AtomicBoolean geolocation = new AtomicBoolean(false);
-        profileController.getProfileByUUID(profileUUID, new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot profileDoc = task.getResult();
-                    Boolean geo = (Boolean) profileDoc.get("geoLocation");
-                    geolocation.set(geo);
-                }
-            }
-        });
+
         //if the button is clicked, start the QR scanner!
         floatingScanQRButton.setOnClickListener(v -> {
-            double[] latLng = {};
-
             Log.d(DBTAG, "button clicked; launching scanner fragment");
-            if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
-                    @Override
-                    public void onLocationReceived(double latitude, double longitude) {
-                        // Do something with the location data
-                        profileController.updateProfileCoordinates(profileUUID, latitude,longitude);
-                    }
-                });
-            } else if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
-                getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
-                    @Override
-                    public void onLocationReceived(double latitude, double longitude) {
-                        profileController.updateProfileCoordinates(profileUUID, latitude,longitude);
-                    }
-                });
-            }
-
-
             FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
             transaction.replace(R.id.fragment_container, scanQRFragment);
             transaction.addToBackStack(null);
@@ -302,6 +269,37 @@ public class AttendeeFragment extends Fragment {
         EventController eventController = new EventController();
         String userID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
+
+        // Get the profile to get its permissions and device location
+        String profileUUID = ID.getProfileId(getContext());
+        AtomicBoolean geolocation = new AtomicBoolean(false);
+        profileController.getProfileByUUID(profileUUID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot profileDoc = task.getResult();
+                    Boolean geo = (Boolean) profileDoc.get("geoLocation");
+                    geolocation.set(geo);
+                }
+            }
+        });
+        double[] latLng = {};
+        if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
+                @Override
+                public void onLocationReceived(double latitude, double longitude) {
+                    // Do something with the location data
+                    eventController.updateEventCheckInCoordinates(QRData,profileUUID, latitude,longitude);
+                }
+            });
+        } else if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
+                @Override
+                public void onLocationReceived(double latitude, double longitude) {
+                    eventController.updateEventCheckInCoordinates(QRData,profileUUID, latitude,longitude);
+                }
+            });
+        }
         profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
