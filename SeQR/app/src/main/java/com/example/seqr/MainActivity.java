@@ -107,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+
             Button adminButton = findViewById(R.id.admin_button);
 
             profileImageView = findViewById(R.id.profile_picture);
@@ -164,6 +165,16 @@ public class MainActivity extends AppCompatActivity {
                 public boolean onMenuItemClick(MenuItem item) {
                     if (item.getItemId() == R.id.notification_icon) {
                         // Handle notification icon click
+                        Bundle bundle = new Bundle();
+                        bundle.putString("id", uuid);
+
+                        NotificationFragment notificationFragment = new NotificationFragment();
+                        notificationFragment.setArguments(bundle);
+
+                        FragmentTransaction transaction = fragMgr.beginTransaction();
+                        transaction.replace(R.id.fragment_container, notificationFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                         return true;
                     }
                     return false;

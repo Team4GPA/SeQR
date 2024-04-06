@@ -1,6 +1,7 @@
 package com.example.seqr.controllers;
 
 
+
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -22,6 +23,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -122,5 +124,4 @@ public class ImageController {
             }
         });
     }
-
 }

@@ -24,6 +24,7 @@ public class ShareImages {
     public File generateTempFile(Context currentContext, String prefix, String suffix){
         //Create some temporary storage
         File tempStorage = new File(currentContext.getFilesDir(), "temp");
+        tempStorage.mkdir();
         tempStorage = new File(tempStorage.getAbsolutePath()+"/"+prefix+"_temp/");
         tempStorage.mkdir();
         File tempFile;
