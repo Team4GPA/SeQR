@@ -285,6 +285,7 @@ public class AttendeeFragment extends Fragment {
                             @Override
                             public void onSuccess(Void unused) {
                                 Log.d("DEBUG", "successfully checked in the user");
+                                
                             }
                         }, new OnFailureListener() {
                             @Override
