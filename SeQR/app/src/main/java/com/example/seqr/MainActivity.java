@@ -57,6 +57,9 @@ public class MainActivity extends AppCompatActivity {
     private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     private OrganizerFragment organizerFragment = new OrganizerFragment();
     private ImageView profileImageView;
+
+    boolean firstTime = true;
+
     private StartUpFragment startUpFragment = new StartUpFragment();
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -135,10 +138,9 @@ public class MainActivity extends AppCompatActivity {
 
             profileImageView = findViewById(R.id.profile_picture);
 
-
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).into(profileImageView);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
 
 
             //for testing: add a floating QR button over the main fragment view 'fragment_container'
@@ -254,13 +256,15 @@ public class MainActivity extends AppCompatActivity {
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProfileFragment editprofileFragment = new EditProfileFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("first_time", firstTime); // Pass firstTime to the fragment
+                    EditProfileFragment fragment = new EditProfileFragment();
+                    fragment.setArguments(bundle);
                     FragmentTransaction transaction = fragMgr.beginTransaction();
-                    transaction.replace(R.id.fragment_container, editprofileFragment);
+                    transaction.replace(R.id.fragment_container, fragment); // Use the created fragment
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
-
                 }
             });
             // make sure this block of code is at the bottom, this is for redirecting to some pages when you click a notification
@@ -300,6 +304,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
+    }
+
+    public void setFirstTime(boolean status) {
+        firstTime = status;
     }
     //==============================================================================================
     //End of MainActivity Class

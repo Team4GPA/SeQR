@@ -2,6 +2,8 @@ package com.example.seqr.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +24,20 @@ import com.example.seqr.R;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.ID;
 import com.example.seqr.models.Profile;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.messaging.FirebaseMessaging;
+import com.example.seqr.profile.EditProfileFragment;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.example.seqr.helpers.ProfilePictureGenerator;
+import com.example.seqr.helpers.BitmapUtils;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 /**
  * Fragment represents startup screen
  */
 public class StartUpFragment extends Fragment {
 
+    private Uri bitmapUri;
 
     /**
      *
@@ -60,14 +65,26 @@ public class StartUpFragment extends Fragment {
             public void onClick(View v) {
                 String username = userNameEnter.getText().toString();
                 if (username.isEmpty()){
-                    Toast.makeText(getContext(), "Cant have an empty Username", Toast.LENGTH_SHORT).show();
-                } else{
+                    username = "Guest";
+                }
                     ProfileController profileController = new ProfileController();
                     String uuid = ID.createProfileID(getContext());
-                    List<String> notifications = new ArrayList<>();
-                    Profile newProfile = new Profile(username, uuid, notifications);
+                    Profile newProfile = new Profile(username, uuid);
+                    ProfilePictureGenerator generator = new ProfilePictureGenerator();
+                    Bitmap newProfilePicture = generator.generate(ID.getProfileId(getContext()), username);
+                    bitmapUri = BitmapUtils.bitmapToUri(requireContext(), newProfilePicture);
                     profileController.addProfile(newProfile);
-                    profileController.updateFCMToken(uuid);
+                    profileController.updatePFP(uuid, bitmapUri.toString(), new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void aVoid) {
+                        }
+                    }, new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.d("DEBUG", "Error updating profile picture", e);
+                        }
+                    });
+
                     //Restart the Main Activity so it loads all the buttons/click listeners and data.
                     Activity activity = getActivity();
                     if (activity != null) {
@@ -78,10 +95,7 @@ public class StartUpFragment extends Fragment {
                         activity.finish();
                     }
                 }
-
-            }
         });
         return view;
     }
-
 }
