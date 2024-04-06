@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.seqr.R;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
+import com.example.seqr.database.Database;
 import com.example.seqr.models.Event;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,19 +23,32 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 
 public class EventMapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap map;
+    private String id;
+    private String eventName;
+
+    private FirebaseFirestore db;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_map, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null){
+            id = bundle.getString("eventID");
+            eventName = bundle.getString("eventName");
+        }
 
+        db = Database.getFireStore();
         return view;
     }
 
@@ -42,10 +56,27 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
     public void onMapReady(GoogleMap eMap){
         map = eMap;
         map.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-        LatLng edmonton = new LatLng(53.5461,-113.4937);
-        map.addMarker(new MarkerOptions().position(edmonton).title("Edmonton"));
-        //map.moveCamera(CameraUpdateFactory.newLatLng(edmonton));
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(edmonton, (float) 18.0));
+
+        db.collection("Events").document(id).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                if (documentSnapshot.exists()) {
+                    double latitude = documentSnapshot.getDouble("latitude");
+                    double longitude = documentSnapshot.getDouble("longitude");
+
+                    LatLng eventLocation = new LatLng(latitude,longitude);
+                    map.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocation, 15.0f));
+                } else {
+                    Log.d("DEBUG", "DOCUMENT DOES NOT EXIST");
+                }
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DEBUG", "Couldn't retrieve event to locate on map", e);
+            }
+        });
     }
 
     @Override
