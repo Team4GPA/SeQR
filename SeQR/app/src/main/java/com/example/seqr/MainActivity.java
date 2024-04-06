@@ -47,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
 
     private ImageView profileImageView;
 
+    boolean firstTime = true;
+
     private StartUpFragment startUpFragment = new StartUpFragment();
 
     /**
@@ -219,13 +221,15 @@ public class MainActivity extends AppCompatActivity {
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProfileFragment editprofileFragment = new EditProfileFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("first_time", firstTime); // Pass firstTime to the fragment
+                    EditProfileFragment fragment = new EditProfileFragment();
+                    fragment.setArguments(bundle);
                     FragmentTransaction transaction = fragMgr.beginTransaction();
-                    transaction.replace(R.id.fragment_container, editprofileFragment);
+                    transaction.replace(R.id.fragment_container, fragment); // Use the created fragment
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
-
                 }
             });
         }
@@ -245,6 +249,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
+    }
+
+    public void setFirstTime(boolean status) {
+        firstTime = status;
     }
     //==============================================================================================
     //End of MainActivity Class
