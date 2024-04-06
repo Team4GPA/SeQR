@@ -26,6 +26,9 @@ public class Event {
 
     private String organizerUUID;
 
+    private double latitude;
+    private double longitude;
+
     /**
      * Default constructor for the Event class.
      */
@@ -46,10 +49,12 @@ public class Event {
      * @param promotionQR   The QR code for promotion of the event.
      * @param checkInQR     The QR code for event check-in.
      * @param organizerUUID The UUID of the organizer.
+     * @param longitude     A double representing the longitude coordinate of the location of the event
+     * @param latitude      A double representing the latitude coordinate of the location of the event
      */
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID) {
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer,
+                 String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID, double latitude, double longitude) {
         this.eventName = eventName;
-
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
         this.organizer = organizer;
@@ -59,6 +64,8 @@ public class Event {
         this.checkInQR = checkInQR;
         this.promotionQR = promotionQR;
         this.organizerUUID = organizerUUID;
+        this.latitude = latitude;
+        this.longitude = longitude;
 
     }
     /**
@@ -241,4 +248,11 @@ public class Event {
     public void setEventStartTime(String eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
+
+    public double getLatitude(){return latitude;}
+
+    public double getLongitude() {return longitude;}
+
+    public void setLatitude(double lat) {this.latitude = lat;}
+    public void setLongitude(double lng) {this.longitude = lng;}
 }

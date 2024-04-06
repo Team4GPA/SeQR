@@ -45,6 +45,8 @@ public class EventController {
             "organizer",
             "organizerUUID",
             "promotionQR",
+            "latitude",
+            "longitude"
     };
 
     /**
