@@ -85,6 +85,7 @@ public class EventInfoFragment extends Fragment {
                 onSignUpPressed(eventId, getContext());
                 //wait for confirmation before continuing!
 
+                Toast.makeText(getContext(), "Added \""+eventNameText.getText().toString()+"\" to your collection!", Toast.LENGTH_SHORT).show();
                 BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
                 FragmentManager frgMgr = getParentFragmentManager();
                 FragmentTransaction trans = frgMgr.beginTransaction();
