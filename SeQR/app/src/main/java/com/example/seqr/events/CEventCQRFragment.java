@@ -57,11 +57,12 @@ public class CEventCQRFragment extends Fragment {
         });
       
         Button generateQRButton = view.findViewById(R.id.generateQRButton);
+        Button reuseQRButton = view.findViewById(R.id.reuseQRButton);
         qrCodeGenerator = new QRCodeGenerator();
-        String eventID = UUID.randomUUID().toString();
+        //String eventID = UUID.randomUUID().toString();
         Bundle bundle = getArguments();
         assert bundle != null;
-        bundle.putString("eventID", eventID);
+        //bundle.putString("eventID", eventID);
 
         // This code prefetches the organizer name for the next fragment so there is no delay in displaying the nane
         String organizerID = ID.getProfileId(getContext());
@@ -84,16 +85,32 @@ public class CEventCQRFragment extends Fragment {
         generateQRButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String eventID = UUID.randomUUID().toString();
+                bundle.putString("eventID", eventID);
                 checkInQR = qrCodeGenerator.generate(eventID + "_checkIn");
                 promotionQR = qrCodeGenerator.generate(eventID+"_promotion");
                 bundle.putString("checkInQR", checkInQR);
                 bundle.putString("promotionQR",promotionQR);
+
 
                 CEventPreviewFragment cEventPreviewFragment = new CEventPreviewFragment();
                 cEventPreviewFragment.setArguments(bundle);
 
                 getParentFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, cEventPreviewFragment)
+                        .addToBackStack(null)
+                        .commit();
+            }
+        });
+
+        reuseQRButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                CEventReuseQRFragment cEventReuseQRFragment = new CEventReuseQRFragment();
+                cEventReuseQRFragment.setArguments(bundle);
+
+                getParentFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container,cEventReuseQRFragment)
                         .addToBackStack(null)
                         .commit();
             }

@@ -13,6 +13,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -97,19 +98,41 @@ public class EventController {
     }
 
     public void removeEventWithID(String eventID){
-        eventCollection.document(eventID).delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        deleteEventPoster(eventID);
-                        removeEventFromUserProfile(eventID);
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Debug","Cant delete",e);
-                    }
-                });
+
+        eventCollection.document(eventID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot eventDoc) {
+                if(eventDoc.exists()){
+                    String checkInQR = eventDoc.getString("checkInQR");
+                    String promotionQR = eventDoc.getString("promotionQR");
+                    String previousEventName = eventDoc.getString("eventName");
+                    // now we delete the event, we just needed to store references to the fields above
+                    eventCollection.document(eventID).delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    ReusableQrController reusableQrController = new ReusableQrController();
+                                    reusableQrController.addQRpair(checkInQR,promotionQR,previousEventName,eventID);
+                                    deleteEventPoster(eventID);
+                                    removeEventFromUserProfile(eventID);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("Debug","Cant delete",e);
+                                }
+                            });
+
+
+                }
+            }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("DEBUG", "there was an error in getting this event",e);
+                }
+            });
+
     }
 
     public void deleteEventPoster(String eventID){
@@ -269,6 +292,11 @@ public class EventController {
                         Log.d("DEBUG","issue with getting the user checkIns");
                     }
                 });
+    }
+
+    public void eventCheckInsSnapshot(String eventID, EventListener<QuerySnapshot> listener){
+        eventCollection.document(eventID).collection("checkIns")
+                .addSnapshotListener(listener);
     }
 
 
