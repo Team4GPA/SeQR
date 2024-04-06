@@ -103,7 +103,7 @@ public class CAnnouncementFragment extends Fragment {
                                                     }
                                                     notifications.add(announcementID);
                                                     profileController.notificationsUpdater(id, notifications);
-                                                    sendNotification(title, description, announcementID, fcmToken);
+                                                    sendNotification(title, description, announcementID, eventID, fcmToken);
                                                 }
                                             } else {
                                                 Log.d("DEBUG", "Error in getting the notifications");
@@ -122,7 +122,7 @@ public class CAnnouncementFragment extends Fragment {
         return view;
     }
 
-    private void sendNotification(String title, String description, String announcementID, String fcmToken) {
+    private void sendNotification(String title, String description, String announcementID, String eventID, String fcmToken) {
         try {
             JSONObject jsonObject = new JSONObject();
 
@@ -132,6 +132,7 @@ public class CAnnouncementFragment extends Fragment {
 
             JSONObject dataObj = new JSONObject();
             dataObj.put("announcementID", announcementID);
+            dataObj.put("eventID", eventID);
 
             jsonObject.put("notification", notificationObj);
             jsonObject.put("data", dataObj);

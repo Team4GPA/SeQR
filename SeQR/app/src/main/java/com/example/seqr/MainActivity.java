@@ -1,5 +1,6 @@
 package com.example.seqr;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -28,6 +29,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.seqr.administrator.AdminFragment;
+import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.attendee.AttendeeFragment;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.events.EventLobbyFragment;
@@ -101,32 +103,32 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
 
-        profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+            profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
             @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
-                    DocumentSnapshot documentSnapshot = task.getResult();
-                    if (documentSnapshot != null && documentSnapshot.exists()) {
-                        boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
-                        // Update the checkbox state based on the retrieved value
-                        enableGeoLocationCheckbox.setChecked(geoLocationEnabled);
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if(task.isSuccessful()){
+                        DocumentSnapshot documentSnapshot = task.getResult();
+                        if (documentSnapshot != null && documentSnapshot.exists()) {
+                            boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
+                            // Update the checkbox state based on the retrieved value
+                            enableGeoLocationCheckbox.setChecked(geoLocationEnabled);
+                        }
                     }
                 }
-            }
-        });
+            });
 
             // Add an event listener to the checkbox
-        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Update the geolocation setting in Firestore for the current user
-                String uuid = ID.getProfileId(MainActivity.this);
-                if (uuid != null) {
-                    ProfileController profileController = new ProfileController();
-                    profileController.updateGeoLocation(uuid, isChecked);
+            enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // Update the geolocation setting in Firestore for the current user
+                    String uuid = ID.getProfileId(MainActivity.this);
+                    if (uuid != null) {
+                        ProfileController profileController = new ProfileController();
+                        profileController.updateGeoLocation(uuid, isChecked);
+                    }
                 }
-            }
-        });
+            });
 
             Button adminButton = findViewById(R.id.admin_button);
 
@@ -259,6 +261,26 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+            // make sure this block of code is at the bottom, this is for redirecting to some pages when you click a notification
+            if (getIntent().getExtras() != null) {
+                Log.d("notfi", "main receieved");
+                String announcementID = getIntent().getExtras().getString("announcementID");
+                String eventID = getIntent().getExtras().getString("eventID");
+                Log.d("notfi", "Announcement id" + announcementID);
+                Log.d("notfi", "eventID" + eventID);
+                Boolean ifAttendee = true;
+                Bundle bundle = new Bundle();
+                bundle.putString("announcementID", announcementID);
+                bundle.putString("eventID", eventID);
+                bundle.putBoolean("ifAttendee", ifAttendee);
+                AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
+                announcementDetailFragment.setArguments(bundle);
+
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, announcementDetailFragment)
+                        .addToBackStack(null) // Add the fragment transaction to the back stack
+                        .commit();
+            }
         }
     }
 //
