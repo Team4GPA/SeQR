@@ -2,7 +2,6 @@ package com.example.seqr.helpers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -24,13 +23,14 @@ import com.example.seqr.R;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.models.ID;
 import com.example.seqr.models.Profile;
-import com.example.seqr.profile.EditProfileFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.example.seqr.helpers.ProfilePictureGenerator;
-import com.example.seqr.helpers.BitmapUtils;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Fragment represents startup screen
@@ -38,7 +38,6 @@ import com.example.seqr.helpers.BitmapUtils;
 public class StartUpFragment extends Fragment {
 
     private Uri bitmapUri;
-
     /**
      *
      * @param inflater The LayoutInflater object that can be used to inflate
@@ -69,11 +68,10 @@ public class StartUpFragment extends Fragment {
                 }
                     ProfileController profileController = new ProfileController();
                     String uuid = ID.createProfileID(getContext());
-                    Profile newProfile = new Profile(username, uuid, null);
-                    ProfilePictureGenerator generator = new ProfilePictureGenerator();
-                    Bitmap newProfilePicture = generator.generate(ID.getProfileId(getContext()), username);
-                    bitmapUri = BitmapUtils.bitmapToUri(requireContext(), newProfilePicture);
+                    List<String> notifications = new ArrayList<>();
+                    Profile newProfile = new Profile(username, uuid, notifications);
                     profileController.addProfile(newProfile);
+                    profileController.updateFCMToken(uuid);
                     profileController.updatePFP(uuid, bitmapUri.toString(), new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
