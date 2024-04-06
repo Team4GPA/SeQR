@@ -10,27 +10,30 @@
         android:id="@+id/signUps_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="28dp"
         android:text="Back"
         android:textSize="15sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/signUps_title"
+        app:layout_constraintHorizontal_bias="0.093"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/signUps_profiles"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/signUps_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingBottom="10dp"
-        android:text="Pre-registered Guests"
+        android:text="All Sign-ups"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".025"/>
+        app:layout_constraintVertical_bias="0.041" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/signUps_profiles"
@@ -38,7 +41,7 @@
         android:layout_height="0dp"
         android:layout_margin="15sp"
         android:padding="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/signUps_back_button"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signUps_title"/>

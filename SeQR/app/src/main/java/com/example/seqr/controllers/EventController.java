@@ -223,7 +223,14 @@ public class EventController {
     public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("signups")
                 .get()
-                .addOnCompleteListener(onCompleteListener);
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Issue with getting the eventSignUps");
+                    }
+                });
+
     }
 
     public void getEventCheckIns(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){

@@ -36,6 +36,7 @@ public class AttendeeCheckInsView extends Fragment {
     private List<String> checkInsList = new ArrayList<>();
     private Button backButton;
     private ImageView profilePic;
+    private TextView checkInCountTextView;
 
 
     @Override
@@ -48,6 +49,7 @@ public class AttendeeCheckInsView extends Fragment {
         backButton = view.findViewById(R.id.attendeeCheckIns_back_button);
         checkInsView = view.findViewById(R.id.checkins_times_list);
         checkInsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1,checkInsList);
+        checkInCountTextView = view.findViewById(R.id.profilesCheckInsCount);
         checkInsView.setAdapter(checkInsAdapter);
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -90,9 +92,11 @@ public class AttendeeCheckInsView extends Fragment {
                                 checkInsList.add(timestamp.toDate().toString());
                             }
                             checkInsAdapter.notifyDataSetChanged();
+                            checkInCountTextView.setText(getString(R.string.check_ins_total, checkInsList.size()));
                         }
                     } else{
                         Log.d("DEBUG", "doc for user Check in doesnt exist");
+
                     }
                 } else{
                     Log.d("DEBUG", "error in getting userCheckins");
