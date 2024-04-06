@@ -48,7 +48,8 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 /**
- * Class representing MainActivity
+ * MainActivity represents the main activity of the application. It handles both the top and bottom navigation bars,
+ * profile management, and displays various fragments such as lobby, attendee and organizer based on user interactions.
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -134,9 +135,10 @@ public class MainActivity extends AppCompatActivity {
 
             profileImageView = findViewById(R.id.profile_picture);
 
+
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
+            Picasso.get().load(imageUrl).into(profileImageView);
 
 
             //for testing: add a floating QR button over the main fragment view 'fragment_container'
