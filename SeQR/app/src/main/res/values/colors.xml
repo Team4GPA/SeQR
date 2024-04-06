@@ -8,4 +8,11 @@
     <color name="theme_primary">#367588</color>
     <color name="theme_secondary">#FFE74C</color>
     <color name="theme_tertiary">#00BCD4</color>
+    <color name="selectable_background">#A6D7ED</color>
+
+    <!-- text colors for night theme -->
+    <color name="night_textBlack">#FF000000</color>
+    <color name="night_textHelper">#64868C</color>
+    <color name="night_textHint">#A3A3A3</color>
+    <color name="night_highlight">#155E97</color>
 </resources>

@@ -69,7 +69,7 @@ public class StartUpFragment extends Fragment {
                 }
                     ProfileController profileController = new ProfileController();
                     String uuid = ID.createProfileID(getContext());
-                    Profile newProfile = new Profile(username, uuid);
+                    Profile newProfile = new Profile(username, uuid, null);
                     ProfilePictureGenerator generator = new ProfilePictureGenerator();
                     Bitmap newProfilePicture = generator.generate(ID.getProfileId(getContext()), username);
                     bitmapUri = BitmapUtils.bitmapToUri(requireContext(), newProfilePicture);

@@ -141,12 +141,15 @@ public class EventInfoFragment extends Fragment {
                             if (task.isSuccessful()){
                                 DocumentSnapshot userProfile = task.getResult();
                                 List<String> usersEvents = (List<String>) userProfile.get("signedUpEvents");
-                                if (usersEvents.contains(event.getEventID())){
-                                    cancelButton.setVisibility(View.VISIBLE);
+                                if (usersEvents != null){
+                                    if (usersEvents.contains(event.getEventID())){
+                                        cancelButton.setVisibility(View.VISIBLE);
+                                    }
+                                    else{
+                                        cancelButton.setVisibility(View.INVISIBLE);
+                                    }
                                 }
-                                else{
-                                    cancelButton.setVisibility(View.INVISIBLE);
-                                }
+
                             }
                             else{
                                 Log.d("EVENTINFO", "Failed to fetch document from firebase.");

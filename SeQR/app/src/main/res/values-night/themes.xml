@@ -4,7 +4,11 @@
         <!-- Primary color -->
         <item name="colorPrimary">@color/theme_primary</item>
         <item name="colorPrimaryVariant">@color/theme_primary</item>
-        <item name="colorOnPrimary">@color/black</item>
+        <item name="colorOnPrimary">@color/white</item>
+        <item name="colorAccent">@color/theme_secondary</item>
+        <item name="colorControlNormal">@color/selectable_background</item>
+        <item name="colorPrimaryInverse">@color/selectable_background</item>
+        <item name="android:colorForegroundInverse">@color/selectable_background</item>
         <!-- Secondary color -->
         <item name="colorSecondary">@color/theme_secondary</item>
         <item name="colorSecondaryVariant">@color/theme_secondary</item>
@@ -13,5 +17,9 @@
         <item name="android:statusBarColor">@color/theme_primary</item>
         <!-- Window background color -->
         <item name="android:windowBackground">@color/off_white</item>
+        <!-- Text, Text in EditText, Checkbox Text colors -->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textColorHint">@color/night_textHint</item>
+        <item name="android:editTextColor">@color/night_textBlack</item>
     </style>
 </resources>
