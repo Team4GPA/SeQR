@@ -264,22 +264,29 @@ public class MainActivity extends AppCompatActivity {
             // make sure this block of code is at the bottom, this is for redirecting to some pages when you click a notification
             if (getIntent().getExtras() != null) {
                 Log.d("notfi", "main receieved");
-                String announcementID = getIntent().getExtras().getString("announcementID");
+                Boolean ifNotification = getIntent().getExtras().getBoolean("ifNotification");
                 String eventID = getIntent().getExtras().getString("eventID");
-                Log.d("notfi", "Announcement id" + announcementID);
                 Log.d("notfi", "eventID" + eventID);
-                Boolean ifAttendee = true;
-                Bundle bundle = new Bundle();
-                bundle.putString("announcementID", announcementID);
-                bundle.putString("eventID", eventID);
-                bundle.putBoolean("ifAttendee", ifAttendee);
-                AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
-                announcementDetailFragment.setArguments(bundle);
+                if (ifNotification) {
+                    String announcementID = getIntent().getExtras().getString("announcementID");
+                    Log.d("notfi", "It is a notification. Announcement id" + announcementID);
+                    Boolean ifAttendee = true;
+                    Bundle bundle = new Bundle();
+                    bundle.putString("announcementID", announcementID);
+                    bundle.putString("eventID", eventID);
+                    bundle.putBoolean("ifAttendee", ifAttendee);
+                    AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
+                    announcementDetailFragment.setArguments(bundle);
 
-                getSupportFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, announcementDetailFragment)
-                        .addToBackStack(null) // Add the fragment transaction to the back stack
-                        .commit();
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, announcementDetailFragment)
+                            .addToBackStack(null) // Add the fragment transaction to the back stack
+                            .commit();
+                }
+                else {
+                    Log.d("notfi", "It is a milestone.");
+                    // milestone code
+                }
             }
         }
     }
