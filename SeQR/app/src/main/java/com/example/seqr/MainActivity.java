@@ -1,5 +1,7 @@
 package com.example.seqr;
 
+import android.content.Intent;
+
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -13,12 +15,11 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.Manifest;
-
+import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
-import android.widget.Toast;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -142,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
             Button adminButton = findViewById(R.id.admin_button);
             profileImageView = findViewById(R.id.profile_picture);
             if (firstTime) {
