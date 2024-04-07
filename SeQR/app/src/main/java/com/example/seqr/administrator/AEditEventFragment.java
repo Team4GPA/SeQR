@@ -71,7 +71,12 @@ public class AEditEventFragment extends Fragment {
         eventNameTextView.setText(eventName);
         eventLocationTextView.setText(eventLocation);
         eventTimeTextView.setText(eventTime.toString());
-        eventCapacityTextView.setText(eventCapacity);
+        if (Integer.parseInt(eventCapacity) == -1){
+            eventCapacityTextView.setText("No Capacity Limit");
+        }
+        else {
+            eventCapacityTextView.setText(eventCapacity);
+        }
         eventDescriptionTextView.setText(eventDescription);
 
         // Convert the imageID into an event poster and replace the image view with it

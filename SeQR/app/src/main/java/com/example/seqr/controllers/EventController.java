@@ -43,6 +43,8 @@ public class EventController {
             "organizer",
             "organizerUUID",
             "promotionQR",
+            "latitude",
+            "longitude"
     };
 
     /**
@@ -381,6 +383,28 @@ public class EventController {
                 }
             }
         });
+    }
+
+    public void updateEventCheckInCoordinates(String eventID, String uuid, double latitude, double longitude) {
+        // Put names of fields and there values into map to put into the collection
+        Map<String, Object> map = new HashMap<>();
+        map.put("latitude",latitude);
+        map.put("longitude",longitude);
+        eventCollection.document(eventID).collection("checkIns").document(uuid)
+                .set(map, SetOptions.merge())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Log.d("DEBUG", "Successfully updated geolocation setting");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG", "Error updating geolocation setting", e);
+                    }
+                });
+
     }
 
 

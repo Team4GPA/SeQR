@@ -83,21 +83,13 @@ public class EventInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSignUpPressed(eventId, getContext());
-                //wait for confirmation before continuing!
-
+                Toast.makeText(getContext(), "Added \""+eventNameText.getText().toString()+"\" to your collection!", Toast.LENGTH_SHORT).show();
                 BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
                 FragmentManager frgMgr = getParentFragmentManager();
                 FragmentTransaction trans = frgMgr.beginTransaction();
                 trans.addToBackStack(null);
                 trans.commit();
                 bnav.setSelectedItemId(R.id.bottom_attendee);
-
-//                AttendeeFragment attendeeFragment = new AttendeeFragment();
-//                FragmentManager fragmentManager = getParentFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 
@@ -141,12 +133,15 @@ public class EventInfoFragment extends Fragment {
                             if (task.isSuccessful()){
                                 DocumentSnapshot userProfile = task.getResult();
                                 List<String> usersEvents = (List<String>) userProfile.get("signedUpEvents");
-                                if (usersEvents.contains(event.getEventID())){
-                                    cancelButton.setVisibility(View.VISIBLE);
+                                if (usersEvents != null){
+                                    if (usersEvents.contains(event.getEventID())){
+                                        cancelButton.setVisibility(View.VISIBLE);
+                                    }
+                                    else{
+                                        cancelButton.setVisibility(View.INVISIBLE);
+                                    }
                                 }
-                                else{
-                                    cancelButton.setVisibility(View.INVISIBLE);
-                                }
+
                             }
                             else{
                                 Log.d("EVENTINFO", "Failed to fetch document from firebase.");

@@ -87,6 +87,8 @@ public class CEventPreviewFragment extends Fragment {
         String eventCapacity = bundle.getString("eventCapacity", "-1");
         String eventDescription = bundle.getString("eventDescription", "");
         String eventImageUriString = bundle.getString("imageUri", "");
+        double latitude = bundle.getDouble("latitude");
+        double longitude = bundle.getDouble("longitude");
 
 //        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
 //        String eventTimeString = dateFormat.format(eventTime);
@@ -130,7 +132,7 @@ public class CEventPreviewFragment extends Fragment {
                 Timestamp eventStartTime = new Timestamp(eventTime);
                 Timestamp createdTime = Timestamp.now();
 
-                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventStartTime, promotionQR, checkInQR, uuid, createdTime);
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventStartTime, promotionQR, checkInQR, uuid, createdTime, latitude, longitude);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);

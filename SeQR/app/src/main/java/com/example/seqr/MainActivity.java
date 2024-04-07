@@ -1,6 +1,5 @@
 package com.example.seqr;
 
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
@@ -14,15 +13,17 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.Manifest;
-import androidx.activity.result.ActivityResultCallback;
+
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import android.widget.Toast;
+import androidx.activity.result.ActivityResultCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
@@ -53,11 +54,12 @@ import com.squareup.picasso.Picasso;
  * Class representing MainActivity
  */
 public class MainActivity extends AppCompatActivity {
-
     private AttendeeFragment attendeeFragment = new AttendeeFragment();
     private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     private OrganizerFragment organizerFragment = new OrganizerFragment();
     private ImageView profileImageView;
+    boolean firstTime = true;
+    private Uri bitmapUri;
     private StartUpFragment startUpFragment = new StartUpFragment();
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -79,19 +81,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         String uuid = ID.getProfileId(getBaseContext());
+        System.out.println(uuid);
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
             View mainFrag = findViewById(R.id.fragment_container);
             // set the page to attendee view as initialization
             fragMgr.beginTransaction().replace(R.id.fragment_container, startUpFragment).commit();
-
         } else {
-
-            //ID.removeProfileID(this.getBaseContext());
+            if(!firstTime) {
+                updateProfilePicture(bitmapUri);
+            }
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -119,31 +120,35 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
+        // Request to enable permissions on app startup
+        String[] permission = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+        if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            requestPermissions(permission,1);
+        }
             // Add an event listener to the checkbox
-            enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    // Update the geolocation setting in Firestore for the current user
-                    String uuid = ID.getProfileId(MainActivity.this);
-                    if (uuid != null) {
-                        ProfileController profileController = new ProfileController();
-                        profileController.updateGeoLocation(uuid, isChecked);
-                    }
+        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                // Update the geolocation setting in Firestore for the current user
+                String uuid = ID.getProfileId(MainActivity.this);
+                if (uuid != null) {
+                    ProfileController profileController = new ProfileController();
+                    profileController.updateGeoLocation(uuid, isChecked);
                 }
-            });
+
+                // Request to enable permissions when checkbox is marked but permissions are not enabled
+                if (isChecked && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+                    requestPermissions(permission,1);
+                }
+            }
+        });
 
             Button adminButton = findViewById(R.id.admin_button);
-
             profileImageView = findViewById(R.id.profile_picture);
-
+            if (firstTime) {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
-
-
-            //for testing: add a floating QR button over the main fragment view 'fragment_container'
-//        ExtendedFloatingActionButton qrButton = findViewById(R.id.scanQRButton);
-//        String qrResult;
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
 
             //setup the main fragment view stuff
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -235,10 +240,6 @@ public class MainActivity extends AppCompatActivity {
             //uses some variables set up earlier:
             //mainFrag: a view in the XML for the main_activity (acts as a container for fragments)
             //fragMgr: Android manager of fragments
-            //
-
-
-
             adminButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -251,18 +252,22 @@ public class MainActivity extends AppCompatActivity {
 
                 }
             });
+
             editProfileButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    EditProfileFragment editprofileFragment = new EditProfileFragment();
+                    Bundle bundle = new Bundle();
+                    bundle.putBoolean("first_time", firstTime); // Pass firstTime to the fragment
+                    EditProfileFragment fragment = new EditProfileFragment();
+                    fragment.setArguments(bundle);
                     FragmentTransaction transaction = fragMgr.beginTransaction();
-                    transaction.replace(R.id.fragment_container, editprofileFragment);
+                    transaction.replace(R.id.fragment_container, fragment); // Use the created fragment
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
-
                 }
             });
+
             // make sure this block of code is at the bottom, this is for redirecting to some pages when you click a notification
             if (getIntent().getExtras() != null) {
                 Log.d("notfi", "main receieved");
@@ -317,6 +322,16 @@ public class MainActivity extends AppCompatActivity {
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
     }
+
+    public void setFirstTime(boolean status) {
+        firstTime = status;
+    }
+
+    public void setImageUri(Uri imageUri) {
+        bitmapUri = imageUri;
+    }
+
+
     //==============================================================================================
     //End of MainActivity Class
     //

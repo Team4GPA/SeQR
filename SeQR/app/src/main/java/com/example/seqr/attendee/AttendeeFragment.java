@@ -1,9 +1,16 @@
 package com.example.seqr.attendee;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentResultListener;
@@ -30,13 +37,13 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * A fragment representing attendee dashboard, including attendee actions such as scanning QR codes and examining the signed up events.
@@ -47,6 +54,9 @@ public class AttendeeFragment extends Fragment {
     private RecyclerView recyclerView;
     private EventAdapter eventAdapter;
     private List<Event> eventsList;
+    public interface LocationCallback {
+        void onLocationReceived(double latitude, double longitude);
+    }
 
     /**
      * Called to have the fragment instantiate its user interface view.
@@ -54,6 +64,14 @@ public class AttendeeFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        // Give a second for profile controller to update and display all events you're attending
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
         Log.d(DBTAG, "onCreate initialized.");
         Log.d(DBTAG, "AttendeeFragment loading with id " + this.getLifecycle());
         View view = inflater.inflate(R.layout.fragment_attendee, container, false);
@@ -205,6 +223,7 @@ public class AttendeeFragment extends Fragment {
             }
         });
 
+
         //if the button is clicked, start the QR scanner!
         floatingScanQRButton.setOnClickListener(v -> {
             Log.d(DBTAG, "button clicked; launching scanner fragment");
@@ -279,6 +298,37 @@ public class AttendeeFragment extends Fragment {
         EventController eventController = new EventController();
         String userID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
+
+        // Get the profile to get its permissions and device location
+        String profileUUID = ID.getProfileId(getContext());
+        AtomicBoolean geolocation = new AtomicBoolean(false);
+        profileController.getProfileByUUID(profileUUID, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot profileDoc = task.getResult();
+                    Boolean geo = (Boolean) profileDoc.get("geoLocation");
+                    geolocation.set(geo);
+                }
+            }
+        });
+        double[] latLng = {};
+        if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
+                @Override
+                public void onLocationReceived(double latitude, double longitude) {
+                    // Do something with the location data
+                    eventController.updateEventCheckInCoordinates(QRData,profileUUID, latitude,longitude);
+                }
+            });
+        } else if (geolocation.get() && ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+            getCoordinates(LocationManager.GPS_PROVIDER, new LocationCallback() {
+                @Override
+                public void onLocationReceived(double latitude, double longitude) {
+                    eventController.updateEventCheckInCoordinates(QRData,profileUUID, latitude,longitude);
+                }
+            });
+        }
         profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -325,4 +375,37 @@ public class AttendeeFragment extends Fragment {
         Fragment attendee = new AttendeeFragment();
         getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
     }
-}
+
+
+    public void getCoordinates(String provider, LocationCallback callback) {
+        LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager.isProviderEnabled(provider)) {
+            if (ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(getContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                // Permission not granted, handle accordingly
+                return;
+            }
+            locationManager.requestSingleUpdate(provider, new LocationListener() {
+                @Override
+                public void onLocationChanged(@NonNull Location location) {
+                    double latitude = location.getLatitude();
+                    double longitude = location.getLongitude();
+                    callback.onLocationReceived(latitude,longitude);
+                }
+
+                public void onProviderEnabled(@NonNull String provider) {
+                }
+
+                @Override
+                public void onProviderDisabled(@NonNull String provider) {
+                }
+
+                @Override
+                public void onStatusChanged(String provider, int status, Bundle extras) {
+                }
+            }, null);
+
+            }
+        }
+
+    }
