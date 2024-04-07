@@ -3,6 +3,7 @@ package com.example.seqr;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private ImageView profileImageView;
     boolean firstTime = true;
     private Uri bitmapUri;
+    private Drawable originalNavigationIcon;
     private StartUpFragment startUpFragment = new StartUpFragment();
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
         @Override
@@ -91,9 +93,6 @@ public class MainActivity extends AppCompatActivity {
             // set the page to attendee view as initialization
             fragMgr.beginTransaction().replace(R.id.fragment_container, startUpFragment).commit();
         } else {
-            if(!firstTime) {
-                updateProfilePicture(bitmapUri);
-            }
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -145,10 +144,10 @@ public class MainActivity extends AppCompatActivity {
         });
             Button adminButton = findViewById(R.id.admin_button);
             profileImageView = findViewById(R.id.profile_picture);
-            if (firstTime) {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
+            Picasso.get().invalidate(imageUrl);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
 
             //setup the main fragment view stuff
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -188,6 +187,8 @@ public class MainActivity extends AppCompatActivity {
             });
 
             Toolbar toolbar = findViewById(R.id.toolbar);
+            originalNavigationIcon = toolbar.getNavigationIcon();
+
 
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -265,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
+                    toolbar.setNavigationIcon(null);
                 }
             });
 
@@ -331,6 +333,10 @@ public class MainActivity extends AppCompatActivity {
         bitmapUri = imageUri;
     }
 
+    public void showToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(originalNavigationIcon);
+    }
 
     //==============================================================================================
     //End of MainActivity Class

@@ -18,6 +18,8 @@ import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.example.seqr.helpers.BitmapUtils;
@@ -69,6 +71,9 @@ public class EditProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_edit_profile, container, false);
+
+
+
         // Initialize EditText views and button
         usernameEditText = view.findViewById(R.id.profile_name);
         phoneNumberEditText = view.findViewById(R.id.profile_number);
@@ -152,8 +157,7 @@ public class EditProfileFragment extends Fragment {
 
         return view;
     }
-    //end of OnCreate
-    //==============================================================================================
+
 
     private void loadProfilePicture() {
         String storedUri = getStoredProfilePictureUri();
@@ -245,6 +249,11 @@ public class EditProfileFragment extends Fragment {
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
 
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((MainActivity) requireActivity()).showToolbar(); // Notify MainActivity to show the toolbar
+    }
+
     /**
      * Called when an activity you launched exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data (new profile picture) from it.
@@ -260,5 +269,4 @@ public class EditProfileFragment extends Fragment {
             ((MainActivity) getActivity()).setFirstTime(false);
         }
     }
-
 }
