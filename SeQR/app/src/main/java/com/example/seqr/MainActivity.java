@@ -1,5 +1,8 @@
 package com.example.seqr;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -33,12 +36,17 @@ import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.attendee.AttendeeFragment;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.events.EventLobbyFragment;
+import com.example.seqr.helpers.BitmapUtils;
+import com.example.seqr.helpers.ImageUploader;
+import com.example.seqr.helpers.ProfilePictureGenerator;
 import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
 import com.example.seqr.notification.NotificationFragment;
 import com.example.seqr.organizer.OrganizerFragment;
 import com.example.seqr.profile.EditProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.FirebaseApp;
@@ -48,17 +56,18 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.squareup.picasso.Picasso;
 
 /**
- * MainActivity represents the main activity of the application. It handles both the top and bottom navigation bars,
- * profile management, and displays various fragments such as lobby, attendee and organizer based on user interactions.
+ * Class representing MainActivity
  */
 public class MainActivity extends AppCompatActivity {
 
     private AttendeeFragment attendeeFragment = new AttendeeFragment();
     private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     private OrganizerFragment organizerFragment = new OrganizerFragment();
+
     private ImageView profileImageView;
 
     boolean firstTime = true;
+    private Uri bitmapUri;
 
     private StartUpFragment startUpFragment = new StartUpFragment();
     private final ActivityResultLauncher<String> activityResultLauncher = registerForActivityResult(new ActivityResultContracts.RequestPermission(), new ActivityResultCallback<Boolean>() {
@@ -83,7 +92,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
+
         String uuid = ID.getProfileId(getBaseContext());
+
+        System.out.println(uuid);
+
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -92,6 +105,10 @@ public class MainActivity extends AppCompatActivity {
             fragMgr.beginTransaction().replace(R.id.fragment_container, startUpFragment).commit();
 
         } else {
+
+            if(!firstTime) {
+                updateProfilePicture(bitmapUri);
+            }
 
             //ID.removeProfileID(this.getBaseContext());
 
@@ -138,9 +155,12 @@ public class MainActivity extends AppCompatActivity {
 
             profileImageView = findViewById(R.id.profile_picture);
 
+            if (firstTime) {
+
+
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
 
 
             //for testing: add a floating QR button over the main fragment view 'fragment_container'
@@ -316,6 +336,12 @@ public class MainActivity extends AppCompatActivity {
     public void setFirstTime(boolean status) {
         firstTime = status;
     }
+
+    public void setImageUri(Uri imageUri) {
+        bitmapUri = imageUri;
+    }
+
+
     //==============================================================================================
     //End of MainActivity Class
     //
