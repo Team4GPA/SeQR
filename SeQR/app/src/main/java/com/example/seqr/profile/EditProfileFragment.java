@@ -210,7 +210,9 @@ public class EditProfileFragment extends Fragment {
     }
 
     // Method to generate a new profile picture
-    private void setProfilePicture(Uri imageUri) {
+    public void setProfilePicture(Uri imageUri) {
+
+        System.out.println("SUCCESSFUL ACCESS");
         // Update profile picture URL in Firestore
         String uuid = ID.getProfileId(getContext());
         if (uuid != null) {
@@ -274,8 +276,9 @@ public class EditProfileFragment extends Fragment {
             imageUri = data.getData();
             profileImageView.setImageURI(imageUri);
             Picasso.get().load(imageUri).into(profileImageView);
-            ((MainActivity) getActivity()).setFirstTime(false);
             setProfilePicture(imageUri);
+            ((MainActivity) getActivity()).setFirstTime(false);
         }
     }
+
 }
