@@ -17,7 +17,7 @@
         tools:targetApi="34">
 
         <service
-            android:name=".MainActivity"
+            android:name="MainActivity"
             android:foregroundServiceType="location">
 
         </service>
@@ -38,6 +38,7 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBg4AYxi6PFGsFwE1DfdwJKXoDEat1CO3Q">
+
         </meta-data>
         <activity
             android:name=".SplashActivity"

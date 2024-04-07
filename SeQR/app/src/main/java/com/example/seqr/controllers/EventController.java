@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -97,19 +98,64 @@ public class EventController {
     }
 
     public void removeEventWithID(String eventID){
-        eventCollection.document(eventID).delete()
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        deleteEventPoster(eventID);
-                        removeEventFromUserProfile(eventID);
+
+        eventCollection.document(eventID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot eventDoc) {
+                if(eventDoc.exists()){
+                    String checkInQR = eventDoc.getString("checkInQR");
+                    String promotionQR = eventDoc.getString("promotionQR");
+                    String previousEventName = eventDoc.getString("eventName");
+                    // now we delete the event, we just needed to store references to the fields above
+                    CollectionReference signupsRef = eventCollection.document(eventID).collection("signups");
+                    CollectionReference checkInsRef = eventCollection.document(eventID).collection("checkIns");
+
+                    deleteSubcollectionDocuments(signupsRef);
+                    deleteSubcollectionDocuments(checkInsRef);
+
+
+
+                    eventCollection.document(eventID).delete()
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void unused) {
+                                    ReusableQrController reusableQrController = new ReusableQrController();
+                                    reusableQrController.addQRpair(checkInQR,promotionQR,previousEventName,eventID);
+                                    deleteEventPoster(eventID);
+                                    removeEventFromUserProfile(eventID);
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.d("Debug","Cant delete",e);
+                                }
+                            });
+
+
+                }
+            }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.d("DEBUG", "there was an error in getting this event",e);
+                }
+            });
+
+    }
+
+    public void deleteSubcollectionDocuments(CollectionReference subCollection){
+        subCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot subDoc: task.getResult()){
+                        subCollection.document(subDoc.getId()).delete();
                     }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Debug","Cant delete",e);
-                    }
-                });
+                }else{
+                    Log.d("DEBUG", "Failed to fetch subcollection documents for deletion");
+                }
+            }
+        });
     }
 
     public void deleteEventPoster(String eventID){
@@ -223,7 +269,14 @@ public class EventController {
     public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("signups")
                 .get()
-                .addOnCompleteListener(onCompleteListener);
+                .addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","Issue with getting the eventSignUps");
+                    }
+                });
+
     }
 
     public void getEventCheckIns(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
@@ -347,6 +400,11 @@ public class EventController {
                         Log.d("DEBUG","issue with getting the user checkIns");
                     }
                 });
+    }
+
+    public void eventCheckInsSnapshot(String eventID, EventListener<QuerySnapshot> listener){
+        eventCollection.document(eventID).collection("checkIns")
+                .addSnapshotListener(listener);
     }
 
 
