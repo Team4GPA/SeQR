@@ -78,10 +78,10 @@ public class CEventImageFragment extends Fragment {
                 Bundle bundle = getArguments();
                 assert bundle != null;
                 bundle.putString("imageUri", imageUri.toString());
-                CEventCQRFragment cEventCQRFragment = new CEventCQRFragment();
-                cEventCQRFragment.setArguments(bundle);
+                CEventLocationFragment locationFrag = new CEventLocationFragment();
+                locationFrag.setArguments(bundle);
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container, cEventCQRFragment)
+                        .replace(R.id.fragment_container, locationFrag)
                         .addToBackStack(null)
                         .commit();
 

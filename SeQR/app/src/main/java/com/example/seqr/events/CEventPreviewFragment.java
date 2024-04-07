@@ -83,6 +83,8 @@ public class CEventPreviewFragment extends Fragment {
         String eventCapacity = bundle.getString("eventCapacity", "-1");
         String eventDescription = bundle.getString("eventDescription", "");
         String eventImageUriString = bundle.getString("imageUri", "");
+        double latitude = bundle.getDouble("latitude");
+        double longitude = bundle.getDouble("longitude");
 
         eventOrganizerTextView.setText(organizerName);
         eventNameTextView.setText(eventName);
@@ -122,7 +124,8 @@ public class CEventPreviewFragment extends Fragment {
                 }
                 Timestamp createdTime = Timestamp.now();
 
-                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, createdTime);
+
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, createdTime, latitude, longitude);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);

@@ -11,22 +11,40 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.seqr.controllers.ProfileController;
+import com.example.seqr.database.Database;
 import com.example.seqr.profile.DeleteProfileFragment;
 import com.example.seqr.R;
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
 /**
  * A fragment for editing profiles in the admin dashboard.
  */
 public class AEditProfileFragment extends Fragment{
-    EditText nameEditText;
-    EditText phoneNumberEditText;
-    EditText emailEditText;
-    EditText homePageEditText;
-    ImageView profilePicView;
-    CheckBox isAdminCheckBox;
+
+    private FirebaseStorage storage;
+    private EditText nameEditText;
+    private EditText phoneNumberEditText;
+    private EditText emailEditText;
+    private EditText homePageEditText;
+    private ImageView profilePicView;
+    private CheckBox isAdminCheckBox;
+
+    public AEditProfileFragment() {
+        storage = Database.getStorage();
+    }
     /**
      * Creates a view and associated logic for the view and returns it to whoever built the fragment
      *
@@ -46,7 +64,9 @@ public class AEditProfileFragment extends Fragment{
         View view =  inflater.inflate(R.layout.fragment_a_edit_profile, container, false);
         Button deleteProfileButton = view.findViewById(R.id.admin_delete_profile_button);
         Button backButton = view.findViewById(R.id.admin_edit_profile_back_button);
+        Button removeProfilePicButton = view.findViewById(R.id.admin_remove_profile_picture_button);
 
+        ProfileController profileController = new ProfileController();
         // Unpack Bundle
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -77,11 +97,32 @@ public class AEditProfileFragment extends Fragment{
         Uri profilePicUri = Uri.parse(imageUrl);
         Picasso.get().load(profilePicUri).error(R.drawable.profile_picture_drawer_navigation_icon).into(profilePicView);
 
+
+        DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference().child("ProfilePictures/" +id +".jpg");
+        imageRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                String updatedImageUrl = dataSnapshot.getValue(String.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("DEBUG", "Couldnt find profile picture" + databaseError);
+            }
+        });
         // Handle pressing back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getParentFragmentManager().popBackStack();
+            }
+        });
+
+        removeProfilePicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profileController.deleteProfilePicture(id);
+
             }
         });
 
