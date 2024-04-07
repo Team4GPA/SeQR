@@ -62,7 +62,7 @@ public class EventLobbyFragment extends Fragment {
                     eventController.checkEventValid(event.getEventID());
                     eventsList.add(event);
                 }
-                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
+                Collections.sort(eventsList, (a1, a2) -> a1.getEventStartTime().compareTo(a2.getEventStartTime()));
                 eventAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error in event retrieval to event lobby", task.getException());

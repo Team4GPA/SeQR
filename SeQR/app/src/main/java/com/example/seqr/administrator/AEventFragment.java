@@ -74,7 +74,7 @@ public class AEventFragment extends Fragment {
                 bundle.putString("maxCapacity", Integer.toString(event.getMaxCapacity()));
                 bundle.putString("organizer", event.getOrganizer());
                 bundle.putString("location", event.getLocation());
-                bundle.putString("eventStartTime", event.getEventStartTime());
+                bundle.putSerializable("eventStartTime", event.getEventStartTime().toDate());
                 bundle.putString("eventID", event.getEventID());
 
 

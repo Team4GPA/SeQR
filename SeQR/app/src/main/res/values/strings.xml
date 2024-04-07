@@ -38,4 +38,5 @@
     <string name="enter_the_announcement_title">Enter the announcement title</string>
     <string name="as_notification">As notification?</string>
     <string name="confirm">Confirm</string>
+    <string name="enter_the_date">Enter the date</string>
 </resources>

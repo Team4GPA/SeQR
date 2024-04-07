@@ -116,7 +116,7 @@ public class EventInfoFragment extends Fragment {
                     eventNameText.setText(event.getEventName());
                     eventOrganizer.setText(event.getOrganizer());
                     eventLocation.setText(event.getLocation());
-                    eventTime.setText(event.getEventStartTime());
+                    eventTime.setText(event.getEventStartTime().toDate().toString());
                     if (event.getMaxCapacity() == -1){
                         eventCapacity.setText("No Capacity Limit");
                     }

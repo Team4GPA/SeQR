@@ -32,8 +32,10 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.seqr.administrator.AdminFragment;
 import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.attendee.AttendeeFragment;
+import com.example.seqr.controllers.EventController;
 import com.example.seqr.controllers.ProfileController;
 import com.example.seqr.events.EventLobbyFragment;
+import com.example.seqr.events.EventMilestoneFragment;
 import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
 import com.example.seqr.notification.NotificationFragment;
@@ -291,6 +293,15 @@ public class MainActivity extends AppCompatActivity {
                 else {
                     Log.d("notfi", "It is a milestone.");
                     // milestone code
+                    Bundle bundle = new Bundle();
+                    bundle.putString("eventID", eventID);
+                    EventMilestoneFragment milestoneFragment = new EventMilestoneFragment();
+                    milestoneFragment.setArguments(bundle);
+
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.fragment_container, milestoneFragment)
+                            .addToBackStack(null) // Add the fragment transaction to the back stack
+                            .commit();
                 }
             }
         }
