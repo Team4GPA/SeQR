@@ -19,7 +19,7 @@ public class Event {
     private String location;
     private String eventStartTime;
     private String eventID;
-
+    private Timestamp createdTime;
     private String promotionQR;
 
     private String checkInQR;
@@ -47,7 +47,7 @@ public class Event {
      * @param checkInQR     The QR code for event check-in.
      * @param organizerUUID The UUID of the organizer.
      */
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID) {
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID, Timestamp createdTime) {
         this.eventName = eventName;
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
@@ -58,6 +58,7 @@ public class Event {
         this.checkInQR = checkInQR;
         this.promotionQR = promotionQR;
         this.organizerUUID = organizerUUID;
+        this.createdTime = createdTime;
         this.milestoneAlert = 0;
 
     }
@@ -250,4 +251,11 @@ public class Event {
         this.milestoneAlert = milestoneAlert;
     }
 
+    public Timestamp getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
+    }
 }

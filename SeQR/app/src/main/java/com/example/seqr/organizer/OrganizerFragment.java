@@ -23,6 +23,8 @@ import com.google.android.material.floatingactionbutton.ExtendedFloatingActionBu
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -76,6 +78,7 @@ public class OrganizerFragment extends Fragment {
                     Event event = document.toObject(Event.class);
                     eventsList.add(event);
                 }
+                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
                 eventAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error in event retrieval", task.getException());

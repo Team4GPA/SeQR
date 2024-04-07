@@ -34,4 +34,8 @@
     <string name="enter_the_location">Enter the location</string>
     <string name="enter_the_name_of_the_event">Enter the name of the event</string>
     <string name="enter_the_time">Enter the time</string>
+    <string name="new_announcement">New Announcement</string>
+    <string name="enter_the_announcement_title">Enter the announcement title</string>
+    <string name="as_notification">As notification?</string>
+    <string name="confirm">Confirm</string>
 </resources>
