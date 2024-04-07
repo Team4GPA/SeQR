@@ -111,7 +111,6 @@ public class AEditProfileFragment extends Fragment{
         }
 
         homePageEditText.setText(homePage);
-        isAdminCheckBox.setChecked(isAdmin);
 
 
 
