@@ -15,6 +15,8 @@ import com.example.seqr.events.DeleteEventFragment;
 import com.example.seqr.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.Date;
+
 /**
  * A fragment for editing events in the admin dashboard.
  */
@@ -60,7 +62,7 @@ public class AEditEventFragment extends Fragment {
         String organizerName = bundle.getString("organizer","");
         String eventName = bundle.getString("eventName", "");
         String eventLocation = bundle.getString("location", "");
-        String eventTime = bundle.getString("eventStartTime", "");
+        Date eventTime = (Date) bundle.getSerializable("eventStartTime");
         String eventCapacity = bundle.getString("maxCapacity", "");
         String eventDescription = bundle.getString("eventDesc", "");
         String eventID = bundle.getString("eventID", "");
@@ -68,7 +70,7 @@ public class AEditEventFragment extends Fragment {
         eventOrganizerTextView.setText(organizerName);
         eventNameTextView.setText(eventName);
         eventLocationTextView.setText(eventLocation);
-        eventTimeTextView.setText(eventTime);
+        eventTimeTextView.setText(eventTime.toString());
         eventCapacityTextView.setText(eventCapacity);
         eventDescriptionTextView.setText(eventDescription);
 

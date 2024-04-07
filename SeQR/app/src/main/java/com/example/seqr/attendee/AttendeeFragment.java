@@ -102,7 +102,7 @@ public class AttendeeFragment extends Fragment {
                                             if (event != null){
                                                 eventsList.add(event);
                                                 Log.d("TASK TWO", "Adding event " + event.getEventName() + " with ID " + event.getEventID());
-                                                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
+                                                Collections.sort(eventsList, (a1, a2) -> a1.getEventStartTime().compareTo(a2.getEventStartTime()));
                                                 eventAdapter.notifyItemChanged(eventsList.size());
                                             }
                                             else{
@@ -239,7 +239,7 @@ public class AttendeeFragment extends Fragment {
                                             Event event = eventDoc.toObject(Event.class);
                                             if (event != null){
                                                 eventsList.add(event);
-                                                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
+                                                Collections.sort(eventsList, (a1, a2) -> a1.getEventStartTime().compareTo(a2.getEventStartTime()));
                                                 eventAdapter.notifyDataSetChanged();
                                             }
                                         }else {

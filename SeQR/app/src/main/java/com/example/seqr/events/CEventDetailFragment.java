@@ -173,7 +173,7 @@ public class CEventDetailFragment extends Fragment {
             selectedYear = year1;
             cal.set(Calendar.YEAR, selectedYear);
             cal.set(Calendar.MONTH, selectedMonth);
-            cal.set(Calendar.DAY_OF_MONTH, selectedYear);
+            cal.set(Calendar.DAY_OF_MONTH, selectedDay);
             eventDateInput.setText(String.format(Locale.CANADA, "%d-%d-%d", dayOfMonth1, monthOfYear1 + 1, year1));
         }, year, month, day);
 
