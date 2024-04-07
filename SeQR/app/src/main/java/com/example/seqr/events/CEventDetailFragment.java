@@ -1,9 +1,11 @@
 package com.example.seqr.events;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-
+import com.google.firebase.Timestamp;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,14 +15,28 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.seqr.MainActivity;
 import com.example.seqr.R;
+
+import java.util.Date;
+import java.util.Locale;
+import java.util.Calendar;
 
 /**
  * A fragment for adding event details.
  */
 public class CEventDetailFragment extends Fragment {
     boolean limitCapacity = false;
+    private Calendar cal;
+    private int selectedHour;
+    private int selectedMinute;
+    private int selectedDay;
+    private int selectedMonth;
+    private int selectedYear;
+    private TextView eventDateInput;
+    private TextView eventTimeInput;
     /**
      *
      * @param inflater The LayoutInflater object that can be used to inflate
@@ -41,13 +57,26 @@ public class CEventDetailFragment extends Fragment {
         Button backButton = view.findViewById(R.id.QRCheckInBackButton);
         Button nextButton = view.findViewById(R.id.cEventDetailNextButton);
         EditText eventNameEnter = view.findViewById(R.id.eventNameInput);
-        EditText eventTimeInput = view.findViewById(R.id.eventTimeInput);
         EditText eventLocationInput = view.findViewById(R.id.eventLocationInput);
         EditText eventDescriptionInput = view.findViewById(R.id.eventDescriptionInput);
         EditText capacityInput = view.findViewById(R.id.eventCapacityInput);
         CheckBox hasCapacity = view.findViewById(R.id.hasCapacity);
+        eventDateInput = view.findViewById(R.id.eventDateInput);
+        eventTimeInput = view.findViewById(R.id.eventTimeInput);
 
-      
+
+        eventTimeInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openTimePickerDialog();
+            }
+        });
+        eventDateInput.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openDatePickerDialog();
+            }
+        });
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -68,7 +97,7 @@ public class CEventDetailFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String eventName =  eventNameEnter.getText().toString();
-                String eventTime = eventTimeInput.getText().toString();
+                Date eventStartTime = cal.getTime();
                 String eventLocation = eventLocationInput.getText().toString();
                 String eventDescription = eventDescriptionInput.getText().toString();
                 String eventCapacityInput = "-1";
@@ -91,7 +120,7 @@ public class CEventDetailFragment extends Fragment {
 
                 Bundle bundle = new Bundle();
                 bundle.putString("eventName", eventName);
-                bundle.putString("eventTime", eventTime);
+                bundle.putSerializable("eventTime", eventStartTime);
                 bundle.putString("eventLocation", eventLocation);
                 bundle.putString("eventDescription",eventDescription);
                 if (limitCapacity){
@@ -127,5 +156,47 @@ public class CEventDetailFragment extends Fragment {
         else if (field instanceof ImageView){
             Log.d("PREVIEW", "Event image missing");
         }
+    }
+
+    private void openDatePickerDialog() {
+        cal = Calendar.getInstance();
+
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                // on below line we are passing context.
+                getContext(), R.style.CustomDateTimePickerDialogStyle, (view1, year1, monthOfYear1, dayOfMonth1) -> {
+            selectedDay = dayOfMonth1;
+            selectedMonth = monthOfYear1;
+            selectedYear = year1;
+            cal.set(Calendar.YEAR, selectedYear);
+            cal.set(Calendar.MONTH, selectedMonth);
+            cal.set(Calendar.DAY_OF_MONTH, selectedYear);
+            eventDateInput.setText(String.format(Locale.CANADA, "%d-%d-%d", dayOfMonth1, monthOfYear1 + 1, year1));
+        }, year, month, day);
+
+        datePickerDialog.show();
+    }
+
+    private void openTimePickerDialog() {
+        if (cal == null) {
+            Toast.makeText(getContext(), "Please select the date first", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        int hour = cal.get(Calendar.HOUR_OF_DAY);
+        int minute = cal.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(), R.style.CustomDateTimePickerDialogStyle,(view, hourOfDay, minuteOfHour) -> {
+            selectedHour = hourOfDay;
+            selectedMinute = minuteOfHour;
+            cal.set(Calendar.HOUR_OF_DAY, selectedHour);
+            cal.set(Calendar.MINUTE, selectedMinute);
+            eventTimeInput.setText(String.format(Locale.CANADA, "%d:%d", hourOfDay, minuteOfHour));
+        }, hour, minute, true);
+
+        timePickerDialog.show();
     }
 }
