@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.seqr.controllers.EventController;
 import com.example.seqr.qr.PQRFragment;
 import com.example.seqr.R;
 import com.squareup.picasso.Picasso;
@@ -67,6 +68,7 @@ public class CEventSuccessFragment extends Fragment {
         String eventCapacity = bundle.getString("eventCapacity", "");
         String eventImageUriString = bundle.getString("imageUri", "");
         String promotionQR = bundle.getString("promotionQR","");
+        String eventID = bundle.getString("eventID");
 
         eventOrganizerTextView.setText(organizerName);
         eventLocationTextView.setText(eventLocation);
@@ -97,6 +99,19 @@ public class CEventSuccessFragment extends Fragment {
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }
+        });
+
+        Button viewEvent = view.findViewById(R.id.cEventSuccessViewEventButton);
+        viewEvent.setOnClickListener(v -> {
+            Bundle evID = new Bundle();
+            evID.putString("eventID", eventID);
+            EventInfoFragment succEvent = new EventInfoFragment();
+            succEvent.setArguments(evID);
+            FragmentManager frMgr = getParentFragmentManager();
+            FragmentTransaction goToEvent = frMgr.beginTransaction();
+            goToEvent.replace(R.id.fragment_container, succEvent);
+            goToEvent.addToBackStack(null);
+            goToEvent.commit();
         });
 
         return view;
