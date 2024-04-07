@@ -19,6 +19,8 @@ import com.example.seqr.controllers.ProfileController;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -93,6 +95,7 @@ public class AProfilesFragment extends Fragment {
                     Profile profile = new Profile(username, email, phoneNumber, homePage, id, profilePic);
                     profileList.add(profile);
                 }
+                Collections.sort(profileList, Comparator.comparing(Profile::getUsername));
                 profileAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error event in profile retrieval", task.getException());
