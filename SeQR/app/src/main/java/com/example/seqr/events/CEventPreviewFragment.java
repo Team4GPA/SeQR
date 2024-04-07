@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.seqr.controllers.ReusableQrController;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -121,6 +122,8 @@ public class CEventPreviewFragment extends Fragment {
                 String checkInQR = bundle.getString("checkInQR","");
                 String promotionQR = bundle.getString("promotionQR","");
                 String uuid = ID.getProfileId(getContext());
+                ReusableQrController reusableQrController = new ReusableQrController();
+                reusableQrController.deleteQRPair(eventID);
                 Integer convertCapacity = 0;
                 if (eventCapacity.contentEquals("-1")){
                     eventCapacityTextView.setText("No Capacity Limit");

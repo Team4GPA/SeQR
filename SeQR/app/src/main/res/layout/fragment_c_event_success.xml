@@ -132,7 +132,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="5sp"
         android:includeFontPadding="true"
-        android:text="View QR Codes"
+        android:text="View QR Code"
         android:textSize="15sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/cEventSuccessViewEventButton"

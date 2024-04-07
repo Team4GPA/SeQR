@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.seqr.R;
 import com.example.seqr.controllers.EventController;
@@ -41,6 +42,7 @@ public class DeleteEventFragment extends DialogFragment {
                 EventController eventController = new EventController();
                 eventController.removeEventWithID(eventID);
                 dismiss();
+                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
