@@ -4,6 +4,8 @@ public class QrCodePair {
     private String checkInQR;
     private String promotionQR;
     private String previousEventName;
+    private String eventId;
+
     public QrCodePair(){
 
     }
@@ -36,5 +38,13 @@ public class QrCodePair {
 
     public void setPreviousEventName(String previousEventName) {
         this.previousEventName = previousEventName;
+    }
+
+    public String getEventId() {
+        return eventId;
+    }
+
+    public void setEventId(String eventId) {
+        this.eventId = eventId;
     }
 }

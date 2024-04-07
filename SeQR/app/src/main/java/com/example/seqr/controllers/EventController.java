@@ -10,6 +10,7 @@ import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -109,6 +110,14 @@ public class EventController {
                     String promotionQR = eventDoc.getString("promotionQR");
                     String previousEventName = eventDoc.getString("eventName");
                     // now we delete the event, we just needed to store references to the fields above
+                    CollectionReference signupsRef = eventCollection.document(eventID).collection("signups");
+                    CollectionReference checkInsRef = eventCollection.document(eventID).collection("checkIns");
+
+                    deleteSubcollectionDocuments(signupsRef);
+                    deleteSubcollectionDocuments(checkInsRef);
+
+
+
                     eventCollection.document(eventID).delete()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -135,6 +144,21 @@ public class EventController {
                 }
             });
 
+    }
+
+    public void deleteSubcollectionDocuments(CollectionReference subCollection){
+        subCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot subDoc: task.getResult()){
+                        subCollection.document(subDoc.getId()).delete();
+                    }
+                }else{
+                    Log.d("DEBUG", "Failed to fetch subcollection documents for deletion");
+                }
+            }
+        });
     }
 
     public void deleteEventPoster(String eventID){

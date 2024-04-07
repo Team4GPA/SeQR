@@ -21,6 +21,8 @@ public class ReusableQrController {
     private CollectionReference ReusableQrCollection;
 
 
+
+
     public ReusableQrController(){
         db = Database.getFireStore();
         ReusableQrCollection = db.collection("ReusableQR");
@@ -59,5 +61,20 @@ public class ReusableQrController {
                         Log.d("DEBUG","Error with getting the QRpairs",e);
                     }
                 });
+    }
+
+    public void deleteQRPair(String eventID){
+        DocumentReference qrPairDoc = ReusableQrCollection.document(eventID);
+        qrPairDoc.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Log.d("DEBUG","successfully deleted a QR pair");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("DEBUG","unsuccessfully deleted a QR pair");
+            }
+        });
     }
 }

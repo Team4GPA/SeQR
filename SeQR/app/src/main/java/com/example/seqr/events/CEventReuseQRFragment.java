@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.seqr.R;
 import com.example.seqr.adapters.QrCodePairAdapter;
@@ -31,6 +32,8 @@ public class CEventReuseQRFragment extends Fragment {
     private QrCodePairAdapter qrCodePairAdapter;
     private List<QrCodePair> qrCodePairsList;
 
+    private Button backbutton;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,22 +43,38 @@ public class CEventReuseQRFragment extends Fragment {
 
         qrPairsRecyclerView = view.findViewById(R.id.qrPairsRecyclerView);
         qrCodePairsList = new ArrayList<>();
-        qrCodePairAdapter = new QrCodePairAdapter(qrCodePairsList, new QrCodePairAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(QrCodePair qrCodePair) {
-                handleClick();
-            }
-        });
+        qrCodePairAdapter = new QrCodePairAdapter(qrCodePairsList, this::handleQrPairClick);
 
         qrPairsRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         qrPairsRecyclerView.setAdapter(qrCodePairAdapter);
-
+        backbutton = view.findViewById(R.id.reuseQRBackbutton);
         displayQRpairs();
+        backbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
 
         return view;
     }
 
-    public void handleClick(){
+    public void handleQrPairClick(QrCodePair qrCodePair){
+        Bundle newBundle = getArguments(); // Get existing bundle
+
+        assert newBundle != null;
+        newBundle.putString("eventID", qrCodePair.getEventId());
+        newBundle.putString("checkInQR", qrCodePair.getCheckInQR());
+        newBundle.putString("promotionQR", qrCodePair.getPromotionQR());
+        CEventPreviewFragment cEventPreviewFragment = new CEventPreviewFragment();
+        cEventPreviewFragment.setArguments(newBundle);
+
+        getParentFragmentManager().beginTransaction()
+                .replace(R.id.fragment_container, cEventPreviewFragment)
+                .addToBackStack(null)
+                .commit();
+
+
 
     }
 
@@ -68,6 +87,8 @@ public class CEventReuseQRFragment extends Fragment {
                     for (DocumentSnapshot qrPairDoc: task.getResult()){
                         if (qrPairDoc != null && qrPairDoc.exists()){
                             QrCodePair qrCodePair = qrPairDoc.toObject(QrCodePair.class);
+                            qrCodePair.setEventId(qrPairDoc.getId());
+
                             qrCodePairsList.add(qrCodePair);
                         } else{
                             Log.d("DEBUG", "there were some issues with getting the qrPairDoc it was null or didnt exist");
