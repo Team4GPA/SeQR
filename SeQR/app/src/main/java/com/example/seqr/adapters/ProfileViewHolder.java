@@ -8,13 +8,14 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.seqr.R;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
 
 /**
  *  ViewHolder class for managing profile items in a RecyclerView.
  */
 public class ProfileViewHolder extends RecyclerView.ViewHolder{
-    public ImageView imageView;
+    public ShapeableImageView imageView;
     public TextView textView;
 
     /**

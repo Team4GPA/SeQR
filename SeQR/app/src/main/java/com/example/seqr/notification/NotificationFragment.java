@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class NotificationFragment extends Fragment {
@@ -76,6 +77,7 @@ public class NotificationFragment extends Fragment {
                                             Announcement notification = notificationDoc.toObject(Announcement.class);
                                             if (notification != null) {
                                                 notificationList.add(notification);
+                                                Collections.sort(notificationList, (a1, a2) -> a2.getTime().compareTo(a1.getTime()));
                                                 notificationAdapter.notifyDataSetChanged();
                                             }
                                         } else {

@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -53,7 +55,7 @@ public class CheckInsFragment extends Fragment {
             @Override
             public void onItemClick(Profile profile) {
                 Log.d("DEBUG","successfully clicked an profile signup");
-                AttendeeCheckInsView attendeeCheckInsView = new AttendeeCheckInsView();
+                AttendeeCheckInsFragment attendeeCheckInsFragment = new AttendeeCheckInsFragment();
                 Bundle bundle = getArguments();
                 assert bundle != null;
                 String eventID = bundle.getString("eventID","");
@@ -62,10 +64,10 @@ public class CheckInsFragment extends Fragment {
                 args.putString("profileID", profile.getId());
                 args.putString("username",profile.getUsername());
 
-                attendeeCheckInsView.setArguments(args);
+                attendeeCheckInsFragment.setArguments(args);
 
                 getParentFragmentManager().beginTransaction()
-                        .replace(R.id.fragment_container,attendeeCheckInsView)
+                        .replace(R.id.fragment_container, attendeeCheckInsFragment)
                         .addToBackStack(null)
                         .commit();
             }
@@ -118,6 +120,7 @@ public class CheckInsFragment extends Fragment {
                                         String profilePic = profileDoc.getString("profilePic");
                                         Profile profile = new Profile(username, email, phoneNumber, homePage, id, profilePic);
                                         profileList.add(profile);
+                                        Collections.sort(profileList, Comparator.comparing(Profile::getUsername));
                                         profileAdapter.notifyDataSetChanged();
                                     }else{
                                         Log.d("DEBUG", "error in retrieving profile");

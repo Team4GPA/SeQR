@@ -12,19 +12,19 @@ import java.util.UUID;
  */
 public class Event {
     private String eventName;
-
     private String eventDesc;
     private int maxCapacity;
     private String organizer;
     private String location;
-    private String eventStartTime;
+    private Timestamp eventStartTime;
     private String eventID;
-
+    private Timestamp createdTime;
     private String promotionQR;
-
     private String checkInQR;
-
     private String organizerUUID;
+    private int milestoneAlert;
+    private double latitude;
+    private double longitude;
 
     /**
      * Default constructor for the Event class.
@@ -46,10 +46,17 @@ public class Event {
      * @param promotionQR   The QR code for promotion of the event.
      * @param checkInQR     The QR code for event check-in.
      * @param organizerUUID The UUID of the organizer.
+     * @param createdTime   The time event was created.
+     * @param longitude     A double representing the longitude coordinate of the location of the event
+     * @param latitude      A double representing the latitude coordinate of the location of the event
      */
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID) {
+    public Event(String eventName, String eventID, String eventDesc,
+                 int maxCapacity, String organizer, String location,
+                 Timestamp eventStartTime, String promotionQR, String checkInQR,
+                 String organizerUUID, Timestamp createdTime,
+                 double latitude,
+                 double longitude) {
         this.eventName = eventName;
-
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
         this.organizer = organizer;
@@ -59,8 +66,12 @@ public class Event {
         this.checkInQR = checkInQR;
         this.promotionQR = promotionQR;
         this.organizerUUID = organizerUUID;
-
+        this.createdTime = createdTime;
+        this.milestoneAlert = 0;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
+
     /**
      * Retrieves the UUID of the event organizer.
      *
@@ -229,7 +240,7 @@ public class Event {
      *
      * @return The start time of the event.
      */
-    public String getEventStartTime() {
+    public Timestamp getEventStartTime() {
         return eventStartTime;
     }
 
@@ -238,7 +249,30 @@ public class Event {
      *
      * @param eventStartTime The start time of the event.
      */
-    public void setEventStartTime(String eventStartTime) {
+    public void setEventStartTime(Timestamp eventStartTime) {
         this.eventStartTime = eventStartTime;
     }
+
+    public int getMilestoneAlert() {
+        return milestoneAlert;
+    }
+
+    public void setMilestoneAlert(int milestoneAlert) {
+        this.milestoneAlert = milestoneAlert;
+    }
+
+    public Timestamp getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
+    }
+
+    public double getLatitude(){return latitude;}
+
+    public double getLongitude() {return longitude;}
+
+    public void setLatitude(double lat) {this.latitude = lat;}
+    public void setLongitude(double lng) {this.longitude = lng;}
 }

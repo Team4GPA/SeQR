@@ -1,4 +1,4 @@
-package com.example.seqr.profile;
+package com.example.seqr.helpers;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

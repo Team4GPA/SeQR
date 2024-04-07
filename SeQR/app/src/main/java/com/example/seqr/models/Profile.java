@@ -36,6 +36,9 @@ public class Profile {
         this.username = username;
         this.id = ID;
         this.notifications = notifications;
+        this.email = "";
+        this.phoneNumber = "";
+        this.homePage = "";
     }
 
 

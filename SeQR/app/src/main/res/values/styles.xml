@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="circularImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- Adjust percentage as needed -->
+    </style>
+
+    <style name="CustomDateTimePickerDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <!-- Customize other attributes as needed -->
+        <item name="android:textColorPrimary">@color/black</item>
+    </style>
+</resources>
