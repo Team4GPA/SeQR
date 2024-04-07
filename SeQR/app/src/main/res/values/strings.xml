@@ -27,4 +27,15 @@
     <string name="number_of_attendees">%1$d Attendee(s) in total</string>
     <string name="check_in_s_in_total"># check-in(s) in total</string>
     <string name="check_ins_total">check ins</string>
+    <string name="event_details">Event Details</string>
+    <string name="next">Next</string>
+    <string name="enter_the_capacity">Enter the capacity</string>
+    <string name="enter_the_description">Enter the description</string>
+    <string name="enter_the_location">Enter the location</string>
+    <string name="enter_the_name_of_the_event">Enter the name of the event</string>
+    <string name="enter_the_time">Enter the time</string>
+    <string name="new_announcement">New Announcement</string>
+    <string name="enter_the_announcement_title">Enter the announcement title</string>
+    <string name="as_notification">As notification?</string>
+    <string name="confirm">Confirm</string>
 </resources>

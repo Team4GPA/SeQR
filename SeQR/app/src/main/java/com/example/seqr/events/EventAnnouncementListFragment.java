@@ -22,6 +22,7 @@ import com.example.seqr.models.Announcement;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EventAnnouncementListFragment extends Fragment {
@@ -73,6 +74,7 @@ public class EventAnnouncementListFragment extends Fragment {
                     Announcement announcement = document.toObject(Announcement.class);
                     announcementList.add(announcement);
                 }
+                Collections.sort(announcementList, (a1, a2) -> a2.getTime().compareTo(a1.getTime()));
                 announcementAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error in announcement retrieval", task.getException());

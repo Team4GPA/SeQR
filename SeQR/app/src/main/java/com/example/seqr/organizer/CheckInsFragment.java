@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -118,6 +120,7 @@ public class CheckInsFragment extends Fragment {
                                         String profilePic = profileDoc.getString("profilePic");
                                         Profile profile = new Profile(username, email, phoneNumber, homePage, id, profilePic);
                                         profileList.add(profile);
+                                        Collections.sort(profileList, Comparator.comparing(Profile::getUsername));
                                         profileAdapter.notifyDataSetChanged();
                                     }else{
                                         Log.d("DEBUG", "error in retrieving profile");

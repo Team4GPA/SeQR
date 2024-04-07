@@ -20,11 +20,18 @@ public class SplashActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             // from notification
             Log.d("notfi", "Splash receieved");
-            String announcementID = getIntent().getExtras().getString("announcementID");
             String eventID = getIntent().getExtras().getString("eventID");
+            Boolean ifNotification = getIntent().getExtras().getBoolean("ifNotification");
             Intent intent = new Intent(this, MainActivity.class);
-            intent.putExtra("announcementID", announcementID);
             intent.putExtra("eventID", eventID);
+            if (ifNotification) {
+                String announcementID = getIntent().getExtras().getString("announcementID");
+                intent.putExtra("announcementID", announcementID);
+                intent.putExtra("ifNotification", true);
+            }
+            else {
+                intent.putExtra("ifNotification", false);
+            }
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK |Intent.FLAG_ACTIVITY_NO_ANIMATION);
             startActivity(intent);
             finish();

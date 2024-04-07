@@ -34,6 +34,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -100,6 +102,7 @@ public class AttendeeFragment extends Fragment {
                                             if (event != null){
                                                 eventsList.add(event);
                                                 Log.d("TASK TWO", "Adding event " + event.getEventName() + " with ID " + event.getEventID());
+                                                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
                                                 eventAdapter.notifyItemChanged(eventsList.size());
                                             }
                                             else{
@@ -236,6 +239,7 @@ public class AttendeeFragment extends Fragment {
                                             Event event = eventDoc.toObject(Event.class);
                                             if (event != null){
                                                 eventsList.add(event);
+                                                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
                                                 eventAdapter.notifyDataSetChanged();
                                             }
                                         }else {
@@ -285,7 +289,7 @@ public class AttendeeFragment extends Fragment {
                             @Override
                             public void onSuccess(Void unused) {
                                 Log.d("DEBUG", "successfully checked in the user");
-                                
+
                             }
                         }, new OnFailureListener() {
                             @Override

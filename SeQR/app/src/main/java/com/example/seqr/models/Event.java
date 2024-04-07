@@ -19,12 +19,12 @@ public class Event {
     private String location;
     private String eventStartTime;
     private String eventID;
-
+    private Timestamp createdTime;
     private String promotionQR;
 
     private String checkInQR;
-
     private String organizerUUID;
+    private int milestoneAlert;
 
     /**
      * Default constructor for the Event class.
@@ -47,9 +47,8 @@ public class Event {
      * @param checkInQR     The QR code for event check-in.
      * @param organizerUUID The UUID of the organizer.
      */
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID) {
+    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID, Timestamp createdTime) {
         this.eventName = eventName;
-
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
         this.organizer = organizer;
@@ -59,6 +58,8 @@ public class Event {
         this.checkInQR = checkInQR;
         this.promotionQR = promotionQR;
         this.organizerUUID = organizerUUID;
+        this.createdTime = createdTime;
+        this.milestoneAlert = 0;
 
     }
     /**
@@ -240,5 +241,21 @@ public class Event {
      */
     public void setEventStartTime(String eventStartTime) {
         this.eventStartTime = eventStartTime;
+    }
+
+    public int getMilestoneAlert() {
+        return milestoneAlert;
+    }
+
+    public void setMilestoneAlert(int milestoneAlert) {
+        this.milestoneAlert = milestoneAlert;
+    }
+
+    public Timestamp getCreatedTime() {
+        return createdTime;
+    }
+
+    public void setCreatedTime(Timestamp createdTime) {
+        this.createdTime = createdTime;
     }
 }

@@ -5,11 +5,13 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.example.seqr.database.Database;
+import com.example.seqr.notification.NotificationSender;
 import com.example.seqr.models.Event;
 import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -20,12 +22,8 @@ import com.google.firebase.Timestamp;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 
-import java.util.Date;
-
 import java.util.HashMap;
 import java.util.Map;
-
-import java.util.ArrayList;
 
 /**
  * Controller class for managing Event data in Firestore database.
@@ -249,6 +247,91 @@ public class EventController {
         checkInDocRef.set(checkInData, SetOptions.merge())
                 .addOnSuccessListener(onSuccessListener)
                 .addOnFailureListener(onFailureListener);
+        DocumentReference eventDocRef = eventCollection.document(eventID);
+        eventDocRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document != null) {
+                        Event event = document.toObject(Event.class);
+                        String organizerUUID = event.getOrganizerUUID();
+                        String eventName = event.getEventName();
+                        final int[] milestoneAlert = {event.getMilestoneAlert()};
+                        final int[] maxCapacity = {event.getMaxCapacity()};
+                        Log.d("notif", "capacity is" + maxCapacity[0]);
+                        Log.d("notif", "alert level is" + milestoneAlert[0]);
+
+                        CollectionReference checkInsRef = eventDocRef.collection("checkIns");
+                        checkInsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful()) {
+                                    int checkInsCount = task.getResult().size();
+                                    float checkedInRatio = ((float) checkInsCount) / maxCapacity[0];
+                                    Log.d("notif", "checkin count is" + checkInsCount);
+                                    Log.d("notif", "ratio is" + checkedInRatio);
+                                    if (checkedInRatio >= 0.25 || checkedInRatio >= 0.5 || checkedInRatio >= 0.75 || checkedInRatio >= 1) {
+                                        ProfileController profileController = new ProfileController();
+                                        profileController.getProfileByUUID(organizerUUID, new OnCompleteListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                                if (task.isSuccessful()) {
+                                                    DocumentSnapshot profileDoc = task.getResult();
+                                                    if (profileDoc != null && profileDoc.exists()) {
+                                                        String fcmToken = (String) profileDoc.get("fcmToken");
+                                                        String title = "Milestone Alert";
+                                                        String body = "";
+                                                        Boolean ifAlert = false;
+                                                        if (checkedInRatio >= 1 && milestoneAlert[0] != 4) {
+                                                            milestoneAlert[0] = 4;
+                                                            body = eventName + " attendance has reached full capacity!";
+                                                            ifAlert = true;
+                                                        }
+                                                        else if (checkedInRatio >= 0.75 && milestoneAlert[0] != 3){
+                                                            milestoneAlert[0] = 3;
+                                                            body = eventName + " attendance has reached 75% of capacity!";
+                                                            ifAlert = true;
+                                                        }
+                                                        else if (checkedInRatio >= 0.5 && milestoneAlert[0] != 2) {
+                                                            milestoneAlert[0] = 2;
+                                                            body = eventName + " attendance has reached 50% of capacity!";
+                                                            ifAlert = true;
+                                                        }
+                                                        else if (checkedInRatio >= 0.25 && milestoneAlert[0] != 1) {
+                                                            milestoneAlert[0] = 1;
+                                                            body = eventName + " attendance has reached 25% of capacity!";
+                                                            ifAlert = true;
+                                                        }
+                                                        if (ifAlert) {
+                                                            eventDocRef.update("milestoneAlert", milestoneAlert[0]);
+                                                            NotificationSender.sendMilestone(title, body, eventID, fcmToken);
+                                                        }
+                                                    } else {
+                                                        Log.d("DEBUG", "No such profile document");
+                                                    }
+                                                }
+                                                else {
+                                                    Log.d("DEBUG", "Failed with accessing the event doc");
+                                                }
+                                            }
+                                        });
+                                    }
+                                } else {
+                                    Log.d("DEBUG", "Error getting checkIns documents: ", task.getException());
+                                }
+                            }
+                        });
+                    }
+                    else {
+                        Log.d("DEBUG", "No such event document");
+                    }
+                }
+                else {
+                    Log.d("DEBUG", "Error getting event document: ", task.getException());
+                }
+            }
+        });
     }
 
     public void getUserCheckIns(String eventID, String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener){

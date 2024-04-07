@@ -19,6 +19,7 @@ import com.example.seqr.R;
 import com.example.seqr.controllers.EventController;
 import com.example.seqr.models.Event;
 import com.example.seqr.models.ID;
+import com.google.firebase.Timestamp;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -119,9 +120,9 @@ public class CEventPreviewFragment extends Fragment {
                 else{
                     convertCapacity = Integer.parseInt(eventCapacity);
                 }
+                Timestamp createdTime = Timestamp.now();
 
-
-                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid);
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, createdTime);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);

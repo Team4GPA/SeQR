@@ -18,6 +18,8 @@ import com.example.seqr.models.Event;
 import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -60,6 +62,7 @@ public class EventLobbyFragment extends Fragment {
                     eventController.checkEventValid(event.getEventID());
                     eventsList.add(event);
                 }
+                Collections.sort(eventsList, (a1, a2) -> a2.getCreatedTime().compareTo(a1.getCreatedTime()));
                 eventAdapter.notifyDataSetChanged();
             } else {
                 Log.d("DEBUG", "there was some error in event retrieval to event lobby", task.getException());
