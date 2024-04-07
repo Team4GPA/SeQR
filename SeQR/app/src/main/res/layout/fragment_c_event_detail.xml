@@ -58,21 +58,38 @@
                 app:layout_constraintTop_toTopOf="parent"
                 android:importantForAutofill="no" />
 
-            <EditText
+            <TextView
+                android:id="@+id/eventDateInput"
+                android:layout_width="340dp"
+                android:layout_height="60dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_rounded_corner"
+                android:elevation="5dp"
+                android:gravity="center_vertical"
+                android:text="@string/enter_the_date"
+                android:textColor="@color/text_tint"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/eventNameInput"
+                android:importantForAutofill="no" />
+
+            <TextView
                 android:id="@+id/eventTimeInput"
                 android:layout_width="340dp"
                 android:layout_height="60dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="@string/enter_the_time"
-                android:inputType="text"
-                android:textColorHint="@color/text_tint"
+                android:gravity="center_vertical"
+                android:text="@string/enter_the_time"
+                android:textColor="@color/text_tint"
                 android:textSize="20sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/eventNameInput"
+                app:layout_constraintTop_toBottomOf="@+id/eventDateInput"
                 android:importantForAutofill="no" />
 
 

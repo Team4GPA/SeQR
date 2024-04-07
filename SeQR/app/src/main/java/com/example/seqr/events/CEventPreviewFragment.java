@@ -15,6 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seqr.controllers.ReusableQrController;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import com.example.seqr.helpers.ImageUploader;
 import com.example.seqr.R;
 import com.example.seqr.controllers.EventController;
@@ -80,17 +84,20 @@ public class CEventPreviewFragment extends Fragment {
         String organizerName = bundle.getString("organizerName","");
         String eventName = bundle.getString("eventName", "");
         String eventLocation = bundle.getString("eventLocation", "");
-        String eventTime = bundle.getString("eventTime", "");
+        Date eventTime = (Date) bundle.getSerializable("eventTime");
         String eventCapacity = bundle.getString("eventCapacity", "-1");
         String eventDescription = bundle.getString("eventDescription", "");
         String eventImageUriString = bundle.getString("imageUri", "");
         double latitude = bundle.getDouble("latitude");
         double longitude = bundle.getDouble("longitude");
 
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+//        String eventTimeString = dateFormat.format(eventTime);
+
         eventOrganizerTextView.setText(organizerName);
         eventNameTextView.setText(eventName);
         eventLocationTextView.setText(eventLocation);
-        eventTimeTextView.setText(eventTime);
+        eventTimeTextView.setText(eventTime.toString());
         if (!eventCapacity.contentEquals("-1")){
             eventCapacityTextView.setText(eventCapacity);
         }
@@ -125,10 +132,10 @@ public class CEventPreviewFragment extends Fragment {
                 else{
                     convertCapacity = Integer.parseInt(eventCapacity);
                 }
+                Timestamp eventStartTime = new Timestamp(eventTime);
                 Timestamp createdTime = Timestamp.now();
 
-
-                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, createdTime, latitude, longitude);
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventStartTime, promotionQR, checkInQR, uuid, createdTime, latitude, longitude);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);

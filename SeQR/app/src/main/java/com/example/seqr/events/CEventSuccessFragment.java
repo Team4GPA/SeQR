@@ -63,7 +63,7 @@ public class CEventSuccessFragment extends Fragment {
       
         String organizerName = bundle.getString("organizerName","");
         String eventLocation = bundle.getString("eventLocation", "");
-        String eventTime = bundle.getString("eventTime", "");
+        String eventTime = bundle.getSerializable("eventTime").toString();
         String eventCapacity = bundle.getString("eventCapacity", "");
         String eventImageUriString = bundle.getString("imageUri", "");
         String promotionQR = bundle.getString("promotionQR","");
