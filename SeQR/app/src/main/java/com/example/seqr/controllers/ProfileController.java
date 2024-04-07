@@ -168,7 +168,7 @@ public class ProfileController {
                 });
     }
 
-    private void deleteProfilePicture(String userID){
+    public void deleteProfilePicture(String userID){
         StorageReference profilePicReference = Database.getStorage().getReference().child("ProfilePictures/" + userID + ".jpg");
         profilePicReference.delete().addOnFailureListener(new OnFailureListener() {
             @Override
