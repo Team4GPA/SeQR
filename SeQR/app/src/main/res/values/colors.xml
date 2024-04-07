@@ -8,4 +8,5 @@
     <color name="theme_primary">#367588</color>
     <color name="theme_secondary">#FFE74C</color>
     <color name="theme_tertiary">#00BCD4</color>
+    <color name="text_tint">#78909C</color>
 </resources>

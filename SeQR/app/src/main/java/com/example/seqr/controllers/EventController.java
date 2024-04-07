@@ -259,6 +259,8 @@ public class EventController {
                         String eventName = event.getEventName();
                         final int[] milestoneAlert = {event.getMilestoneAlert()};
                         final int[] maxCapacity = {event.getMaxCapacity()};
+                        Log.d("notif", "capacity is" + maxCapacity[0]);
+                        Log.d("notif", "alert level is" + milestoneAlert[0]);
 
                         CollectionReference checkInsRef = eventDocRef.collection("checkIns");
                         checkInsRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -266,7 +268,9 @@ public class EventController {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful()) {
                                     int checkInsCount = task.getResult().size();
-                                    float checkedInRatio = checkInsCount / maxCapacity[0];
+                                    float checkedInRatio = ((float) checkInsCount) / maxCapacity[0];
+                                    Log.d("notif", "checkin count is" + checkInsCount);
+                                    Log.d("notif", "ratio is" + checkedInRatio);
                                     if (checkedInRatio >= 0.25 || checkedInRatio >= 0.5 || checkedInRatio >= 0.75 || checkedInRatio >= 1) {
                                         ProfileController profileController = new ProfileController();
                                         profileController.getProfileByUUID(organizerUUID, new OnCompleteListener<DocumentSnapshot>() {
