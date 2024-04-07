@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.seqr.R;
 import com.example.seqr.models.QrCodePair;
 
 public class QrCodePairViewHolder extends RecyclerView.ViewHolder {
@@ -14,6 +15,9 @@ public class QrCodePairViewHolder extends RecyclerView.ViewHolder {
 
     public QrCodePairViewHolder(View itemView){
         super(itemView);
+        checkInQRImageView = itemView.findViewById(R.id.checkInQRImageView);
+        promotionQRImageView = itemView.findViewById(R.id.promotionQRImageView);
+        previousEventNameTextView = itemView.findViewById(R.id.previousEventNameTextView);
 
     }
 }
