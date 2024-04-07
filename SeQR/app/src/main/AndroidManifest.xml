@@ -17,7 +17,7 @@
         tools:targetApi="34">
 
         <service
-            android:name="MainActivity"
+            android:name=".MainActivity"
             android:foregroundServiceType="location">
 
         </service>
