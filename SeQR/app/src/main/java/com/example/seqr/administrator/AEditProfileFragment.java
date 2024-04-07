@@ -97,19 +97,6 @@ public class AEditProfileFragment extends Fragment{
         Uri profilePicUri = Uri.parse(imageUrl);
         Picasso.get().load(profilePicUri).error(R.drawable.profile_picture_drawer_navigation_icon).into(profilePicView);
 
-
-        DatabaseReference imageRef = FirebaseDatabase.getInstance().getReference().child("ProfilePictures/" +id +".jpg");
-        imageRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                String updatedImageUrl = dataSnapshot.getValue(String.class);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.d("DEBUG", "Couldnt find profile picture" + databaseError);
-            }
-        });
         // Handle pressing back button
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
