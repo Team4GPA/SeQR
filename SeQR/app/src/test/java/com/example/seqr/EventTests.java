@@ -76,16 +76,7 @@ public class EventTests {
     @Test
     public void FillAllEventData(){
         String mockData[] = DefaultEventDetails();
-        Event fillMe = new Event(mockData[0],
-                mockData[1],
-                mockData[2],
-                3,
-                mockData[3],
-                "Edmonton",
-                "3:45 PM",
-                "testQR-string",
-                "testCheckin-QR",
-                "testUUID");
+        Event fillMe = new Event();
 
         assertEquals(mockData[0], fillMe.getEventName());
 

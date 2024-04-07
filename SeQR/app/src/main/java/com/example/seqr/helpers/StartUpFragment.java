@@ -72,10 +72,16 @@ public class StartUpFragment extends Fragment {
                 if (username.isEmpty()) {
                     username = "Guest";
                 }
+
+                //profile setup
                 ProfileController profileController = new ProfileController();
                 String uuid = ID.createProfileID(getContext());
                 List<String> notifications = new ArrayList<>();
                 Profile newProfile = new Profile(username, uuid, notifications);
+                //update the profile with a proper token for notifications
+                profileController.updateFCMToken(uuid);
+
+                //profile picture setup
                 ProfilePictureGenerator generator = new ProfilePictureGenerator();
                 Bitmap newProfilePicture = generator.generate(ID.getProfileId(getContext()), username);
                 imageUri = BitmapUtils.bitmapToUri(requireContext(), newProfilePicture);
@@ -88,7 +94,6 @@ public class StartUpFragment extends Fragment {
                 editor.putString("profile_picture_uri", imageUri.toString());
                 editor.apply();
                 profileController.addProfile(newProfile);
-                profileController.updateFCMToken(uuid);
                 // Update profile picture URL in Firestore
                 profileController.updatePFP(uuid, imageUri.toString(), new OnSuccessListener<Void>() {
                     @Override
@@ -116,7 +121,7 @@ public class StartUpFragment extends Fragment {
                 Activity activity = getActivity();
                 if (activity != null) {
                     Intent intent = new Intent(activity, MainActivity.class);
-                    // Clear out old activty and make a new one
+                    // Clear out old activity and make a new one
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     activity.finish();

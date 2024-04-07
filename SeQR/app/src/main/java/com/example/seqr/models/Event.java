@@ -12,7 +12,6 @@ import java.util.UUID;
  */
 public class Event {
     private String eventName;
-
     private String eventDesc;
     private int maxCapacity;
     private String organizer;
@@ -21,11 +20,9 @@ public class Event {
     private String eventID;
     private Timestamp createdTime;
     private String promotionQR;
-
     private String checkInQR;
     private String organizerUUID;
     private int milestoneAlert;
-
     private double latitude;
     private double longitude;
 
@@ -49,12 +46,16 @@ public class Event {
      * @param promotionQR   The QR code for promotion of the event.
      * @param checkInQR     The QR code for event check-in.
      * @param organizerUUID The UUID of the organizer.
+     * @param createdTime   The time event was created.
      * @param longitude     A double representing the longitude coordinate of the location of the event
      * @param latitude      A double representing the latitude coordinate of the location of the event
      */
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer,
-                 String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID, double latitude, double longitude) {
-    public Event(String eventName, String eventID, String eventDesc, int maxCapacity, String organizer, String location, String eventStartTime, String promotionQR, String checkInQR, String organizerUUID, Timestamp createdTime) {
+    public Event(String eventName, String eventID, String eventDesc,
+                 int maxCapacity, String organizer, String location,
+                 String eventStartTime, String promotionQR, String checkInQR,
+                 String organizerUUID, Timestamp createdTime,
+                 double latitude,
+                 double longitude) {
         this.eventName = eventName;
         this.eventDesc = eventDesc;
         this.maxCapacity = maxCapacity;
@@ -69,8 +70,8 @@ public class Event {
         this.milestoneAlert = 0;
         this.latitude = latitude;
         this.longitude = longitude;
-
     }
+
     /**
      * Retrieves the UUID of the event organizer.
      *

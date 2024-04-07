@@ -125,7 +125,7 @@ public class CEventPreviewFragment extends Fragment {
                 Timestamp createdTime = Timestamp.now();
 
 
-                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, latitude, longitude);
+                Event event = new Event(eventName, eventID, eventDescription, convertCapacity, organizerName, eventLocation, eventTime, promotionQR, checkInQR, uuid, createdTime, latitude, longitude);
 
                 EventController eventController = new EventController();
                 eventController.addEvent(event);

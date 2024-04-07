@@ -83,8 +83,6 @@ public class EventInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSignUpPressed(eventId, getContext());
-                //wait for confirmation before continuing!
-
                 Toast.makeText(getContext(), "Added \""+eventNameText.getText().toString()+"\" to your collection!", Toast.LENGTH_SHORT).show();
                 BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
                 FragmentManager frgMgr = getParentFragmentManager();
@@ -92,13 +90,6 @@ public class EventInfoFragment extends Fragment {
                 trans.addToBackStack(null);
                 trans.commit();
                 bnav.setSelectedItemId(R.id.bottom_attendee);
-
-//                AttendeeFragment attendeeFragment = new AttendeeFragment();
-//                FragmentManager fragmentManager = getParentFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.fragment_container, attendeeFragment);
-//                fragmentTransaction.addToBackStack(null);
-//                fragmentTransaction.commit();
             }
         });
 
