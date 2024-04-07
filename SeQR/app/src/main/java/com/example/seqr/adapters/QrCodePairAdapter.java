@@ -37,13 +37,13 @@ public class QrCodePairAdapter extends RecyclerView.Adapter<QrCodePairViewHolder
     @Override
     public void onBindViewHolder(@NonNull QrCodePairViewHolder holder, int position) {
         QrCodePair qrCodePair = qrCodePairs.get(position);
-
+        holder.setQrImages(qrCodePair.getCheckInQR(), qrCodePair.getPromotionQR());
         holder.previousEventNameTextView.setText(qrCodePair.getPreviousEventName());
         holder.itemView.setOnClickListener(view -> listener.onItemClick(qrCodePair));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return qrCodePairs.size();
     }
 }

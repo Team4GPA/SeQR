@@ -4,6 +4,9 @@ public class QrCodePair {
     private String checkInQR;
     private String promotionQR;
     private String previousEventName;
+    public QrCodePair(){
+
+    }
 
     public QrCodePair(String checkInQR, String promotionQR, String previousEventName){
         this.checkInQR = checkInQR;
