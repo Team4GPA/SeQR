@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class AttendeeCheckInsFragment extends Fragment {
+public class AttendeeCheckInsView extends Fragment {
     private TextView usernameText;
     private ListView checkInsView;
 
