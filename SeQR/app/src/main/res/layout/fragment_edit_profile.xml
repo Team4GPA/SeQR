@@ -134,7 +134,7 @@
         android:id="@+id/profile_homepage"
         android:layout_width="0dp"
         android:layout_height="50sp"
-        android:hint="Homepage goes here"
+        android:hint="Enter Homepage Here"
         android:padding="10dp"
         app:layout_constraintBottom_toBottomOf="@+id/profile_homepage_title"
         app:layout_constraintEnd_toEndOf="parent"

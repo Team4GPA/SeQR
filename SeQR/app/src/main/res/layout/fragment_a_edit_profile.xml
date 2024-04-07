@@ -144,15 +144,7 @@
 
     </EditText>
 
-    <CheckBox
-        android:id="@+id/admin_edit_profile_admin_checkbox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="5sp"
-        android:text="Tag this user as Administrator"
-        app:layout_constraintBottom_toTopOf="@id/admin_edit_personal_info_button"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"></CheckBox>
+
 
     <Button
         android:id="@+id/admin_edit_personal_info_button"

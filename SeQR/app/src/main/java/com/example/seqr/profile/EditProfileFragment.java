@@ -98,7 +98,12 @@ public class EditProfileFragment extends Fragment {
                     usernameEditText.setText(user);
                     emailEditText.setText(email);
                     homepageEditText.setText(homepage);
-                    phoneNumberEditText.setText(String.valueOf(phoneNumber));
+                    if (phoneNumber.equals("null")){
+                        phoneNumberEditText.setHint("Enter Phone Number");
+                    }else{
+                        phoneNumberEditText.setText(String.valueOf(phoneNumber));
+                    }
+
                 }
             }
         });

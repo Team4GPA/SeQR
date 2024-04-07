@@ -100,7 +100,6 @@ public class AEditProfileFragment extends Fragment{
         emailEditText = view.findViewById(R.id.admin_profile_email);
         homePageEditText = view.findViewById(R.id.admin_profile_homepage);
         profilePicView = view.findViewById(R.id.admin_edit_profile_picture);
-        isAdminCheckBox = view.findViewById(R.id.admin_edit_profile_admin_checkbox);
 
         // Set the fields to the values of the profile
         nameEditText.setText(username);
@@ -251,8 +250,6 @@ public class AEditProfileFragment extends Fragment{
 
     // Method to generate a new profile picture
     public void setProfilePicture(Uri imageUri) {
-
-        System.out.println("SUCCESSFUL ACCESS");
         // Update profile picture URL in Firestore
         String uuid = ID.getProfileId(getContext());
         if (uuid != null) {

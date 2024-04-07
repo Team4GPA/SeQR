@@ -1,7 +1,6 @@
 package com.example.seqr.events;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,7 +45,7 @@ public class DeleteEventFragment extends DialogFragment {
             }
         });
 
-        view.findViewById(R.id.delete_item_cancel_button).setOnClickListener(new View.OnClickListener(){
+        view.findViewById(R.id.cancel_password_button).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 dismiss();
