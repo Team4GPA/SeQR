@@ -126,6 +126,29 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".4" />
 
+    <ScrollView
+        android:id="@+id/eventDescriptionScroll"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10sp"
+        android:layout_marginBottom="10sp"
+        app:layout_constraintBottom_toTopOf="@id/cEventSuccessGoToButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photoPreview"
+        app:layout_constraintVertical_bias="1.0">
+
+        <TextView
+            android:id="@+id/cEventSuccessDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15sp"
+            android:layout_marginEnd="15sp"
+            android:text="Description"
+            android:textSize="16sp" />
+    </ScrollView>
+
     <Button
         android:id="@+id/cEventSuccessGoToButton"
         android:layout_width="wrap_content"
