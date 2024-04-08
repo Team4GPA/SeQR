@@ -66,7 +66,7 @@ public class EditProfileFragment extends Fragment {
     private Uri bitmapUri;
     private boolean firstTime = true;
     /**
-     *
+     * Inflates the layout for the edit profile fragment.
      * @param inflater The LayoutInflater object that can be used to inflate
      * any views in the fragment,
      * @param container If non-null, this is the parent view that the fragment's
@@ -172,9 +172,11 @@ public class EditProfileFragment extends Fragment {
 
         return view;
     }
-    //end of OnCreate
-    //==============================================================================================
 
+    /**
+     * Loads the profile picture either from SharedPreferences or from Firebase Storage
+     * based on whether it's the first time loading or not.
+     */
     private void loadProfilePicture() {
         String storedUri = getStoredProfilePictureUri();
 
@@ -190,12 +192,21 @@ public class EditProfileFragment extends Fragment {
             Picasso.get().load(imageUrl).into(profileImageView);
         }
     }
-
+    /**
+     * Retrieves the stored profile picture URI from SharedPreferences.
+     *
+     * @return The stored profile picture URI.
+     */
     private String getStoredProfilePictureUri() {
         SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
         return sharedPreferences.getString("profile_picture_uri", null);
     }
-
+    /**
+     * Checks if the given URI string is valid.
+     *
+     * @param uriString The URI string to check.
+     * @return True if the URI string is valid, false otherwise.
+     */
     private boolean isValidUri(String uriString) {
         if (uriString == null || uriString.isEmpty()) {
             return false;
@@ -209,7 +220,10 @@ public class EditProfileFragment extends Fragment {
         }
     }
 
-    // Method to generate a new profile picture
+    /**
+     * Method to set the profile Picture
+     * @param imageUri
+     */
     public void setProfilePicture(Uri imageUri) {
 
         System.out.println("SUCCESSFUL ACCESS");

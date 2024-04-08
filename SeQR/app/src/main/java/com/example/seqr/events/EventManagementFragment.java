@@ -150,6 +150,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Method to handle choosing an announcement
+     * @param bundle
+     */
     public void setAnnouncementListButton(Bundle bundle) {
         announcementListButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,6 +173,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Handles when a user wants to see who is signed up for an event
+     * @param bundle
+     */
     public void setViewSignUpsButton(Bundle bundle){
         viewSignUpsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +195,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Brings user to the event map fragment
+     * @param bundle
+     */
     public void setMapButton(Bundle bundle){
         geoTrackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -201,6 +213,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Brings user to see who is checked in to the event
+     * @param bundle
+     */
     public void setViewCheckInsButton(Bundle bundle){
         viewCheckInsButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +233,10 @@ public class EventManagementFragment extends Fragment {
         });
     }
 
+    /**
+     * Brings user to set a milestone for the event
+     * @param bundle
+     */
     public void setMilestoneButton(Bundle bundle) {
         milestoneButton.setOnClickListener(new View.OnClickListener() {
             @Override

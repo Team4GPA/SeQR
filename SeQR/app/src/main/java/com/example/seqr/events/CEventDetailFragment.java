@@ -157,6 +157,9 @@ public class CEventDetailFragment extends Fragment {
         }
     }
 
+    /**
+     * Method that opens a dialog to pick the date of an event
+     */
     private void openDatePickerDialog() {
         cal = Calendar.getInstance();
 
@@ -179,6 +182,9 @@ public class CEventDetailFragment extends Fragment {
         datePickerDialog.show();
     }
 
+    /**
+     * Method that opens a dialog to pick the time of an event
+     */
     private void openTimePickerDialog() {
         if (cal == null) {
             Toast.makeText(getContext(), "Please select the date first", Toast.LENGTH_SHORT).show();
@@ -199,6 +205,11 @@ public class CEventDetailFragment extends Fragment {
         timePickerDialog.show();
     }
 
+    /**
+     * Checks if a textview is empty
+     * @param textView
+     * @return a bool representing if the textview is empty
+     */
     private Boolean ifTextViewNotEmpty(TextView textView) {
         if (textView.getText().toString().trim().isEmpty()) {
             textView.setError("Field input incorrect/empty.");
@@ -206,6 +217,13 @@ public class CEventDetailFragment extends Fragment {
         }
         return true;
     }
+
+    /**
+     * Checks if the checkbox is empty then the the checkbox should not be checked and vice versa
+     * @param textView
+     * @param checkBox
+     * @return returns a boolean if field is filled properly
+     */
     private Boolean ifTextViewWithCheckboxNotEmpty(TextView textView, CheckBox checkBox) {
         boolean isChecked = checkBox.isChecked();
         boolean isEditTextEmpty = textView.getText().toString().trim().isEmpty();
@@ -217,6 +235,18 @@ public class CEventDetailFragment extends Fragment {
             return false;
         }
     }
+
+    /**
+     * Checks if all the textviews are not empty
+     * @param textView1
+     * @param textView2
+     * @param textView3
+     * @param textView4
+     * @param textView5
+     * @param textView6
+     * @param checkBox
+     * @return returns true if none are empty
+     */
     private Boolean validEventDetails(TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, CheckBox checkBox) {
         return ifTextViewNotEmpty(textView1)
                 && ifTextViewNotEmpty(textView2)

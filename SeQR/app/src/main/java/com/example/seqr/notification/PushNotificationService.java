@@ -24,12 +24,22 @@ import com.google.firebase.messaging.RemoteMessage;
 
 import org.checkerframework.checker.units.qual.N;
 
-
+/**
+ * Service for handling incoming push notifications.
+ */
 public class PushNotificationService extends FirebaseMessagingService {
 
+    /**
+     * Empty constructor method
+     */
     public PushNotificationService() {
     }
 
+    /**
+     * Called when a new FCM token is generated.
+     *
+     * @param token The new FCM token.
+     */
     @Override
     public void onNewToken(@NonNull String token) {
         super.onNewToken(token);
@@ -37,6 +47,11 @@ public class PushNotificationService extends FirebaseMessagingService {
         // update server
     }
 
+    /**
+     * Called when a new message is received.
+     *
+     * @param remoteMessage The message received from FCM.
+     */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
@@ -58,6 +73,14 @@ public class PushNotificationService extends FirebaseMessagingService {
         }
     }
 
+    /**
+     * Displays a notification with the given title, body, event ID, and announcement ID (if applicable).
+     *
+     * @param title         The title of the notification.
+     * @param body          The body of the notification.
+     * @param eventID       The ID of the event associated with the notification.
+     * @param announcementID The ID of the announcement (if applicable).
+     */
     private void displayNotification(String title, String body, String eventID, @Nullable String announcementID) {
         String channelId = "Default";
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, channelId)

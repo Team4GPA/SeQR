@@ -5,12 +5,18 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 
+/**
+ * Helper class for generating profile pictures based on user information.
+ */
 public class ProfilePictureGenerator {
     private final Paint paint;
     Paint PaintText;
     private final Bitmap Picture;
     private final Canvas canvas;
 
+    /**
+     * Constructor initializing necessary objects and settings for profile picture generation.
+     */
     public ProfilePictureGenerator() {
         paint = new Paint();
         PaintText = new Paint();
@@ -19,6 +25,13 @@ public class ProfilePictureGenerator {
         canvas = new Canvas(Picture);
     }
 
+    /**
+     * Generates a profile picture based on user ID and user name.
+     *
+     * @param usr_id The user ID used to determine aspects of the profile picture.
+     * @param user_name The user name to be displayed on the profile picture.
+     * @return The generated profile picture as a Bitmap object.
+     */
     public Bitmap generate(String usr_id, String user_name){
         String vc; //vertice color
 

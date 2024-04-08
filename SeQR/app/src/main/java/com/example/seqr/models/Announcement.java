@@ -90,26 +90,50 @@ public class Announcement {
         this.time = time;
     }
 
+    /**
+     * Gets the eventID of an event
+     * @return the event ID
+     */
     public String getEventID() {
         return eventID;
     }
 
+    /**
+     * Sets the ID of an event
+     * @param eventID the event ID
+     */
     public void setEventID(String eventID) {
         this.eventID = eventID;
     }
 
+    /**
+     * gets the announcement ID of the event
+     * @return the announcement ID
+     */
     public String getAnnouncementID() {
         return announcementID;
     }
 
+    /**
+     * sets the Id of the announcement
+     * @param announcementID the ID of the announcement
+     */
     public void setAnnouncementID(String announcementID) {
         this.announcementID = announcementID;
     }
 
+    /**
+     * gets the organizer of the announcement
+     * @return the name of the organizer
+     */
     public String getOrganizer() {
         return organizer;
     }
 
+    /**
+     * sets the name of the organizer
+     * @param organizer the organizer name
+     */
     public void setOrganizer(String organizer) {
         this.organizer = organizer;
     }

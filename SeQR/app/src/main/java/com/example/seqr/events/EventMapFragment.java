@@ -42,6 +42,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A fragment to show where the event is and where attendees are checking in from
+ */
 public class EventMapFragment extends Fragment implements OnMapReadyCallback {
 
     private GoogleMap map;
@@ -51,6 +54,18 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
     private FirebaseFirestore db;
     private Button backButton;
 
+    /**
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -74,6 +89,10 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
         return view;
     }
 
+    /**
+     * Fills in and edits the map once it is loaded into the fragment
+     * @param eMap the googleMap to load into the fragment
+     */
     @Override
     public void onMapReady(GoogleMap eMap){
         map = eMap;
@@ -102,6 +121,12 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    /**
+     * Method to handle when the view is created which simply creates a maap
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param bundle If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle bundle){
         super.onViewCreated(view, bundle);
@@ -112,6 +137,9 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
         }
     }
 
+    /**
+     * Method to get all of the users who are checked in and set them as pins on the map
+     */
     public void pinCheckins(){
         EventController eControl = new EventController();
         ProfileController pControl = new ProfileController();

@@ -10,8 +10,16 @@ import android.util.Log;
 
 import com.example.seqr.announcements.AnnouncementDetailFragment;
 
+/**
+ * The initial screen shown to the user as the app loads in
+ */
 public class SplashActivity extends AppCompatActivity {
-
+    
+    /**
+     * Called when the activity is first created. Sets up the splash screen and redirects to MainActivity.
+     *
+     * @param savedInstanceState The saved state of the activity, if any.
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
