@@ -15,10 +15,14 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.example.seqr.R;
 import com.example.seqr.database.Database;
+import com.example.seqr.helpers.ProfilePictureGenerator;
 import com.google.android.gms.common.api.ResolvingResultCallbacks;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.gms.tasks.Tasks;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
@@ -89,13 +93,31 @@ public class ImageController {
     public void replaceImageWithPlaceHolder(String imagePath) {
         String[] directories = imagePath.split("/");
         String directory = directories[0];
+        String image = directories[1];
+
 
         StorageReference storageRef = storage.getReference().child(imagePath);
 
         if (directory.equals("ProfilePictures")) {
-            // Replace with profile_picture.jpeg
-            int resourceId = R.drawable.profile_picture;
-            uploadDrawableImage(storageRef, resourceId);
+            String[] parts = image.split("\\.");
+            String userID = parts[0];
+            // Replace with generate Profile Picture
+            ProfileController profileController = new ProfileController();
+            profileController.getProfileByUUID(userID, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            // Document exists, retrieve username
+                            String username = document.getString("username");
+                            ProfilePictureGenerator profilePicGen = new ProfilePictureGenerator();
+                            Bitmap bitmap = profilePicGen.generate(userID, username);
+                            uploadBitmapImage(storageRef, bitmap);
+                        }
+                    }
+                }
+            });
         } else if (directory.equals("EventPosters")) {
             // Replace with event_icon.jpeg
             int resourceId = R.drawable.event_icon;
@@ -133,6 +155,25 @@ public class ImageController {
         bitmap.compress(Bitmap.CompressFormat.JPEG, 35, baos);
 
 
+        byte[] data = baos.toByteArray();
+        UploadTask uploadTask = storageRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.d("DEBUG", "Image failed to upload: " + exception);
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Log.d("DEBUG", "Image uploaded successfully: " +taskSnapshot);
+            }
+        });
+    }
+
+    public void uploadBitmapImage(StorageReference storageRef, Bitmap bitmap){
+        // Below is from tutorial: https://firebase.google.com/docs/storage/android/upload-files#java
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
         byte[] data = baos.toByteArray();
         UploadTask uploadTask = storageRef.putBytes(data);
         uploadTask.addOnFailureListener(new OnFailureListener() {

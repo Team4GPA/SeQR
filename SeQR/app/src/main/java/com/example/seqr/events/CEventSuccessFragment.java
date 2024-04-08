@@ -62,7 +62,8 @@ public class CEventSuccessFragment extends Fragment {
         eventDescriptionTextView = view.findViewById(R.id.cEventSuccessDescription);
         Bundle bundle = getArguments();
         assert bundle != null;
-        String eventName = bundle.getString("eventName","");
+
+        String eventName = bundle.getString("eventName", "");
         String organizerName = bundle.getString("organizerName","");
         String eventLocation = bundle.getString("eventLocation", "");
         String eventTime = bundle.getSerializable("eventTime").toString();
@@ -71,6 +72,7 @@ public class CEventSuccessFragment extends Fragment {
         String promotionQR = bundle.getString("promotionQR","");
         String eventID = bundle.getString("eventID");
         String eventDescription = bundle.getString("eventDescription","");
+
         eventNameTextView.setText(eventName);
         eventOrganizerTextView.setText(organizerName);
         eventLocationTextView.setText(eventLocation);

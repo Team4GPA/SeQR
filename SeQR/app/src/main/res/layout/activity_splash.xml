@@ -16,8 +16,7 @@
         <ImageView
             android:layout_width="160dp"
             android:layout_height="160dp"
-            android:src="@drawable/seqr_logo_icon"
-            app:tint="@color/theme_secondary" />
+            android:src="@mipmap/seqr_splash_icon" />
         
         <TextView
             android:layout_width="wrap_content"
