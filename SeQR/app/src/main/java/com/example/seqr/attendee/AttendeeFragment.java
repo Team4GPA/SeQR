@@ -204,7 +204,7 @@ public class AttendeeFragment extends Fragment {
                 // is result valid?
                 //
                 if (!qrResult.contentEquals("NULL")){
-                    String resultSplit[]= qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
+                    String[] resultSplit = qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
                     String eventID = resultSplit[0];
                     String qrType = resultSplit[1];
 

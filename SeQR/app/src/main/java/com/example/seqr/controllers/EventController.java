@@ -31,8 +31,8 @@ import java.util.Map;
  * Controller class for managing Event data in Firestore database.
  */
 public class EventController {
-    private FirebaseFirestore db;
-    private CollectionReference eventCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference eventCollection;
     //insert any new database fields here for checkEventValid
     private final String[] databaseFields = {
             "checkInQR",

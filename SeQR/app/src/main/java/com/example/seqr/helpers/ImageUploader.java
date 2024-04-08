@@ -11,9 +11,9 @@ import com.google.firebase.storage.UploadTask;
  * A class responsible for uploading images to Firebase Storage.
  */
 public class ImageUploader {
-    private String dblocation;
+    private final String dblocation;
     private String extension;
-    private StorageReference mStorageRef;
+    private final StorageReference mStorageRef;
 
     /**
      * Constructor for the ImageUploader class.

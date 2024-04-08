@@ -45,8 +45,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class ImageController {
 
-    private FirebaseStorage storage;
-    private Context context;
+    private final FirebaseStorage storage;
+    private final Context context;
 
     /**
      * Constructs an Image controller and sets its storage to the storage from our database
@@ -161,6 +161,11 @@ public class ImageController {
             newWidth = (int) scaleFactor * currentWidth;
 
         }
+        else{
+            newHeight = currentHeight;
+            newWidth = currentWidth;
+        }
+
         Bitmap.Config currConfig = bitmap.getConfig();
         bitmap.reconfigure(newWidth, newHeight, currConfig);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 35, baos);

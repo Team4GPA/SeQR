@@ -118,7 +118,7 @@ public class AImagesFragment extends Fragment {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("DEBUG2", "INDEX: " + String.valueOf(index));
+                Log.d("DEBUG2", "INDEX: " + index);
                 if (index <= -1) {
                     index =-1;
                 } else {

@@ -21,8 +21,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementViewHo
         void onItemClick(Announcement announcement);
     }
 
-    private List<Announcement> announcementList;
-    private AnnouncementAdapter.OnItemClickListener listener;
+    private final List<Announcement> announcementList;
+    private final AnnouncementAdapter.OnItemClickListener listener;
 
     /**
      * Constructor to build an announcement adapter

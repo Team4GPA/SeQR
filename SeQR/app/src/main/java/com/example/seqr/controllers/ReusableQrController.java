@@ -20,8 +20,8 @@ import java.util.Map;
  * A controller class for managing reusable QR pairs in Firestore.
  */
 public class ReusableQrController {
-    private FirebaseFirestore db;
-    private CollectionReference ReusableQrCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference ReusableQrCollection;
 
 
 

@@ -24,8 +24,8 @@ import java.util.List;
  * Controller class for managing Profile data in database.
  */
 public class ProfileController {
-    private FirebaseFirestore db;
-    private CollectionReference profileCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference profileCollection;
 
     /**
      * Constructs a ProfileController and initializes Firestore database reference.

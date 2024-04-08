@@ -9,10 +9,10 @@ import android.graphics.Paint;
  * Helper class for generating profile pictures based on user information.
  */
 public class ProfilePictureGenerator {
-    private Paint paint;
+    private final Paint paint;
     Paint PaintText;
-    private Bitmap Picture;
-    private Canvas canvas;
+    private final Bitmap Picture;
+    private final Canvas canvas;
 
     /**
      * Constructor initializing necessary objects and settings for profile picture generation.
@@ -80,7 +80,7 @@ public class ProfilePictureGenerator {
             //draw first letter of username
             int temp = usr_id.charAt(25) - '0' + 1;
             temp = temp%10;
-            vc = "#00"+ String.valueOf(temp) + "000";
+            vc = "#00"+ temp + "000";
             paint.setColor(Color.parseColor(vc));
             PaintText.setTextSize(260);
             PaintText.setColor(Color.parseColor(vc));
@@ -89,7 +89,7 @@ public class ProfilePictureGenerator {
             //draw second letter of username
             temp = usr_id.charAt(26) - '0' + 1;
             temp = temp%10;
-            vc = "#"+ String.valueOf(temp) + "06020";
+            vc = "#"+ temp + "06020";
             paint.setColor(Color.parseColor(vc));
             PaintText.setTextSize(160);
             PaintText.setColor(Color.parseColor(vc));
@@ -98,7 +98,7 @@ public class ProfilePictureGenerator {
             //draw third letter of username
             temp = usr_id.charAt(27) - '0' + 1;
             temp = temp%10;
-            vc = "#00"+ String.valueOf(temp) + "090";
+            vc = "#00"+ temp + "090";
             paint.setColor(Color.parseColor(vc));
             PaintText.setTextSize(160);
             PaintText.setColor(Color.parseColor(vc));
@@ -109,7 +109,7 @@ public class ProfilePictureGenerator {
             float[] vertices = {56, 429, 456, 429, 256, 83};
             vc = "#"+usr_id.substring(6,8)+"0000"; //use 5th and 6th character for color of triangle
             int vci = Color.parseColor(vc); //vertice color in int
-            int verticesColors[] = {vci, vci, vci, vci, vci, vci};
+            int[] verticesColors = {vci, vci, vci, vci, vci, vci};
             canvas.drawVertices(Canvas.VertexMode.TRIANGLES,6,vertices,0,null,0,
                     verticesColors,0,null,0,0,new Paint());
 
@@ -138,7 +138,7 @@ public class ProfilePictureGenerator {
             //draw first letter of username
             int temp = usr_id.charAt(25) - '0' + 1;
             temp = temp%10;
-            vc = "#00"+ String.valueOf(temp) + "000";
+            vc = "#00"+ temp + "000";
             paint.setColor(Color.parseColor(vc));
             PaintText.setTextSize(260);
             PaintText.setColor(Color.parseColor(vc));
