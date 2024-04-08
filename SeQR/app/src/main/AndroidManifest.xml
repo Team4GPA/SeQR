@@ -18,7 +18,8 @@
 
         <service
             android:name="MainActivity"
-            android:foregroundServiceType="location">
+            android:foregroundServiceType="location"
+            tools:ignore="Instantiatable">
 
         </service>
 
