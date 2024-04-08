@@ -34,6 +34,15 @@ public class ReusableQrController {
     }
 
     /**
+     * Constructor for testing
+     * @param db mock FirebaseFirestore object for testing
+     */
+    public ReusableQrController(FirebaseFirestore db){
+        this.db = db;
+        ReusableQrCollection = db.collection("ReusableQR");
+    }
+
+    /**
      * Add a new QR pair to Firestore.
      * @param checkInQR The QR code for check-in
      * @param promotionQR The QR code for promotion
