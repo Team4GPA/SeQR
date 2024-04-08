@@ -25,7 +25,9 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fragment where you can select a QR to reuse
+ */
 public class CEventReuseQRFragment extends Fragment {
 
     private RecyclerView qrPairsRecyclerView;
@@ -34,7 +36,19 @@ public class CEventReuseQRFragment extends Fragment {
 
     private Button backbutton;
 
-
+    /**
+     * Method to create the fragment view and handle any button clicks
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the view associated with the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +73,11 @@ public class CEventReuseQRFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Method when selecting a QR pair to use
+     *
+     * @param qrCodePair a qrPair object representing both qr's (promotional and check in)
+     */
     public void handleQrPairClick(QrCodePair qrCodePair){
         Bundle newBundle = getArguments(); // Get existing bundle
 
@@ -78,6 +97,9 @@ public class CEventReuseQRFragment extends Fragment {
 
     }
 
+    /**
+     * Method to get all the QR pairs and add them to the Adapter to display them
+     */
     public void displayQRpairs(){
         ReusableQrController reusableQrController = new ReusableQrController();
         reusableQrController.getQRpairs(new OnCompleteListener<QuerySnapshot>() {

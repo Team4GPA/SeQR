@@ -16,7 +16,19 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+/**
+ * Utility class for sending notifications and milestones via Firebase Cloud Messaging (FCM).
+ */
 public class NotificationSender {
+    /**
+     * Sends a notification to the specified device using FCM.
+     *
+     * @param title         The title of the notification.
+     * @param description   The description of the notification.
+     * @param announcementID The ID of the announcement.
+     * @param eventID       The ID of the event associated with the announcement.
+     * @param fcmToken      The FCM token of the device to send the notification to.
+     */
     public static void sendNotification(String title, String description, String announcementID, String eventID, String fcmToken) {
         try {
             JSONObject jsonObject = new JSONObject();
@@ -41,6 +53,14 @@ public class NotificationSender {
             Log.d("notfi", "sendNotification failed");
         }
     }
+    /**
+     * Sends a milestone to the specified device using FCM.
+     *
+     * @param title     The title of the milestone.
+     * @param description   The description of the milestone.
+     * @param eventID       The ID of the event associated with the milestone.
+     * @param fcmToken  The FCM token of the device to send the milestone to.
+     */
     public static void sendMilestone(String title, String description, String eventID, String fcmToken) {
         try {
             JSONObject jsonObject = new JSONObject();
@@ -65,6 +85,11 @@ public class NotificationSender {
         }
     }
 
+    /**
+     * Makes a network call to the FCM API with the provided JSON object.
+     *
+     * @param jsonObject The JSON object containing notification/milestone details and the FCM token.
+     */
     private static void callAPI(JSONObject jsonObject) {
         MediaType JSON = MediaType.get("application/json");
         OkHttpClient client = new OkHttpClient();

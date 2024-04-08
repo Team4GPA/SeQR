@@ -50,8 +50,6 @@ public class CEventImageFragment extends Fragment {
      *                           from a previous saved state as given here.
      * @return view
      */
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -271,6 +271,10 @@ public class EventInfoFragment extends Fragment {
         });
     }
 
+    /**
+     * Handles what happens when clicking on the announcement button
+     * @param bundle bundle to pass to next fragment with info about the event
+     */
     public void setEventInfoAnnouncementButton(Bundle bundle) {
         eventInfoAnnouncementButton.setOnClickListener(new View.OnClickListener() {
             @Override
