@@ -35,7 +35,7 @@ public class ImageUploader {
      * @param storageConvention The storage convention for naming the image.
      */
     public void upload(Uri uri, String storageConvention){
-        extension = "jpeg";
+        extension = "jpg";
 
         if (uri != null) {
             StorageReference fileReference = mStorageRef.child(storageConvention+ "." + extension);

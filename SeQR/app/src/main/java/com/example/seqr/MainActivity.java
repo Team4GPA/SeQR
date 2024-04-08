@@ -91,9 +91,6 @@ public class MainActivity extends AppCompatActivity {
             // set the page to attendee view as initialization
             fragMgr.beginTransaction().replace(R.id.fragment_container, startUpFragment).commit();
         } else {
-            if(!firstTime) {
-                updateProfilePicture(bitmapUri);
-            }
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -148,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
             if (firstTime) {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+            Picasso.get().invalidate(imageUrl);
             Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
 
             //setup the main fragment view stuff

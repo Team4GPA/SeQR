@@ -30,9 +30,13 @@ public class BitmapUtils {
                 //(knownHeight x targetWidth) / knownWidth = unknownHeight;
 
                 newHeight = (currentHeight * targetLargestSide) / currentWidth;
-                float scaleFactor = newHeight/currentHeight;
-                newWidth = (int) scaleFactor * currentWidth;
+                float scaleFactor = (float) newHeight /currentHeight;
+                newWidth = Math.round(scaleFactor * currentWidth);
 
+            }
+            else{
+                newHeight = currentHeight;
+                newWidth = currentWidth;
             }
             Bitmap.Config currConfig = bitmap.getConfig();
             bitmap.reconfigure(newWidth, newHeight, currConfig);

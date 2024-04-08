@@ -177,6 +177,7 @@ public class CEventImageFragment extends Fragment {
                     newImg = getUriForFile(getContext(), "com.example.seqr", tempFile);
                     posterdisplay.setImageURI(newImg);
                     Picasso.get().load(newImg).into(posterdisplay);
+                    imageUri = newImg;
 
                 } catch (IOException e) {
                     throw new RuntimeException(e);
