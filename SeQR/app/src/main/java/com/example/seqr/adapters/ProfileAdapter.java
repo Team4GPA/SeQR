@@ -29,6 +29,7 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
      * Constructs a ProfileAdapter with the provided list of profiles.
      *
      * @param profileList The list of profiles to be displayed.
+     * @param listener a listener to handle clicking on a profile
      */
     public ProfileAdapter(List<Profile> profileList, OnItemClickListener listener){
         this.profileList = profileList;

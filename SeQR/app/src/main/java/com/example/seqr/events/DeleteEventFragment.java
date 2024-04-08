@@ -20,9 +20,10 @@ public class DeleteEventFragment extends DialogFragment {
 
     /**
      * creates a dialogue to prompt for deleting
-     *
+     * @param container The container to put the fragment into
      * @param savedInstanceState The last saved instance state of the Fragment,
      *                           or null if this is a freshly created Fragment.
+     * @param savedInstanceState the bundle of previous information passed to this fragment
      * @return view
      */
 

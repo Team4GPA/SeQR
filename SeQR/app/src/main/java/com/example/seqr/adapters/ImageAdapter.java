@@ -32,8 +32,9 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
 
     /**
      * Constructs an ImageAdapter with the provided list of image URLs.
-     *
-     * @param imageUrlList The list of image URLs to be displayed.
+     * @param imageUrlList list of image urls
+     * @param context
+     * @param listener listner to handle the image urls
      */
     public ImageAdapter(List<String> imageUrlList, android.content.Context context, OnItemClickListener listener){
         this.imageUrlList = imageUrlList;

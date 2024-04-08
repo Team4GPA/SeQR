@@ -112,6 +112,9 @@ public class CEventImageFragment extends Fragment {
     /**
      * Called when an activity you launched exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data from it (new image in this case).
+     * @param requestCode request type
+     * @param resultCode code to represent how the quest went
+     * @param data the data to set in activity
      */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

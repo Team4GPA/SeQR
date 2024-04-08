@@ -188,6 +188,11 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
         });
     }
 
+    /**
+     * Method to get a BitmapDescriptor for a certain color to set a pin color to
+     * @param color the color to seet the pin
+     * @return a BitmapDescriptor with the color "color"
+     */
     public BitmapDescriptor getMarkerIcon(String color) {
         float[] hsv = new float[3];
         Color.colorToHSV(Color.parseColor(color), hsv);
