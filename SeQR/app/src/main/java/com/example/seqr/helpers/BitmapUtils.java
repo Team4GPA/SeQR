@@ -11,7 +11,7 @@ import java.io.IOException;
 public class BitmapUtils {
     public static Uri bitmapToUri(Context context, Bitmap bitmap) {
         // Create a file to save the bitmap
-        File file = new File(context.getCacheDir(), "image.jpeg");
+        File file = new File(context.getCacheDir(), "image.jpg");
 
         try {
             // Write the bitmap to the file
