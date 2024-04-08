@@ -1,0 +1,15 @@
+com.example.seqr
+com.example.seqr.adapters
+com.example.seqr.administrator
+com.example.seqr.announcements
+com.example.seqr.attendee
+com.example.seqr.controllers
+com.example.seqr.database
+com.example.seqr.events
+com.example.seqr.events.creation
+com.example.seqr.helpers
+com.example.seqr.models
+com.example.seqr.notification
+com.example.seqr.organizer
+com.example.seqr.profile
+com.example.seqr.qr
