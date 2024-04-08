@@ -131,6 +131,7 @@ public class CEventImageFragment extends Fragment {
                         @Override
                         public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
                             int targetLargestSide = 800;
+                            Log.d("CREATE EVENT", "Bitmap is " + info.getMimeType());
                             int currentWidth = info.getSize().getWidth();
                             Log.d("BITMAP PROC", "Current width is " + currentWidth);
                             int currentHeight = info.getSize().getHeight();
