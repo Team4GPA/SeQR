@@ -16,15 +16,26 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
+/**
+ * Controller class to handle interactions between the data base and announcment objects
+ */
 public class AnnouncementController {
     private FirebaseFirestore db;
     private CollectionReference announcementCollection;
 
+    /**
+     * Constructor class that gets the database and the appropriate collection
+     */
     public AnnouncementController() {
         db = Database.getFireStore();
         announcementCollection = db.collection("Announcements");
     }
 
+    /**
+     * add an announcment to firebase
+     *
+     * @param announcement announcment type object to add to db
+     */
     public void addAnnouncement(Announcement announcement) {
         announcementCollection.document(announcement.getAnnouncementID()).set(announcement).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
@@ -39,6 +50,11 @@ public class AnnouncementController {
         });
     }
 
+    /**
+     * Method that removes an announcment from firebase based on its id
+     *
+     * @param announcementID a string representing the ID of the announcment
+     */
     public void removeAnnouncementByID(String announcementID){
         announcementCollection.document(announcementID).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -55,7 +71,12 @@ public class AnnouncementController {
     }
 
 
-
+    /**
+     * finds an event and gets all the announcements associated with it
+     *
+     * @param eventID the ID associated with a certain event in the database
+     * @param onCompleteListener a method to handle what to do with the retrieved announcements
+     */
     public void getAnnouncementsByEvent(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         announcementCollection
                 .whereEqualTo("eventID", eventID)
@@ -63,6 +84,12 @@ public class AnnouncementController {
                 .addOnCompleteListener(onCompleteListener);
     }
 
+    /**
+     * gets a certain announcement from the database from its associated ID
+     *
+     * @param announcementID a string representing the ID of a certain announcement
+     * @param onCompleteListener a method to handle the found announcement
+     */
     public void getAnnouncementById(String announcementID, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         announcementCollection.document(announcementID).get().addOnCompleteListener(onCompleteListener);
     }
