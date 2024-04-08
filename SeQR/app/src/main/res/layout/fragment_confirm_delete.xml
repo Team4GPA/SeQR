@@ -11,11 +11,15 @@
         android:layout_height="wrap_content"
         android:padding="30dp"
         android:text="Are you sure you want to delete this item?"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:elevation="5dp"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></TextView>
+        app:layout_constraintTop_toTopOf="parent">
+
+    </TextView>
 
     <Button
         android:id="@+id/delete_item_confirm_button"
@@ -30,7 +34,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/cancel_password_button"
-        app:layout_constraintTop_toBottomOf="@+id/delete_item_text"></Button>
+        app:layout_constraintTop_toBottomOf="@+id/delete_item_text">
+
+    </Button>
+
 
     <Button
         android:id="@+id/cancel_password_button"

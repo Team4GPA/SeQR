@@ -39,6 +39,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="@string/number_of_attendees"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:elevation="5dp"
         android:textAppearance="?attr/textAppearanceListItem"
         app:layout_constraintStart_toStartOf="@id/CheckIns_title"
         app:layout_constraintEnd_toEndOf="@id/CheckIns_title"

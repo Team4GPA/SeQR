@@ -28,7 +28,7 @@ public class CEventSuccessFragment extends Fragment {
     private TextView eventLocationTextView;
     private TextView eventTimeTextView;
     private TextView eventCapacityTextView;
-    private TextView eventDescriptionTextView;
+    private TextView eventTitleTextView;
     private ImageView eventImageView;
     private Button cEventSuccessGoToButton;
 
@@ -54,6 +54,7 @@ public class CEventSuccessFragment extends Fragment {
 
         eventOrganizerTextView = view.findViewById(R.id.cEventSuccessOrganizer);
         eventLocationTextView = view.findViewById(R.id.cEventSuccessLocation);
+        eventTitleTextView = view.findViewById(R.id.cEventSuccessTitle);
         eventTimeTextView = view.findViewById(R.id.cEventSuccessTime);
         eventCapacityTextView = view.findViewById(R.id.cEventSuccessCapacity);
         eventImageView = view.findViewById(R.id.photoPreview);
@@ -62,7 +63,8 @@ public class CEventSuccessFragment extends Fragment {
         eventDescriptionTextView = view.findViewById(R.id.cEventSuccessDescription);
         Bundle bundle = getArguments();
         assert bundle != null;
-        String eventName = bundle.getString("eventName","");
+
+        String eventName = bundle.getString("eventName", "");
         String organizerName = bundle.getString("organizerName","");
         String eventLocation = bundle.getString("eventLocation", "");
         String eventTime = bundle.getSerializable("eventTime").toString();

@@ -96,6 +96,9 @@ public class CEventDetailFragment extends Fragment {
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validEventDetails(eventNameEnter, eventDateInput, eventTimeInput, eventLocationInput, capacityInput, eventDescriptionInput, hasCapacity)) {
+                    return;
+                }
                 String eventName =  eventNameEnter.getText().toString();
                 Date eventStartTime = cal.getTime();
                 String eventLocation = eventLocationInput.getText().toString();
@@ -138,6 +141,7 @@ public class CEventDetailFragment extends Fragment {
             }
         });
         return view;
+
     }
 
     /**
@@ -198,5 +202,33 @@ public class CEventDetailFragment extends Fragment {
         }, hour, minute, true);
 
         timePickerDialog.show();
+    }
+
+    private Boolean ifTextViewNotEmpty(TextView textView) {
+        if (textView.getText().toString().trim().isEmpty()) {
+            textView.setError("Field input incorrect/empty.");
+            return false;
+        }
+        return true;
+    }
+    private Boolean ifTextViewWithCheckboxNotEmpty(TextView textView, CheckBox checkBox) {
+        boolean isChecked = checkBox.isChecked();
+        boolean isEditTextEmpty = textView.getText().toString().trim().isEmpty();
+        if ((isChecked && !isEditTextEmpty) || (!isChecked && isEditTextEmpty)) {
+            return true;
+        }
+        else {
+            textView.setError("Field input incorrect/empty. Change the number to remove the error message.s");
+            return false;
+        }
+    }
+    private Boolean validEventDetails(TextView textView1, TextView textView2, TextView textView3, TextView textView4, TextView textView5, TextView textView6, CheckBox checkBox) {
+        return ifTextViewNotEmpty(textView1)
+                && ifTextViewNotEmpty(textView2)
+                && ifTextViewNotEmpty(textView3)
+                && ifTextViewNotEmpty(textView4)
+                && ifTextViewWithCheckboxNotEmpty(textView5, checkBox)
+                && ifTextViewNotEmpty(textView6)
+                && cal != null;
     }
 }
