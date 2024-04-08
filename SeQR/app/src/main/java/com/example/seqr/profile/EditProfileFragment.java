@@ -278,6 +278,10 @@ public class EditProfileFragment extends Fragment {
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(intent, PICK_IMAGE_REQUEST);
     }
+    public void onDestroyView() {
+        super.onDestroyView();
+        ((MainActivity) requireActivity()).showToolbar(); // Notify MainActivity to show the toolbar
+    }
 
     /**
      * Called when an activity you launched exits, giving you the requestCode you started it with,

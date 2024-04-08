@@ -36,6 +36,17 @@ public class ProfileController {
         profileCollection = db.collection("Profiles");
 
     }
+
+    /**
+     * constructor for testing
+     * @param db this will be a mock DB for testing
+     */
+
+    public ProfileController(FirebaseFirestore db){
+        this.db = db;
+        profileCollection = db.collection("Profiles");
+    }
+
     /**
      * Adds a profile to Firestore.
      *

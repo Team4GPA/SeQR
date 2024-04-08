@@ -32,6 +32,16 @@ public class AnnouncementController {
     }
 
     /**
+     * Constructor class for testing
+     * @param db which will be a mockDB for testing
+     */
+    public AnnouncementController(FirebaseFirestore db){
+        this.db = db;
+        this.announcementCollection = db.collection("Announcements");
+    }
+
+    /**
+]
      * add an announcment to firebase
      *
      * @param announcement announcment type object to add to db

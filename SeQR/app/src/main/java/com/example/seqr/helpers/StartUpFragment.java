@@ -91,10 +91,11 @@ public class StartUpFragment extends Fragment {
                 profileController.addProfile(newProfile);
                 try {
                     Thread.sleep(1000);
-                }
-                catch (InterruptedException e){
+                } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
+
+
                 // Update stored URI in SharedPreferences
 //                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
 //                SharedPreferences.Editor editor = sharedPreferences.edit();
