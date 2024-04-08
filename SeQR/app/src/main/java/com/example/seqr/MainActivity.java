@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
             Picasso.get().invalidate(imageUrl);
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
 
             //setup the main fragment view stuff
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -336,6 +336,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
+    }
+
+    public Uri getImageUri(){
+        return bitmapUri;
     }
 
     public void setFirstTime(boolean status) {
