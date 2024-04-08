@@ -51,7 +51,7 @@ public class ShareImages {
             image.compress(Bitmap.CompressFormat.PNG, 0, imageBytes);
         }
         else if (pngORjpg == 1){
-            image.compress(Bitmap.CompressFormat.JPEG, 0, imageBytes);
+            image.compress(Bitmap.CompressFormat.JPEG, 20, imageBytes);
         }
         FileOutputStream writeBytes = new FileOutputStream(emptyFile);
         writeBytes.write(imageBytes.toByteArray());

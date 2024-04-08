@@ -169,7 +169,7 @@ public class ProfileController {
     }
 
     public void deleteProfilePicture(String userID){
-        StorageReference profilePicReference = Database.getStorage().getReference().child("ProfilePictures/" + userID + ".jpg");
+        StorageReference profilePicReference = Database.getStorage().getReference().child("ProfilePictures/" + userID + ".jpeg");
         profilePicReference.delete().addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {

@@ -323,6 +323,10 @@ public class MainActivity extends AppCompatActivity {
         Picasso.get().load(imageUri).into(profileImageView);
     }
 
+    public Uri getImageUri(){
+        return bitmapUri;
+    }
+
     public void setFirstTime(boolean status) {
         firstTime = status;
     }

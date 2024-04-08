@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.seqr.MainActivity;
 import com.example.seqr.R;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.squareup.picasso.Picasso;
@@ -29,10 +30,12 @@ public class ProfileViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void setProfilePic(String profileID) {
+
         // encode it to handle special characters in the profileID
         String path = Uri.encode("ProfilePictures/" + profileID + ".jpg");
         //this is the URL that the image is stored in firebase, picasso uses this to download the image
         String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+        Picasso.get().invalidate(imageUrl);
         Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(imageView);
     }
 }
