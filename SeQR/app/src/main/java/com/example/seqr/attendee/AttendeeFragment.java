@@ -61,8 +61,9 @@ public class AttendeeFragment extends Fragment {
 
     /**
      * Called to have the fragment instantiate its user interface view.
+     * @param inflater object to inflate the view
+     * @param savedInstanceState any remaining data from a previous use
      */
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -180,6 +181,8 @@ public class AttendeeFragment extends Fragment {
      * Called immediately after onCreateView(LayoutInflater, ViewGroup, Bundle) has returned,
      * but before any saved state has been restored in to the view. This gives subclasses a chance
      * to initialize themselves once they know their view hierarchy has been completely created.
+     * @param view the view of the fragment
+     * @param savedInstanceState a bundle for previous data to pass to this fragment
      */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -307,6 +310,7 @@ public class AttendeeFragment extends Fragment {
 
     /**
      * Launches the event info window upon successful initialization on events.
+     * @param QRData a string of the raw qr data they checked in to
      */
     public void launchSuccess(String QRData) {
         Log.d(DBTAG, "launch success method reached. Firing the event info window: ");

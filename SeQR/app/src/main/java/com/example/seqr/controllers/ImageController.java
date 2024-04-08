@@ -50,6 +50,7 @@ public class ImageController {
 
     /**
      * Constructs an Image controller and sets its storage to the storage from our database
+     * @param theContext give context to the controller
      */
     public ImageController(Context theContext){
         storage = Database.getStorage();

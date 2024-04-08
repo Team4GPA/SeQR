@@ -109,8 +109,8 @@ public class EventAnnouncementListFragment extends Fragment {
     }
 
     /**
-     * A method to handle when an announcment is clicked
-     * @param announcement the announcment
+     * A method to handle when an announcement is clicked
+     * @param announcement the announcement
      * @param ifOrganizer a boolean which is true if the user is an organizer
      */
     public void announcementClicked (Announcement announcement, Boolean ifOrganizer) {

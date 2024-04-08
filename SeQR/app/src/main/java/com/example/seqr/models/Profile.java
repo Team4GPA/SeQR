@@ -30,6 +30,7 @@ public class Profile {
      *
      * @param username The username of the profile.
      * @param ID       The unique identifier (device ID) of the profile.
+     * @param notifications A list of strings representing notifications sent to the profile
      */
     //constructor for a profile
     public Profile(String username, String ID, List<String> notifications){
@@ -42,6 +43,15 @@ public class Profile {
     }
 
 
+    /**
+     * Constructor class to make a profile only for displaying
+     * @param username The username of the profile.
+     * @param email    The email of the user
+     * @param phoneNumber The phone number of the user
+     * @param homePage  The home page of the user
+     * @param id        The unique identifier (device ID) of the profile.
+     * @param profilePic The profile picture of the user (as a string)
+     */
     public Profile(String username, String email, String phoneNumber, String homePage, String id, String profilePic) {
         this.username = username;
         this.id = id;

@@ -141,7 +141,7 @@ public class CEventDetailFragment extends Fragment {
     /**
      * Checks the data entered is complete; otherwise, will show a popup and require field to be
      * filled in properly.
-     *
+     * @param field the view to check all the fields in
      * @author Kyle Zwarich
      */
     public void checkField(View field){

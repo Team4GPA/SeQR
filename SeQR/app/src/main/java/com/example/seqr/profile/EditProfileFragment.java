@@ -282,6 +282,9 @@ public class EditProfileFragment extends Fragment {
     /**
      * Called when an activity you launched exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data (new profile picture) from it.
+     * @param requestCode int representing code of activity request
+     * @param resultCode int representing code of how the activity went
+     * @param data the intent of what the activity is / should do
      */
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

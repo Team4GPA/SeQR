@@ -57,6 +57,10 @@ public class AEditProfileFragment extends Fragment{
 
     private Uri imageUri;
 
+    /**
+     * Constructor method that sets the database accordingly
+     */
+
     public AEditProfileFragment() {
         storage = Database.getStorage();
     }
@@ -213,6 +217,7 @@ public class AEditProfileFragment extends Fragment{
 
     /**
      * Shows the confirmation dialog for profile deletion.
+     * @param bundle the bundle passed to the fragment
      */
     private void showConfirmationDialog(Bundle bundle) {
         DeleteProfileFragment dialogFragment = new DeleteProfileFragment();
@@ -234,6 +239,9 @@ public class AEditProfileFragment extends Fragment{
     /**
      * Called when an activity you launched exits, giving you the requestCode you started it with,
      * the resultCode it returned, and any additional data (new profile picture) from it.
+     * @param requestCode
+     * @param resultCode
+     * @param data
      */
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
