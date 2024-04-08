@@ -105,6 +105,7 @@ public class AttendeeFragment extends Fragment {
                     DocumentSnapshot profileDoc = task.getResult();
                     List<String> signedUpEvents = (List<String>) profileDoc.get("signedUpEvents");
                     if (signedUpEvents != null && !signedUpEvents.isEmpty()){
+                        eventsList.clear();
                         for(String eventID : signedUpEvents){
                             eventController.getEventById(eventID, new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -117,7 +118,7 @@ public class AttendeeFragment extends Fragment {
                                                 eventsList.add(event);
                                                 Log.d("TASK TWO", "Adding event " + event.getEventName() + " with ID " + event.getEventID());
                                                 Collections.sort(eventsList, (a1, a2) -> a1.getEventStartTime().compareTo(a2.getEventStartTime()));
-                                                eventAdapter.notifyItemChanged(eventsList.size());
+                                                eventAdapter.notifyDataSetChanged();
                                             }
                                             else{
                                                 Log.d("TASK TWO", "Event is null; error.");
