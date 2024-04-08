@@ -84,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String uuid = ID.getProfileId(getBaseContext());
         System.out.println(uuid);
+        if (uuid != null){
+            ProfileController profileController = new ProfileController();
+            profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot profileDoc = task.getResult();
+                        if (!profileDoc.exists() || profileDoc == null){
+                            ID.removeProfileID(getBaseContext());
+                        }
+                    }else {
+                        Log.d("DEBUG","User is still valid in firebase");
+                    }
+                }
+            });
+        }
+
+
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();

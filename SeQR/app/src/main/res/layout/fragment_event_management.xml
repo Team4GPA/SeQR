@@ -29,8 +29,8 @@
 
     <ImageView
         android:id="@+id/EManagementPhoto"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
         android:background="#E0EAEF"
         android:cropToPadding="true"
         android:padding="5sp"
@@ -50,6 +50,7 @@
         android:cropToPadding="true"
         android:foregroundGravity="center_vertical|center|center_horizontal"
         android:src="@drawable/settings_icon"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="@+id/EManagementPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/EManagementPhoto"
