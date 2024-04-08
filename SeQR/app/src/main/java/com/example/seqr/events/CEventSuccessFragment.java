@@ -59,7 +59,8 @@ public class CEventSuccessFragment extends Fragment {
         eventCapacityTextView = view.findViewById(R.id.cEventSuccessCapacity);
         eventImageView = view.findViewById(R.id.photoPreview);
         cEventSuccessGoToButton = view.findViewById(R.id.cEventSuccessGoToButton);
-
+        eventNameTextView = view.findViewById(R.id.cEventSuccessTitle);
+        eventDescriptionTextView = view.findViewById(R.id.cEventSuccessDescription);
         Bundle bundle = getArguments();
         assert bundle != null;
 
@@ -71,11 +72,12 @@ public class CEventSuccessFragment extends Fragment {
         String eventImageUriString = bundle.getString("imageUri", "");
         String promotionQR = bundle.getString("promotionQR","");
         String eventID = bundle.getString("eventID");
-
-        eventTitleTextView.setText(eventName);
+        String eventDescription = bundle.getString("eventDescription","");
+        eventNameTextView.setText(eventName);
         eventOrganizerTextView.setText(organizerName);
         eventLocationTextView.setText(eventLocation);
         eventTimeTextView.setText(eventTime);
+        eventDescriptionTextView.setText(eventDescription);
 
         if (!eventCapacity.contentEquals("-1")){
             eventCapacityTextView.setText(eventCapacity);

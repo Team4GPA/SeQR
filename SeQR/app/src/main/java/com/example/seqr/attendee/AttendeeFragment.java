@@ -22,6 +22,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.R;
@@ -66,11 +67,6 @@ public class AttendeeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Give a second for profile controller to update and display all events you're attending
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
 
         Log.d(DBTAG, "onCreate initialized.");
         Log.d(DBTAG, "AttendeeFragment loading with id " + this.getLifecycle());
@@ -109,6 +105,7 @@ public class AttendeeFragment extends Fragment {
                     DocumentSnapshot profileDoc = task.getResult();
                     List<String> signedUpEvents = (List<String>) profileDoc.get("signedUpEvents");
                     if (signedUpEvents != null && !signedUpEvents.isEmpty()){
+                        eventsList.clear();
                         for(String eventID : signedUpEvents){
                             eventController.getEventById(eventID, new OnCompleteListener<DocumentSnapshot>() {
                                 @Override
@@ -121,7 +118,7 @@ public class AttendeeFragment extends Fragment {
                                                 eventsList.add(event);
                                                 Log.d("TASK TWO", "Adding event " + event.getEventName() + " with ID " + event.getEventID());
                                                 Collections.sort(eventsList, (a1, a2) -> a1.getEventStartTime().compareTo(a2.getEventStartTime()));
-                                                eventAdapter.notifyItemChanged(eventsList.size());
+                                                eventAdapter.notifyDataSetChanged();
                                             }
                                             else{
                                                 Log.d("TASK TWO", "Event is null; error.");
@@ -284,6 +281,20 @@ public class AttendeeFragment extends Fragment {
      */
     public void launchSuccess(String QRData) {
         Log.d(DBTAG, "launch success method reached. Firing the event info window: ");
+        EventController eventController = new EventController();
+        eventController.getEventById(QRData, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot eventDoc = task.getResult();
+                    String eventName = eventDoc.getString("eventName");
+                    Toast.makeText(getContext(), "Scan successful!\n"+ eventName, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("DEBUG","Error retrieving event from firebase");
+                }
+            }
+        });
+
         FragmentManager parent = getParentFragmentManager();
         Fragment eventInfo = new EventInfoFragment();
         Bundle passQR = new Bundle();
@@ -298,6 +309,18 @@ public class AttendeeFragment extends Fragment {
         EventController eventController = new EventController();
         String userID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
+        eventController.getEventById(QRData, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()){
+                    DocumentSnapshot eventDoc = task.getResult();
+                    String eventName = eventDoc.getString("eventName");
+                    Toast.makeText(getContext(), "Scan successful!\n"+ eventName, Toast.LENGTH_SHORT).show();
+                } else {
+                    Log.d("DEBUG","Error retrieving event from firebase");
+                }
+            }
+        });
 
         // Get the profile to get its permissions and device location
         String profileUUID = ID.getProfileId(getContext());

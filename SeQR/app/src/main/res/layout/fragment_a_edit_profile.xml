@@ -109,6 +109,7 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/admin_personal_information">
 
+
             </TextView>
 
             <EditText
@@ -118,7 +119,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Name goes here"
+                android:hint="Enter Name Here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -129,18 +130,6 @@
             </EditText>
 
 
-            <TextView
-                android:id="@+id/admin_profile_number_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:padding="10dp"
-                android:text="Phone Number:"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/admin_profile_name">
-
-            </TextView>
-
             <EditText
                 android:id="@+id/admin_profile_number"
                 android:layout_width="wrap_content"
@@ -148,7 +137,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Phone Number goes here"
+                android:hint="Enter Number Here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -157,7 +146,7 @@
                 android:inputType="text">
 
             </EditText>
-
+              
     <TextView
         android:id="@+id/admin_profile_email_title"
         android:layout_width="wrap_content"
@@ -178,7 +167,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Email goes here"
+                android:hint="Enter Email Here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -196,7 +185,6 @@
         android:layout_margin="10dp"
         android:text="Homepage:"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_profile_email">
 
     </TextView>
 
@@ -204,7 +192,7 @@
                 android:id="@+id/admin_profile_homepage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Homepage goes here"
+                android:hint="Enter Homepage Here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:layout_margin="10dp"

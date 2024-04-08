@@ -32,6 +32,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias=".20" />
 
+
     <Button
         android:id="@+id/ECQRShareButton"
         android:layout_width="340dp"
@@ -39,22 +40,10 @@
         android:text="Share the QR code"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/ECQRReuseButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ECQRQRCode" />
-
-    <Button
-        android:id="@+id/ECQRReuseButton"
-        android:layout_width="340dp"
-        android:layout_height="80dp"
-        android:text="Reuse an existing QR code"
-        android:textSize="20sp"
-        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/QRCheckInBackButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ECQRShareButton" />
+        app:layout_constraintTop_toBottomOf="@+id/ECQRQRCode" />
 
     <Button
         android:id="@+id/QRCheckInBackButton"
@@ -63,6 +52,7 @@
         android:text="@string/back"
         android:textSize="15sp"
         android:textStyle="bold"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

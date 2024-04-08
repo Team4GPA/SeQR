@@ -1,11 +1,18 @@
 package com.example.seqr.profile;
 
 import static android.app.Activity.RESULT_OK;
+import static androidx.core.content.FileProvider.getUriForFile;
 
 import android.annotation.SuppressLint;
+import android.content.ClipData;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
+import android.media.Image;
+import android.media.ImageReader;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -25,6 +32,7 @@ import com.example.seqr.helpers.ImageUploader;
 import com.example.seqr.MainActivity;
 import com.example.seqr.R;
 import com.example.seqr.controllers.ProfileController;
+import com.example.seqr.helpers.ShareImages;
 import com.example.seqr.models.ID;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -35,6 +43,13 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Picasso;
 import com.example.seqr.helpers.ProfilePictureGenerator;
 import android.graphics.Bitmap;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.Objects;
 
 /**
@@ -98,7 +113,12 @@ public class EditProfileFragment extends Fragment {
                     usernameEditText.setText(user);
                     emailEditText.setText(email);
                     homepageEditText.setText(homepage);
-                    phoneNumberEditText.setText(String.valueOf(phoneNumber));
+                    if (phoneNumber.equals("null")){
+                        phoneNumberEditText.setHint("Enter Phone Number");
+                    }else{
+                        phoneNumberEditText.setText(String.valueOf(phoneNumber));
+                    }
+
                 }
             }
         });
@@ -254,10 +274,73 @@ public class EditProfileFragment extends Fragment {
 
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
-            profileImageView.setImageURI(imageUri);
-            Picasso.get().load(imageUri).into(profileImageView);
-            setProfilePicture(imageUri);
-            ((MainActivity) getActivity()).setFirstTime(false);
+
+            //start decoding and compressing input images.
+            Log.d("EDIT PROFILE", "Data is " + data.getData());
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P) {
+                ImageDecoder.Source usrSrc = ImageDecoder.createSource(getContext().getContentResolver(), imageUri);
+                try {
+                    Bitmap bitmap = ImageDecoder.decodeBitmap(usrSrc, new ImageDecoder.OnHeaderDecodedListener() {
+                        @Override
+                        public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
+                            int targetLargestSide = 800;
+                            int currentWidth = info.getSize().getWidth();
+                            Log.d("BITMAP PROC", "Current width is " + currentWidth);
+                            int currentHeight = info.getSize().getHeight();
+                            Log.d("BITMAP PROC", "Current height is " + currentHeight);
+                            int newHeight = 0;
+                            int newWidth = 0;
+
+                            if ((currentWidth > targetLargestSide) || (currentHeight > targetLargestSide)){
+                                //cross-multiply:
+                                //knownWidth / knownHeight = targetWidth (800) / unknownHeight
+                                //(knownHeight x targetWidth) / knownWidth = unknownHeight;
+
+                                newHeight = (currentHeight * targetLargestSide) / currentWidth;
+                                float scaleFactor = (float) newHeight /currentHeight;
+                                float fnewWidth = (float) (scaleFactor * currentWidth);
+                                newWidth = Math.round(fnewWidth);
+                            }
+
+                            Log.d("NEW BITMAP", "New height is " + newHeight + " and width is " + newWidth);
+                            decoder.setTargetSize(newWidth, newHeight);
+                        }
+                    });
+                    if (bitmap == null){
+                        Log.d("EDIT PROFILE", "Error: null reference on the bitmap (could not convert chosen file)");
+                    }
+
+                    //write the config'd bitmap first to temp file:
+                    ByteArrayOutputStream dataWrite = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 35, dataWrite);
+                    ShareImages imgHelper = new ShareImages();
+                    File tempFile = imgHelper.generateTempFile(getContext(), "usr_pick", ".tmp");
+                    tempFile.deleteOnExit();
+                    Uri newImg;
+                    try {
+                        FileOutputStream fileWrite = new FileOutputStream(tempFile);
+                        fileWrite.write(dataWrite.toByteArray());
+                        fileWrite.close();
+                    } catch (FileNotFoundException e) {
+                        throw new RuntimeException(e);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                    //give the new Uri to the next steps
+                    newImg = getUriForFile(getContext(), "com.example.seqr", tempFile);
+
+                    profileImageView.setImageURI(newImg);
+                    Picasso.get().load(newImg).into(profileImageView);
+                    setProfilePicture(newImg);
+                    ((MainActivity) getActivity()).setFirstTime(false);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+
+            }
+
+
         }
     }
 

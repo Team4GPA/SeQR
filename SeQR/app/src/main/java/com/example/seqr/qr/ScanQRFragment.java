@@ -57,7 +57,7 @@ public class ScanQRFragment extends Fragment {
                 .addOnSuccessListener(barcode -> {
                     //successful
                     Log.d(DBTAG, "successful QR scan: " + barcode.getRawValue());
-                    Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getContext(), "Scan successful!\n"+ barcode.getRawValue(), Toast.LENGTH_SHORT).show();
                     this.returnVal = barcode.getRawValue();
 
                     //use result listener:
