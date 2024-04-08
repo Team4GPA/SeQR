@@ -88,33 +88,41 @@ public class StartUpFragment extends Fragment {
                 ((MainActivity) getActivity()).setFirstTime(false);
                 ImageUploader iuploader = new ImageUploader("ProfilePictures");
                 iuploader.upload(imageUri, uuid);
-                // Update stored URI in SharedPreferences
-                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString("profile_picture_uri", imageUri.toString());
-                editor.apply();
                 profileController.addProfile(newProfile);
-                // Update profile picture URL in Firestore
-                profileController.updatePFP(uuid, imageUri.toString(), new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        // Notify MainActivity about the profile picture update
-                        final Activity activity = getActivity();
-                        if (activity != null) {
-                            activity.runOnUiThread(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ((MainActivity) activity).setImageUri(imageUri);
-                                }
-                            });
-                        }
-                    }
-                }, new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("DEBUG", "Error updating profile picture", e);
-                    }
-                });
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                // Update stored URI in SharedPreferences
+//                SharedPreferences sharedPreferences = requireActivity().getSharedPreferences("Profile", Context.MODE_PRIVATE);
+//                SharedPreferences.Editor editor = sharedPreferences.edit();
+//                editor.putString("profile_picture_uri", imageUri.toString());
+//                editor.apply();
+//                profileController.addProfile(newProfile);
+//                // Update profile picture URL in Firestore
+//                profileController.updatePFP(uuid, imageUri.toString(), new OnSuccessListener<Void>() {
+//                    @Override
+//                    public void onSuccess(Void aVoid) {
+//                        // Notify MainActivity about the profile picture update
+//                        final Activity activity = getActivity();
+//                        if (activity != null) {
+//                            activity.runOnUiThread(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    ((MainActivity) activity).setImageUri(imageUri);
+//                                }
+//                            });
+//                        }
+//                    }
+//                }, new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Log.d("DEBUG", "Error updating profile picture", e);
+//                    }
+//                });
 
 
                 //Restart the Main Activity so it loads all the buttons/click listeners and data.

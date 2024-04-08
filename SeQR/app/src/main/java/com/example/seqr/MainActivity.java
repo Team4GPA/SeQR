@@ -3,6 +3,7 @@ package com.example.seqr;
 import android.content.Intent;
 
 import android.content.pm.PackageManager;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -61,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
     private EventLobbyFragment eventLobbyFragment = new EventLobbyFragment();
     private OrganizerFragment organizerFragment = new OrganizerFragment();
     private ImageView profileImageView;
+    private Drawable originalNavigationIcon;
     boolean firstTime = true;
     private Uri bitmapUri;
     private StartUpFragment startUpFragment = new StartUpFragment();
@@ -189,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
             });
 
             Toolbar toolbar = findViewById(R.id.toolbar);
+            originalNavigationIcon = toolbar.getNavigationIcon();
 
             toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
                 @Override
@@ -263,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
                     transaction.addToBackStack(null);
                     transaction.commit();
                     drawerLayout.closeDrawer(Gravity.LEFT);
+                    toolbar.setNavigationIcon(null);
                 }
             });
 
@@ -333,6 +337,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void setImageUri(Uri imageUri) {
         bitmapUri = imageUri;
+    }
+
+    public void showToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(originalNavigationIcon);
     }
 
 
