@@ -1,7 +1,9 @@
 package com.example.seqr.attendee;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -24,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.seqr.MainActivity;
 import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.R;
 import com.example.seqr.models.SignUp;
@@ -94,6 +97,32 @@ public class AttendeeFragment extends Fragment {
         });
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(this.eventAdapter);
+        String uuid1 = ID.getProfileId(getContext()); //for checking if uuid is in firebase
+        System.out.println(uuid1);
+        if (uuid1 != null) {
+            ProfileController profileController = new ProfileController();
+            profileController.getProfileUsernameByDeviceId(uuid1, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot profileDoc = task.getResult();
+                        if (!profileDoc.exists() || profileDoc == null) {
+                            ID.removeProfileID(getContext());
+                            Activity activity = getActivity();
+                            if (activity != null) {
+                                Intent intent = new Intent(activity, MainActivity.class);
+                                // Clear out old activity and make a new one
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                startActivity(intent);
+                                activity.finish();
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+
 
         String profileUUID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();

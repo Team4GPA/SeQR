@@ -1,5 +1,6 @@
 package com.example.seqr.events;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
@@ -163,7 +166,9 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
 
                                             if (locationFlag){
                                                 LatLng checkInPin = new LatLng(latitude,longitude);
-                                                map.addMarker(new MarkerOptions().position(checkInPin).title(username));
+                                                map.addMarker(new MarkerOptions().position(checkInPin)
+                                                        .title(username)
+                                                        .icon(getMarkerIcon("#069AF3")));
                                             }
                                         }else{
                                             Log.d("DEBUG", "error in retrieving profile");
@@ -181,5 +186,11 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
                 }
             }
         });
+    }
+
+    public BitmapDescriptor getMarkerIcon(String color) {
+        float[] hsv = new float[3];
+        Color.colorToHSV(Color.parseColor(color), hsv);
+        return BitmapDescriptorFactory.defaultMarker(hsv[0]);
     }
 }
