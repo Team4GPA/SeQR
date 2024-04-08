@@ -1,11 +1,9 @@
 package com.example.seqr;
 
 import static junit.framework.TestCase.assertEquals;
-
 import com.example.seqr.models.Event;
-
+import com.google.firebase.Timestamp;
 import org.junit.Test;
-
 import java.lang.reflect.Field;
 
 /**
@@ -25,31 +23,16 @@ public class EventTests {
     }
 
     /**
-     * Setup a bunch of default event detail strings for testing
-     * @return An array of strings for use later
-     */
-    public String[] DefaultEventDetails(){
-        String[] defaults = {
-                "Default Name",
-                "Default Description",
-                "Default Location",
-                "Default Start Time"};
-
-        return defaults;
-    }
-
-    /**
      * Create a blank event, add its name, and ensure the name was set properly
      */
     @Test
     public void SimpleAddEventTest(){
-        String[] mockData = DefaultEventDetails();
         Event blank = MakeMock();
 
         //add data to the event;
         assert(blank.getEventName() == null);
-        blank.setEventName(mockData[0]);
-        assertEquals(mockData[0], blank.getEventName());
+        blank.setEventName("Mock Event Title");
+        assertEquals("Mock Event Title", blank.getEventName());
     }
 
     /**
@@ -57,14 +40,14 @@ public class EventTests {
      */
     @Test
     public void ChangeEventDetailsTest(){
-        String[] mockData = DefaultEventDetails();
         Event blank = MakeMock();
+        String name = "Mock Name";
 
         //add data to the event;
         assert(blank.getEventName() == null);
-        blank.setEventName(mockData[0]);
-        assertEquals(mockData[0], blank.getEventName());
-        String newName = "New Event Name";
+        blank.setEventName(name);
+        assertEquals(name, blank.getEventName());
+        String newName = "Update Mock Name";
         blank.setEventName(newName);
         assertEquals(newName, blank.getEventName());
     }
@@ -75,11 +58,22 @@ public class EventTests {
      */
     @Test
     public void FillAllEventData(){
-        String[] mockData = DefaultEventDetails();
-        Event fillMe = new Event();
+        Event fillMe = new Event("Mock Name", "Mock ID", "Mock Description",
+                4, "Mock Organizer", "Mock Location", Timestamp.now(),
+                "MockQRString-Promo", "MockQRString-CheckIn",
+        "Mock Organizer UUID", Timestamp.now(), 45.00, 49.00);
 
-        //assertEquals(mockData[0], fillMe.getEventName());
+        String grabQR = fillMe.getCheckInQR();
+        assertEquals("MockQRString-CheckIn", grabQR);
 
+        String grabOrgUUID = fillMe.getOrganizerUUID();
+        assertEquals("Mock Organizer UUID", grabOrgUUID);
+
+        Timestamp grabCreated = fillMe.getCreatedTime();
+        TestIneqFloat isGTE = new TestIneqFloat();
+        isGTE.lhs = (double) Timestamp.now().getSeconds();
+        isGTE.rhs = (double) grabCreated.getSeconds();
+        isGTE.testGTE();
     }
 
     /**
@@ -91,8 +85,7 @@ public class EventTests {
      * From https://stackoverflow.com/questions/3333974/how-to-loop-over-a-class-attributes-in-java
      */
     public <T> Field[] inspect(Class<Event> klazz){
-        Field[] fields = klazz.getDeclaredFields();
-        return fields;
+        return klazz.getDeclaredFields();
     }
 
 }

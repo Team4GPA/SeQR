@@ -305,6 +305,10 @@ public class EditProfileFragment extends Fragment {
                                 newHeight = currentHeight;
                                 newWidth = currentWidth;
                             }
+                            else{
+                                newHeight = currentHeight;
+                                newWidth = currentWidth;
+                            }
 
                             Log.d("NEW BITMAP", "New height is " + newHeight + " and width is " + newWidth);
                             decoder.setTargetSize(newWidth, newHeight);

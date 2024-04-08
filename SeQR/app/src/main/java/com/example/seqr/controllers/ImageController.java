@@ -150,6 +150,11 @@ public class ImageController {
             newWidth = (int) scaleFactor * currentWidth;
 
         }
+        else{
+            newHeight = currentHeight;
+            newWidth = currentWidth;
+        }
+
         Bitmap.Config currConfig = bitmap.getConfig();
         bitmap.reconfigure(newWidth, newHeight, currConfig);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 35, baos);
