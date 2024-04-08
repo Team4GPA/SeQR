@@ -1,4 +1,4 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,9 +14,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seqr.controllers.ReusableQrController;
-import java.text.SimpleDateFormat;
+
 import java.util.Date;
-import java.util.Locale;
 
 import com.example.seqr.helpers.ImageUploader;
 import com.example.seqr.R;

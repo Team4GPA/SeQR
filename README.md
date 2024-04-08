@@ -20,6 +20,7 @@ With infinite love and support for the following resources:
 <UL>Android Developer Pages
 <li>[Communicate with fragments | Android Developers](https://developer.android.com/guide/fragments/communicate#pass-parent-child)
 <li>[Google code scanner (Android only) | ML Kit | Google for Developers](https://developers.google.com/ml-kit/vision/barcode-scanning/code-scanner)
+<li>[Okhttp](https://square.github.io/okhttp/)
 <li>[Picasso (square.github.io)](https://square.github.io/picasso/)
 <li>[zxing/zxing: ZXing ("Zebra Crossing") barcode scanning library for Java, Android (github.com)](https://github.com/zxing/zxing)
 

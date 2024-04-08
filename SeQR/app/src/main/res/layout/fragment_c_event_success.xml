@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_margin="5sp"
-    tools:context=".events.CEventSuccessFragment">
+    tools:context=".events.creation.CEventSuccessFragment">
 
     <TextView
         android:id="@+id/cEventSuccessMainText"
@@ -84,7 +84,7 @@
                     android:id="@+id/cEventSuccessOrganizer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="15dp"
                     android:text="Organizer"
                     android:textAlignment="viewStart"
@@ -99,7 +99,7 @@
                     android:id="@+id/cEventSuccessLocation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="15sp"
                     android:text="Location"
                     android:textSize="15sp"
@@ -114,7 +114,7 @@
                     android:id="@+id/cEventSuccessTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="15sp"
                     android:text="Time"
                     android:textSize="15sp"
@@ -129,7 +129,7 @@
                     android:id="@+id/cEventSuccessCapacity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15sp"
+                    android:layout_marginStart="10dp"
                     android:layout_marginEnd="15sp"
                     android:text="Capacity"
                     android:textSize="15sp"

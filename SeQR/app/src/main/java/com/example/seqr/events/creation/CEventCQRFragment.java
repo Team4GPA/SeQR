@@ -1,4 +1,4 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import android.os.Bundle;
 

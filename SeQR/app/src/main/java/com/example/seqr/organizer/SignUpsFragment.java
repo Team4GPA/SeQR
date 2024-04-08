@@ -1,4 +1,4 @@
-package com.example.seqr.attendee;
+package com.example.seqr.organizer;
 
 import android.os.Bundle;
 
@@ -32,7 +32,9 @@ import java.util.List;
 import com.example.seqr.R;
 
 
-
+/**
+ * Fragment that displays and handles all the attendees signed up for an event
+ */
 public class SignUpsFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -40,7 +42,19 @@ public class SignUpsFragment extends Fragment {
     private List<Profile> profileList;
 
 
-
+    /**
+     * Method that creates the fragment to display and its associated logic
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return the associated view of the fragment to display
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -1,4 +1,4 @@
-package com.example.seqr.qr;
+package com.example.seqr.attendee;
 //
 // imports
 //
@@ -35,8 +35,16 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 public class ScanQRFragment extends Fragment {
     private String returnVal;
     private QRScanAdapter scanAdapter;
-    private String DBTAG = "ScanQRFragment";
+    private final String DBTAG = "ScanQRFragment";
 
+    /**
+     * Called when the fragment is created. Initializes the QR code scanner and starts scanning for QR codes.
+     * If a QR code is successfully scanned, it sends the result to the parent fragment using FragmentResult.
+     * If the scan is cancelled by the user, it sends a NULL result to the parent fragment.
+     * If there is an exception during the scan, it logs the error and pops the back stack.
+     *
+     * @param savedInstanceState The saved state of the fragment, if any.
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

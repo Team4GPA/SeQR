@@ -23,7 +23,7 @@ public class ID {
      */
     public static String getProfileId(Context context){
         //SharedPref lets us store data on device
-        SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(prefs, Context.MODE_PRIVATE);
         //checks if we already stored an id in shared pref returns null if nothing
         String deviceId = preferences.getString(deviceUUID,null);
 
@@ -39,7 +39,7 @@ public class ID {
     //returns deviceID
     public static String createProfileID(Context context){
         //SharedPref lets us store data on device
-        SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(prefs, Context.MODE_PRIVATE);
         //checks if we already stored an id in shared pref returns null if nothing
         String deviceId = preferences.getString(deviceUUID,null);
 
@@ -62,7 +62,7 @@ public class ID {
      */
     //functionality to remove the uuid from shared pref
     public static void removeProfileID(Context context){
-        SharedPreferences preferences = context.getSharedPreferences(prefs, context.MODE_PRIVATE);
+        SharedPreferences preferences = context.getSharedPreferences(prefs, Context.MODE_PRIVATE);
         //removes uuid from the shared preferences
         preferences.edit().remove(deviceUUID).apply();
 

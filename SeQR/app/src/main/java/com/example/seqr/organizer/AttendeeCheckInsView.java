@@ -27,18 +27,28 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Fragment for displaying attendee check-ins.
+ */
 public class AttendeeCheckInsView extends Fragment {
     private TextView usernameText;
     private ListView checkInsView;
 
     private ArrayAdapter<String> checkInsAdapter;
-    private List<String> checkInsList = new ArrayList<>();
+    private final List<String> checkInsList = new ArrayList<>();
     private Button backButton;
     private ImageView profilePic;
     private TextView checkInCountTextView;
 
 
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,6 +87,12 @@ public class AttendeeCheckInsView extends Fragment {
         return view;
     }
 
+    /**
+     * Displays the check-ins of the user for the given event.
+     *
+     * @param profileID The ID of the user profile.
+     * @param eventID   The ID of the event.
+     */
     public void displayUserCheckIns(String profileID, String eventID){
         EventController eventController = new EventController();
         eventController.getUserCheckIns(eventID, profileID, new OnCompleteListener<DocumentSnapshot>() {

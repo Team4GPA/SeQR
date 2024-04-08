@@ -20,8 +20,8 @@ import com.google.firebase.firestore.QuerySnapshot;
  * Controller class to handle interactions between the data base and announcment objects
  */
 public class AnnouncementController {
-    private FirebaseFirestore db;
-    private CollectionReference announcementCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference announcementCollection;
 
     /**
      * Constructor class that gets the database and the appropriate collection
@@ -41,6 +41,7 @@ public class AnnouncementController {
     }
 
     /**
+]
      * add an announcment to firebase
      *
      * @param announcement announcment type object to add to db

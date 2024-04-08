@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.seqr.R;
 import com.example.seqr.controllers.AnnouncementController;
@@ -76,6 +77,9 @@ public class CAnnouncementFragment extends Fragment {
         cAnnouncementConfirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (!validAnnouncementDetails(cAnnouncementTitleEditText, cAnnouncementDescEditText)) {
+                    return;
+                }
                 String title = cAnnouncementTitleEditText.getText().toString();
                 String description = cAnnouncementDescEditText.getText().toString();
                 String announcementID = UUID.randomUUID().toString();
@@ -125,5 +129,28 @@ public class CAnnouncementFragment extends Fragment {
             }
         });
         return view;
+    }
+    /**
+     * Checks if a textview is empty
+     * @param textView
+     * @return a bool representing if the textview is empty
+     */
+    private Boolean ifTextViewNotEmpty(TextView textView) {
+        if (textView.getText().toString().trim().isEmpty()) {
+            textView.setError("Field input empty.");
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Checks if all the textviews are not empty
+     * @param textView1
+     * @param textView2
+     * @return returns true if none are empty
+     */
+    private Boolean validAnnouncementDetails(TextView textView1, TextView textView2) {
+        return ifTextViewNotEmpty(textView1)
+                && ifTextViewNotEmpty(textView2);
     }
 }

@@ -45,8 +45,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class ImageController {
 
-    private FirebaseStorage storage;
-    private Context context;
+    private final FirebaseStorage storage;
+    private final Context context;
 
     /**
      * Constructs an Image controller and sets its storage to the storage from our database
@@ -90,6 +90,11 @@ public class ImageController {
                 .addOnFailureListener(callback::onFailure);
     }
 
+    /**
+     * Method that takes an image, checks what directory it is, and replaces it with a corresponding "placeholder" image
+     *
+     * @param imagePath string representing the path of the image in firebase storage
+     */
     public void replaceImageWithPlaceHolder(String imagePath) {
         String[] directories = imagePath.split("/");
         String directory = directories[0];
@@ -127,6 +132,12 @@ public class ImageController {
         }
     }
 
+    /**
+     * uploads an image from the drawable folder and uploads it to firebase storage
+     *
+     * @param storageRef the place in storage to upload the image
+     * @param resourceId an integer representing the R.id of the drawable image
+     */
     private void uploadDrawableImage(StorageReference storageRef, int resourceId) {
         Bitmap bitmap= BitmapFactory.decodeResource(context.getResources(), resourceId);
         // Below is from tutorial: https://firebase.google.com/docs/storage/android/upload-files#java
@@ -150,6 +161,11 @@ public class ImageController {
             newWidth = (int) scaleFactor * currentWidth;
 
         }
+        else{
+            newHeight = currentHeight;
+            newWidth = currentWidth;
+        }
+
         Bitmap.Config currConfig = bitmap.getConfig();
         bitmap.reconfigure(newWidth, newHeight, currConfig);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 35, baos);
@@ -170,6 +186,11 @@ public class ImageController {
         });
     }
 
+    /**
+     * Converts a bitmap to an image and uploads the image to firebase storage
+     * @param storageRef where the image should be uploaded in storage
+     * @param bitmap a bitmap of the image to be uploaded
+     */
     public void uploadBitmapImage(StorageReference storageRef, Bitmap bitmap){
         // Below is from tutorial: https://firebase.google.com/docs/storage/android/upload-files#java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();

@@ -31,8 +31,8 @@ import java.util.Map;
  * Controller class for managing Event data in Firestore database.
  */
 public class EventController {
-    private FirebaseFirestore db;
-    private CollectionReference eventCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference eventCollection;
     //insert any new database fields here for checkEventValid
     private final String[] databaseFields = {
             "checkInQR",
@@ -98,6 +98,11 @@ public class EventController {
                 });
     }
 
+    /**
+     * remove an event from firebase with a given ID
+     *
+     * @param eventID a string representing the ID of the event in firebase
+     */
     public void removeEventWithID(String eventID){
 
         eventCollection.document(eventID).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -145,6 +150,11 @@ public class EventController {
 
     }
 
+    /**
+     * deletes all subcollections from a document
+     *
+     * @param subCollection a reference to the subcollection
+     */
     public void deleteSubcollectionDocuments(CollectionReference subCollection){
         subCollection.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -160,6 +170,11 @@ public class EventController {
         });
     }
 
+    /**
+     * Deletes an event poster in firebase storage given an event ID
+     *
+     * @param eventID a string representing the ID of an event
+     */
     public void deleteEventPoster(String eventID){
         StorageReference eventPosterReference = Database.getStorage().getReference().child("EventPosters/" +eventID+ ".jpg");
         eventPosterReference.delete().addOnFailureListener(new OnFailureListener() {
@@ -170,6 +185,10 @@ public class EventController {
         });
     }
 
+    /**
+     * Deletes all instances of an event from any profile's "signedUpEvents" field in firebase
+     * @param eventID a string representing the event's ID
+     */
     public void removeEventFromUserProfile(String eventID) {
         eventCollection.document(eventID).collection("signups").get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -196,6 +215,11 @@ public class EventController {
                 });
     }
 
+    /**
+     * A method that deletes all announcments and notifications from firebase that are associated with a given event
+     *
+     * @param eventID a string representing the id of the event
+     */
     public void deleteAnnouncementsAndNotifications(String eventID){
         AnnouncementController announcementController = new AnnouncementController();
         announcementController.getAnnouncementsByEvent(eventID, new OnCompleteListener<QuerySnapshot>() {
@@ -214,11 +238,20 @@ public class EventController {
         });
     }
 
+    /**
+     * Deletes an announcement from firebase given the announcement ID (really just a call to announcement controller method)
+     *
+     * @param announcementID a string representing the id of an announcement
+     */
     public void removeAnnouncement(String announcementID){
         AnnouncementController announcementController = new AnnouncementController();
         announcementController.removeAnnouncementByID(announcementID);
     }
 
+    /**
+     * Deletes an announcement from a profile in firebase
+     * @param announcementID a string representing the ID of an announcement
+     */
     public void removeNotification(String announcementID){
         ProfileController profileController = new ProfileController();
         profileController.getAllProfiles(new OnCompleteListener<QuerySnapshot>() {
@@ -301,6 +334,12 @@ public class EventController {
                 });
     }
 
+    /**
+     * removes a user from being signed up for an event in firebase
+     *
+     * @param eventId string representing the ID of the event
+     * @param signUp a SignUp type object representing which user is signed up
+     */
     public void cancelSignUpForEvent(String eventId, SignUp signUp){
         db.collection("Events").document(eventId).collection("signups")
                 .document(signUp.getUserId()).delete()
@@ -318,6 +357,12 @@ public class EventController {
                 });
     }
 
+    /**
+     * Gets all of the users signed up for an event
+     *
+     * @param eventID string representing the ID of the event
+     * @param onCompleteListener a method to handle the users who signed up
+     */
     public void getEventSignUps(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("signups")
                 .get()
@@ -331,6 +376,12 @@ public class EventController {
 
     }
 
+    /**
+     * get all of the users who are checked into an event
+     *
+     * @param eventID string representing the ID of the event
+     * @param onCompleteListener method to handle the users who are checked in
+     */
     public void getEventCheckIns(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("checkIns")
                 .get()
@@ -343,6 +394,14 @@ public class EventController {
                 });
     }
 
+    /**
+     * Handles checking in a user to an event
+     * @param eventID string representing the ID of the event
+     * @param userID string representing the ID of the user being checked in
+     * @param username string representing the user's username
+     * @param onSuccessListener method to handle if user was checked in
+     * @param onFailureListener method to handle if user was not checked in
+     */
     public void checkInUser (String eventID, String userID, String username, OnSuccessListener<Void> onSuccessListener,OnFailureListener onFailureListener){
         DocumentReference checkInDocRef = eventCollection.document(eventID)
                 .collection("checkIns")
@@ -441,6 +500,13 @@ public class EventController {
         });
     }
 
+    /**
+     * Method to get all of check ins to an event from a particular user
+     *
+     * @param eventID string representing the ID of the event
+     * @param userId string representing the ID of the user
+     * @param onCompleteListener method to handle when all check ins are found
+     */
     public void getUserCheckIns(String eventID, String userId, OnCompleteListener<DocumentSnapshot> onCompleteListener){
         eventCollection.document(eventID).collection("checkIns")
                 .document(userId)
@@ -454,6 +520,12 @@ public class EventController {
                 });
     }
 
+    /**
+     * Method to add a listener to a certain event
+     *
+     * @param eventID Registers a snapshot listener to observe changes in the "checkIns" subcollection of a specific event document.
+     * @param listener method to handle whenever this event's data is updated
+     */
     public void eventCheckInsSnapshot(String eventID, EventListener<QuerySnapshot> listener){
         eventCollection.document(eventID).collection("checkIns")
                 .addSnapshotListener(listener);
@@ -495,6 +567,14 @@ public class EventController {
         });
     }
 
+    /**
+     * Takes a users coordinates and updates them when they check into an event
+     *
+     * @param eventID string representing the ID of the event
+     * @param uuid string representing the ID of the user
+     * @param latitude double representing latitude of user at check in
+     * @param longitude double representing longitude of user at check in
+     */
     public void updateEventCheckInCoordinates(String eventID, String uuid, double latitude, double longitude) {
         // Put names of fields and there values into map to put into the collection
         Map<String, Object> map = new HashMap<>();

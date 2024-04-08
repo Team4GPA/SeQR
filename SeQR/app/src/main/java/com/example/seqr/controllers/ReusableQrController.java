@@ -16,18 +16,30 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * A controller class for managing reusable QR pairs in Firestore.
+ */
 public class ReusableQrController {
-    private FirebaseFirestore db;
-    private CollectionReference ReusableQrCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference ReusableQrCollection;
 
 
 
-
+    /**
+     * Constructor initializing Firestore database and collection references.
+     */
     public ReusableQrController(){
         db = Database.getFireStore();
         ReusableQrCollection = db.collection("ReusableQR");
     }
 
+    /**
+     * Add a new QR pair to Firestore.
+     * @param checkInQR The QR code for check-in
+     * @param promotionQR The QR code for promotion
+     * @param previousEventName The name of the previous event
+     * @param eventID The ID of the event associated with the QR pair
+     */
     public void addQRpair(String checkInQR, String promotionQR, String previousEventName, String eventID){
         //Reference to the document ID
         DocumentReference qrPairDoc = ReusableQrCollection.document(eventID);
@@ -52,6 +64,10 @@ public class ReusableQrController {
                 });
     }
 
+    /**
+     * Retrieve all QR pairs from Firestore.
+     * @param onCompleteListener Listener to handle the completion of the retrieval operation
+     */
     public void getQRpairs(OnCompleteListener<QuerySnapshot> onCompleteListener){
         ReusableQrCollection.get()
                 .addOnCompleteListener( onCompleteListener)
@@ -63,6 +79,10 @@ public class ReusableQrController {
                 });
     }
 
+    /**
+     * Delete a QR pair from Firestore.
+     * @param eventID The ID of the event associated with the QR pair to delete
+     */
     public void deleteQRPair(String eventID){
         DocumentReference qrPairDoc = ReusableQrCollection.document(eventID);
         qrPairDoc.delete().addOnSuccessListener(new OnSuccessListener<Void>() {

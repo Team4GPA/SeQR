@@ -1,4 +1,4 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.seqr.controllers.EventController;
+import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.qr.PQRFragment;
 import com.example.seqr.R;
 import com.squareup.picasso.Picasso;

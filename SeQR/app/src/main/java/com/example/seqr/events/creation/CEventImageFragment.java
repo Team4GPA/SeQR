@@ -1,4 +1,4 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -28,7 +28,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
@@ -50,8 +49,6 @@ public class CEventImageFragment extends Fragment {
      *                           from a previous saved state as given here.
      * @return view
      */
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,6 +128,7 @@ public class CEventImageFragment extends Fragment {
                         @Override
                         public void onHeaderDecoded(@NonNull ImageDecoder decoder, @NonNull ImageDecoder.ImageInfo info, @NonNull ImageDecoder.Source source) {
                             int targetLargestSide = 800;
+                            Log.d("CREATE EVENT", "Bitmap is " + info.getMimeType());
                             int currentWidth = info.getSize().getWidth();
                             Log.d("BITMAP PROC", "Current width is " + currentWidth);
                             int currentHeight = info.getSize().getHeight();

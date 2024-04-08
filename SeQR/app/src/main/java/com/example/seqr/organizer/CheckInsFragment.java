@@ -32,7 +32,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-
+/**
+ * Fragment for displaying check-ins of attendees.
+ */
 public class CheckInsFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -45,7 +47,14 @@ public class CheckInsFragment extends Fragment {
 
 
 
-
+    /**
+     * Called to have the fragment instantiate its user interface view.
+     *
+     * @param inflater           The LayoutInflater object that can be used to inflate views in the fragment,
+     * @param container          If non-null, this is the parent view that the fragment's UI should be attached to.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed from a previous saved state as given here.
+     * @return Return the View for the fragment's UI, or null.
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +105,11 @@ public class CheckInsFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Sets up a listener to display the check-ins for the event.
+     *
+     * @param eventID The ID of the event.
+     */
     public void displayCheckInsListener(String eventID){
         EventController eventController = new EventController();
         ProfileController profileController = new ProfileController();

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import com.example.seqr.R;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
-import com.example.seqr.events.CEventDetailFragment;
+import com.example.seqr.events.creation.CEventDetailFragment;
 import com.example.seqr.events.EventManagementFragment;
 import com.example.seqr.models.Event;
 import com.example.seqr.models.ID;
@@ -24,7 +24,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 /**

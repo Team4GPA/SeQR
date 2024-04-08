@@ -327,14 +327,26 @@ public class MainActivity extends AppCompatActivity {
         Picasso.get().load(imageUri).into(profileImageView);
     }
 
+    /**
+     * Gets an image URI
+     * @return the bitmap uri
+     */
     public Uri getImageUri(){
         return bitmapUri;
     }
 
+    /**
+     * Sets a boolean to see if its the first time the user has used the app
+     * @param status
+     */
     public void setFirstTime(boolean status) {
         firstTime = status;
     }
 
+    /**
+     * Sets the uri of the image
+     * @param imageUri
+     */
     public void setImageUri(Uri imageUri) {
         bitmapUri = imageUri;
     }

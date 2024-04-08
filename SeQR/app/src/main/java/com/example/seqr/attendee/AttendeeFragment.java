@@ -29,8 +29,6 @@ import android.widget.Toast;
 import com.example.seqr.MainActivity;
 import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.R;
-import com.example.seqr.models.SignUp;
-import com.example.seqr.qr.ScanQRFragment;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
 import com.example.seqr.controllers.ProfileController;
@@ -45,7 +43,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -204,7 +201,7 @@ public class AttendeeFragment extends Fragment {
                 // is result valid?
                 //
                 if (!qrResult.contentEquals("NULL")){
-                    String resultSplit[]= qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
+                    String[] resultSplit = qrResult.split("_"); //this splits off the QR tag on the end of a valid QR tag;
                     String eventID = resultSplit[0];
                     String qrType = resultSplit[1];
 
@@ -260,6 +257,9 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
+    /**
+     * gets all the events a user has signed up for and puts them in the eventList (so they can be viewed by the user)
+     */
     public void retrieveSignedUpEvents(){
         String profileUUID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
@@ -332,6 +332,11 @@ public class AttendeeFragment extends Fragment {
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
     }
 
+    /**
+     * confirms that the check in was successful and creates a toast to confirm that to the user
+     *
+     * @param QRData a string representing the raw qrData of the event the user tried to check into
+     */
     public void launchCheckInSuccess(String QRData){
         Log.d(DBTAG, "launch success method reached. Checking in Guest. ");
 
@@ -425,6 +430,9 @@ public class AttendeeFragment extends Fragment {
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
     }
 
+    /**
+     * if the check in fails, this method sends the user back to the attendee fragment
+     */
     public void qrFailed(){
         Log.d(DBTAG, "qr code scan not successful: return to attendee view");
         Fragment attendee = new AttendeeFragment();
@@ -441,7 +449,12 @@ public class AttendeeFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
     }
 
-
+    /**
+     * when given a service provider and callback, this returns the latitude and longitude of the device user
+     *
+     * @param provider the service provider which basically describes how to get the user's location
+     * @param callback where to send the latitude and longitude after this method is invoked
+     */
     public void getCoordinates(String provider, LocationCallback callback) {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(provider)) {

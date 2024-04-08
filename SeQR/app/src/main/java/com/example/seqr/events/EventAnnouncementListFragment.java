@@ -25,11 +25,27 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * A fragment to show all the announcements associated with an event
+ */
 public class EventAnnouncementListFragment extends Fragment {
     private RecyclerView recyclerView;
     private AnnouncementAdapter announcementAdapter;
     private List<Announcement> announcementList;
     private String eventID;
+
+    /**
+     * A method to handle creating the view associated with the fragment and any calculations made by it
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return returns the view associated with the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,16 +108,16 @@ public class EventAnnouncementListFragment extends Fragment {
         return view;
     }
 
+    /**
+     * A method to handle when an announcment is clicked
+     * @param announcement the announcment
+     * @param ifOrganizer a boolean which is true if the user is an organizer
+     */
     public void announcementClicked (Announcement announcement, Boolean ifOrganizer) {
         Bundle bundle = new Bundle();
         bundle.putString("announcementID", announcement.getAnnouncementID());
         bundle.putString("eventID", eventID);
-        if (ifOrganizer) {
-            bundle.putBoolean("ifAttendee", false);
-        }
-        else {
-            bundle.putBoolean("ifAttendee", true);
-        }
+        bundle.putBoolean("ifAttendee", !ifOrganizer);
         //open announcement field
         AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
         announcementDetailFragment.setArguments(bundle);

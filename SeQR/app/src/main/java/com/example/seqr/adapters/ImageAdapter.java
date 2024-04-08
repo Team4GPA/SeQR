@@ -25,10 +25,10 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageViewHolder>{
     public interface OnItemClickListener {
         void onItemClick(int index);
     }
-    private List<String> imageUrlList; // Change if we have different data type
-    private int itemWidth;
+    private final List<String> imageUrlList; // Change if we have different data type
+    private final int itemWidth;
 
-    private OnItemClickListener listener;
+    private final OnItemClickListener listener;
 
     /**
      * Constructs an ImageAdapter with the provided list of image URLs.
