@@ -231,7 +231,7 @@ public class EventInfoFragment extends Fragment {
                                 Log.d("EVENT INFO", "Max capacity is " + event.getMaxCapacity());
                                 if ((event.getMaxCapacity() != -1) && signupCount[0] >= event.getMaxCapacity()) {
                                     Log.d("EVENT INFO", "Event id: " + eventId + " is at capacity " + event.getMaxCapacity());
-                                    canAdd[0] = false;
+                                    canAdd[0] = false; //this may or may not hit in time due to firebase so it rarely gets triggered
                                 }
                             }
                         }
