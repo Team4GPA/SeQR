@@ -46,7 +46,7 @@ import com.squareup.picasso.Picasso;
  */
 public class AEditProfileFragment extends Fragment{
 
-    private FirebaseStorage storage;
+    private final FirebaseStorage storage;
     private EditText nameEditText;
     private EditText phoneNumberEditText;
     private EditText emailEditText;

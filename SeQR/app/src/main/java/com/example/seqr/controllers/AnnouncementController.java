@@ -17,8 +17,8 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 
 public class AnnouncementController {
-    private FirebaseFirestore db;
-    private CollectionReference announcementCollection;
+    private final FirebaseFirestore db;
+    private final CollectionReference announcementCollection;
 
     public AnnouncementController() {
         db = Database.getFireStore();

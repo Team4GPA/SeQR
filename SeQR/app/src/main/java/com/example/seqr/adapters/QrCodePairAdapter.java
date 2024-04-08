@@ -14,8 +14,8 @@ import java.util.List;
 
 public class QrCodePairAdapter extends RecyclerView.Adapter<QrCodePairViewHolder> {
 
-    private List<QrCodePair> qrCodePairs;
-    private OnItemClickListener listener;
+    private final List<QrCodePair> qrCodePairs;
+    private final OnItemClickListener listener;
 
     public interface OnItemClickListener{
         void onItemClick(QrCodePair qrCodePair);

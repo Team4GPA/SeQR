@@ -29,7 +29,7 @@ public class EventTests {
      * @return An array of strings for use later
      */
     public String[] DefaultEventDetails(){
-        String defaults[] = {
+        String[] defaults = {
                 "Default Name",
                 "Default Description",
                 "Default Location",
@@ -43,7 +43,7 @@ public class EventTests {
      */
     @Test
     public void SimpleAddEventTest(){
-        String mockData[] = DefaultEventDetails();
+        String[] mockData = DefaultEventDetails();
         Event blank = MakeMock();
 
         //add data to the event;
@@ -57,7 +57,7 @@ public class EventTests {
      */
     @Test
     public void ChangeEventDetailsTest(){
-        String mockData[] = DefaultEventDetails();
+        String[] mockData = DefaultEventDetails();
         Event blank = MakeMock();
 
         //add data to the event;
@@ -75,7 +75,7 @@ public class EventTests {
      */
     @Test
     public void FillAllEventData(){
-        String mockData[] = DefaultEventDetails();
+        String[] mockData = DefaultEventDetails();
         Event fillMe = new Event();
 
         //assertEquals(mockData[0], fillMe.getEventName());
@@ -91,7 +91,7 @@ public class EventTests {
      * From https://stackoverflow.com/questions/3333974/how-to-loop-over-a-class-attributes-in-java
      */
     public <T> Field[] inspect(Class<Event> klazz){
-        Field fields[] = klazz.getDeclaredFields();
+        Field[] fields = klazz.getDeclaredFields();
         return fields;
     }
 

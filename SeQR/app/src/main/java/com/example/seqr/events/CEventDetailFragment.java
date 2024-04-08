@@ -85,12 +85,7 @@ public class CEventDetailFragment extends Fragment {
         });
 
         hasCapacity.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked){
-                limitCapacity = true;
-            }
-            else{
-                limitCapacity = false;
-            }
+            limitCapacity = isChecked;
         });
 
         nextButton.setOnClickListener(new View.OnClickListener() {

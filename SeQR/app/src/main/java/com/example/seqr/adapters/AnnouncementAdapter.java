@@ -18,8 +18,8 @@ public class AnnouncementAdapter extends RecyclerView.Adapter<AnnouncementViewHo
         void onItemClick(Announcement announcement);
     }
 
-    private List<Announcement> announcementList;
-    private AnnouncementAdapter.OnItemClickListener listener;
+    private final List<Announcement> announcementList;
+    private final AnnouncementAdapter.OnItemClickListener listener;
 
     public AnnouncementAdapter(List<Announcement> announcementList, OnItemClickListener listener) {
         this.announcementList = announcementList;

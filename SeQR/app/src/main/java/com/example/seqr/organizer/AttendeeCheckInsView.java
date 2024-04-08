@@ -33,7 +33,7 @@ public class AttendeeCheckInsView extends Fragment {
     private ListView checkInsView;
 
     private ArrayAdapter<String> checkInsAdapter;
-    private List<String> checkInsList = new ArrayList<>();
+    private final List<String> checkInsList = new ArrayList<>();
     private Button backButton;
     private ImageView profilePic;
     private TextView checkInCountTextView;

@@ -30,7 +30,7 @@ public class ProfileTests {
      * @return An array of strings for use later
      */
     public String[] DefaultProfileDetails(){
-        String defaults[] = {
+        String[] defaults = {
                 "Default Username",
                 "Default Email",
                 "Default id",
@@ -44,7 +44,7 @@ public class ProfileTests {
      */
     @Test
     public void SimpleAddProfileTest(){
-        String mockData[] = DefaultProfileDetails();
+        String[] mockData = DefaultProfileDetails();
         Profile blank = MakeMockProfile();
 
         //add data to the profile;
@@ -58,7 +58,7 @@ public class ProfileTests {
      */
     @Test
     public void ChangeEventDetailsTest(){
-        String mockData[] = DefaultProfileDetails();
+        String[] mockData = DefaultProfileDetails();
         Profile blank = MakeMockProfile();
 
         //add data to the event;
@@ -76,7 +76,7 @@ public class ProfileTests {
      */
     @Test
     public void FillAllEventData(){
-        String mockData[] = DefaultProfileDetails();
+        String[] mockData = DefaultProfileDetails();
         Profile fillMe = new Profile(mockData[0],
                                     mockData[1],
                                     "911",

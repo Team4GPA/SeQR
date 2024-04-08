@@ -22,8 +22,8 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileViewHolder> {
     public interface OnItemClickListener {
         void onItemClick(Profile profile);
     }
-    private List<Profile> profileList;
-    private OnItemClickListener listener;
+    private final List<Profile> profileList;
+    private final OnItemClickListener listener;
 
     /**
      * Constructs a ProfileAdapter with the provided list of profiles.

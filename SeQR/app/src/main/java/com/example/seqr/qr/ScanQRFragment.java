@@ -35,7 +35,7 @@ import com.google.mlkit.vision.codescanner.GmsBarcodeScanning;
 public class ScanQRFragment extends Fragment {
     private String returnVal;
     private QRScanAdapter scanAdapter;
-    private String DBTAG = "ScanQRFragment";
+    private final String DBTAG = "ScanQRFragment";
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

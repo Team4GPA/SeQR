@@ -45,8 +45,8 @@ import java.util.concurrent.ExecutionException;
  */
 public class ImageController {
 
-    private FirebaseStorage storage;
-    private Context context;
+    private final FirebaseStorage storage;
+    private final Context context;
 
     /**
      * Constructs an Image controller and sets its storage to the storage from our database

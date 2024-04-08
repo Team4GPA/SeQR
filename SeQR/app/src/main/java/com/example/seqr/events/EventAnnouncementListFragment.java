@@ -96,12 +96,7 @@ public class EventAnnouncementListFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString("announcementID", announcement.getAnnouncementID());
         bundle.putString("eventID", eventID);
-        if (ifOrganizer) {
-            bundle.putBoolean("ifAttendee", false);
-        }
-        else {
-            bundle.putBoolean("ifAttendee", true);
-        }
+        bundle.putBoolean("ifAttendee", !ifOrganizer);
         //open announcement field
         AnnouncementDetailFragment announcementDetailFragment = new AnnouncementDetailFragment();
         announcementDetailFragment.setArguments(bundle);
