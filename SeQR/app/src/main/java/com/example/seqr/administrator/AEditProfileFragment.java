@@ -247,7 +247,10 @@ public class AEditProfileFragment extends Fragment{
         }
     }
 
-    // Method to generate a new profile picture
+    /**
+     * Sets a user's profile picture in firebase when a selected image from the users library is chosen
+     * @param imageUri the uri of the image to set as the users profile picture
+     */
     public void setProfilePicture(Uri imageUri) {
         // Update profile picture URL in Firestore
         String uuid = ID.getProfileId(getContext());

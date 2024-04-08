@@ -25,8 +25,24 @@ import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+/**
+ * A Fragment that displays the details of a given announcement
+ */
 public class AnnouncementDetailFragment extends Fragment {
 
+    /**
+     * Creates the given view for the fragment and associated logic to handle actions in the fragment
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return returns the view of the fragment
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -29,6 +29,11 @@ public class ProfileViewHolder extends RecyclerView.ViewHolder{
         textView = itemView.findViewById(R.id.profile_name);
     }
 
+    /**
+     * Method to set the imageView to the user's profile picture
+     *
+     * @param profileID the profileID of the user
+     */
     public void setProfilePic(String profileID) {
 
         // encode it to handle special characters in the profileID
