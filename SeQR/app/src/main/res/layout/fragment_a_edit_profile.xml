@@ -84,20 +84,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent">
 
-    <TextView
-        android:id="@+id/admin_personal_information"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:text="Personal Information"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+            <TextView
+                android:id="@+id/admin_personal_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:text="Personal Information"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-    </TextView>
+            </TextView>
 
             <TextView
                 android:id="@+id/admin_profile_name_title"
@@ -109,7 +109,6 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/admin_personal_information">
 
-
             </TextView>
 
             <EditText
@@ -119,7 +118,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Enter Name Here"
+                android:hint="Name goes here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,6 +129,18 @@
             </EditText>
 
 
+            <TextView
+                android:id="@+id/admin_profile_number_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:padding="10dp"
+                android:text="Phone Number:"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/admin_profile_name">
+
+            </TextView>
+
             <EditText
                 android:id="@+id/admin_profile_number"
                 android:layout_width="wrap_content"
@@ -137,7 +148,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Enter Number Here"
+                android:hint="Phone Number goes here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -146,19 +157,19 @@
                 android:inputType="text">
 
             </EditText>
-              
-    <TextView
-        android:id="@+id/admin_profile_email_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="Email:"
 
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/admin_profile_number">
+            <TextView
+                android:id="@+id/admin_profile_email_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="Email:"
 
-    </TextView>
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/admin_profile_number">
+
+            </TextView>
 
             <EditText
                 android:id="@+id/admin_profile_email"
@@ -167,7 +178,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/edit_text_rounded_corner"
                 android:elevation="5dp"
-                android:hint="Enter Email Here"
+                android:hint="Email goes here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,22 +188,23 @@
 
             </EditText>
 
-    <TextView
-        android:id="@+id/admin_profile_homepage_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:layout_margin="10dp"
-        android:text="Homepage:"
-        app:layout_constraintStart_toStartOf="parent"
+            <TextView
+                android:id="@+id/admin_profile_homepage_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="Homepage:"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/admin_profile_email">
 
-    </TextView>
+            </TextView>
 
             <EditText
                 android:id="@+id/admin_profile_homepage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Enter Homepage Here"
+                android:hint="Homepage goes here"
                 android:minHeight="48dp"
                 android:padding="10dp"
                 android:layout_margin="10dp"
@@ -204,22 +216,6 @@
                 android:inputType="text">
 
             </EditText>
-
-            <CheckBox
-                android:id="@+id/admin_edit_profile_admin_checkbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5sp"
-                android:background="@drawable/edit_text_rounded_corner"
-                android:elevation="5dp"
-                android:layout_margin="10dp"
-                android:text="Tag this user as Administrator"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/admin_profile_homepage">
-
-            </CheckBox>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
