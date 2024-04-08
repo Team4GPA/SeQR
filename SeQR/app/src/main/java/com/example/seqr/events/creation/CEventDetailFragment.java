@@ -1,11 +1,11 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import com.google.firebase.Timestamp;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.seqr.MainActivity;
 import com.example.seqr.R;
 
 import java.util.Date;

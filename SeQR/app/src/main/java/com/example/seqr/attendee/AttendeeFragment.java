@@ -29,8 +29,6 @@ import android.widget.Toast;
 import com.example.seqr.MainActivity;
 import com.example.seqr.events.EventInfoFragment;
 import com.example.seqr.R;
-import com.example.seqr.models.SignUp;
-import com.example.seqr.qr.ScanQRFragment;
 import com.example.seqr.adapters.EventAdapter;
 import com.example.seqr.controllers.EventController;
 import com.example.seqr.controllers.ProfileController;
@@ -45,7 +43,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicBoolean;
 

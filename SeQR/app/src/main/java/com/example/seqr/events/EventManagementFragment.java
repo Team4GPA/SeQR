@@ -17,7 +17,7 @@ import com.example.seqr.organizer.CheckInsFragment;
 import com.example.seqr.qr.CQRFragment;
 import com.example.seqr.qr.PQRFragment;
 import com.example.seqr.R;
-import com.example.seqr.attendee.SignUpsFragment;
+import com.example.seqr.organizer.SignUpsFragment;
 import com.squareup.picasso.Picasso;
 
 /**

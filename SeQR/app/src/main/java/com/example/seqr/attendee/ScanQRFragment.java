@@ -1,4 +1,4 @@
-package com.example.seqr.qr;
+package com.example.seqr.attendee;
 //
 // imports
 //

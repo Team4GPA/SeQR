@@ -1,4 +1,4 @@
-package com.example.seqr.attendee;
+package com.example.seqr.organizer;
 
 import android.os.Bundle;
 

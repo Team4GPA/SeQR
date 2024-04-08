@@ -1,4 +1,4 @@
-package com.example.seqr.events;
+package com.example.seqr.events.creation;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -28,7 +28,6 @@ import com.squareup.picasso.Picasso;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
