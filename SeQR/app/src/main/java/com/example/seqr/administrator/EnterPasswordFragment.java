@@ -20,12 +20,29 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.seqr.R;
 import com.example.seqr.controllers.EventController;
 
+/**
+ * A dialog fragment to get a password when entering admin portion of app
+ */
 public class EnterPasswordFragment extends DialogFragment {
 
     EditText passwordText;
     Button submitButton;
     Button cancelButton;
     String password;
+
+    /**
+     * Creates a view and associated logic for the dialog fragment to take the users password
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return returns a View type object which is the dialog fragment itself
+     */
     @NonNull
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {

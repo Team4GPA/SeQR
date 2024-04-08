@@ -16,6 +16,9 @@ import java.util.List;
  */
 public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
 
+    /**
+     * interface to implement clicking on an event
+     */
     public interface OnItemClickListener {
         void onItemClick(Event event);
     }
@@ -87,6 +90,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder>{
         return eventList.size();
     }
 
+    /**
+     * Notifies the adapter that data has changed so it will update
+     */
     public void refreshAdapter(){
         this.notifyDataSetChanged();
     }
