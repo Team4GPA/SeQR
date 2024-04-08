@@ -33,7 +33,7 @@ public class AnnouncementController {
 
     /**
      * Constructor class for testing
-     * @param db
+     * @param db which will be a mockDB for testing
      */
     public AnnouncementController(FirebaseFirestore db){
         this.db = db;
