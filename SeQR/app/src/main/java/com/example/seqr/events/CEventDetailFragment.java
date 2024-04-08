@@ -199,7 +199,7 @@ public class CEventDetailFragment extends Fragment {
             selectedMinute = minuteOfHour;
             cal.set(Calendar.HOUR_OF_DAY, selectedHour);
             cal.set(Calendar.MINUTE, selectedMinute);
-            eventTimeInput.setText(String.format(Locale.CANADA, "%d:%d", hourOfDay, minuteOfHour));
+            eventTimeInput.setText(String.format(Locale.CANADA, "%d:%02d", hourOfDay, minuteOfHour));
         }, hour, minute, true);
 
         timePickerDialog.show();
