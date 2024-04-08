@@ -39,8 +39,8 @@ public class AnnouncementController {
         });
     }
 
-    public void removeAnnouncement(Announcement announcement){
-        announcementCollection.document(announcement.getAnnouncementID()).delete()
+    public void removeAnnouncementByID(String announcementID){
+        announcementCollection.document(announcementID).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
@@ -53,6 +53,8 @@ public class AnnouncementController {
                     }
                 });
     }
+
+
 
     public void getAnnouncementsByEvent(String eventID, OnCompleteListener<QuerySnapshot> onCompleteListener) {
         announcementCollection

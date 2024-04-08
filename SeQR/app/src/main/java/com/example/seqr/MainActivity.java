@@ -86,6 +86,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String uuid = ID.getProfileId(getBaseContext());
         System.out.println(uuid);
+        if (uuid != null){
+            ProfileController profileController = new ProfileController();
+            profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot profileDoc = task.getResult();
+                        if (!profileDoc.exists() || profileDoc == null){
+                            ID.removeProfileID(getBaseContext());
+                        }
+                    }else {
+                        Log.d("DEBUG","User is still valid in firebase");
+                    }
+                }
+            });
+        }
+
+
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -93,9 +111,6 @@ public class MainActivity extends AppCompatActivity {
             // set the page to attendee view as initialization
             fragMgr.beginTransaction().replace(R.id.fragment_container, startUpFragment).commit();
         } else {
-            if(!firstTime) {
-                updateProfilePicture(bitmapUri);
-            }
 
             // initialize buttons for the side menu
             Button editProfileButton = findViewById(R.id.edit_profile_button);
@@ -147,9 +162,9 @@ public class MainActivity extends AppCompatActivity {
         });
             Button adminButton = findViewById(R.id.admin_button);
             profileImageView = findViewById(R.id.profile_picture);
-            if (firstTime) {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
+            Picasso.get().invalidate(imageUrl);
             Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
 
             //setup the main fragment view stuff
@@ -320,6 +335,10 @@ public class MainActivity extends AppCompatActivity {
      */
     public void updateProfilePicture(Uri imageUri) {
         Picasso.get().load(imageUri).into(profileImageView);
+    }
+
+    public Uri getImageUri(){
+        return bitmapUri;
     }
 
     public void setFirstTime(boolean status) {

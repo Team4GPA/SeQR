@@ -41,7 +41,10 @@ public class DeleteEventFragment extends DialogFragment {
                 EventController eventController = new EventController();
                 eventController.removeEventWithID(eventID);
                 dismiss();
-                getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                fm.popBackStack();
+
+                //getActivity().getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
