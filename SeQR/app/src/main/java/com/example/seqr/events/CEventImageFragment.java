@@ -148,6 +148,10 @@ public class CEventImageFragment extends Fragment {
                                 float fnewWidth = (float) (scaleFactor * currentWidth);
                                 newWidth = Math.round(fnewWidth);
                             }
+                            else {
+                                newHeight = currentHeight;
+                                newWidth = currentWidth;
+                            }
 
                             Log.d("NEW BITMAP", "New height is " + newHeight + " and width is " + newWidth);
                             decoder.setTargetSize(newWidth, newHeight);
