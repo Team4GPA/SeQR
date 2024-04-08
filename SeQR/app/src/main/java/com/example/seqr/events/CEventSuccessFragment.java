@@ -28,7 +28,7 @@ public class CEventSuccessFragment extends Fragment {
     private TextView eventLocationTextView;
     private TextView eventTimeTextView;
     private TextView eventCapacityTextView;
-    private TextView eventTitleTextView;
+    private TextView eventDescriptionTextView;
     private ImageView eventImageView;
     private Button cEventSuccessGoToButton;
 
@@ -54,7 +54,6 @@ public class CEventSuccessFragment extends Fragment {
 
         eventOrganizerTextView = view.findViewById(R.id.cEventSuccessOrganizer);
         eventLocationTextView = view.findViewById(R.id.cEventSuccessLocation);
-        eventTitleTextView = view.findViewById(R.id.cEventSuccessTitle);
         eventTimeTextView = view.findViewById(R.id.cEventSuccessTime);
         eventCapacityTextView = view.findViewById(R.id.cEventSuccessCapacity);
         eventImageView = view.findViewById(R.id.photoPreview);
@@ -73,6 +72,7 @@ public class CEventSuccessFragment extends Fragment {
         String promotionQR = bundle.getString("promotionQR","");
         String eventID = bundle.getString("eventID");
         String eventDescription = bundle.getString("eventDescription","");
+
         eventNameTextView.setText(eventName);
         eventOrganizerTextView.setText(organizerName);
         eventLocationTextView.setText(eventLocation);
