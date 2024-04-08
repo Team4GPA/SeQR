@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -28,9 +29,19 @@ import com.example.seqr.models.Event;
 import com.example.seqr.models.ID;
 import com.example.seqr.models.SignUp;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.AggregateQuery;
+import com.google.firebase.firestore.AggregateQuerySnapshot;
+import com.google.firebase.firestore.AggregateSource;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.EventListener;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.squareup.picasso.Picasso;
 
 import org.checkerframework.common.subtyping.qual.Bottom;
@@ -74,6 +85,7 @@ public class EventInfoFragment extends Fragment {
         TextView eventDescription = view.findViewById(R.id.eventInfoDescription);
         Button signUpButton = view.findViewById(R.id.signUpButtonEventInfo);
         eventInfoAnnouncementButton = view.findViewById(R.id.eventInfoAnnouncementButton);
+        List<String> signups;
 
         Bundle bundle = getArguments();
         assert bundle != null;
@@ -197,6 +209,41 @@ public class EventInfoFragment extends Fragment {
 
     private void onSignUpPressed(String eventId, Context context){
         String userID = ID.getProfileId(context);
+        Event event = new Event();
+        EventController ec = new EventController();
+        final boolean[] canAdd = {true};
+        final int[] signupCount = new int[1];
+        ec.getEventById(eventId, new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot doc = task.getResult();
+                    event.setMaxCapacity(Integer.parseInt(doc.get("maxCapacity").toString()));
+                    Log.d("EVENT INFO", "Event capacity for id " + eventId + " is " + event.getMaxCapacity());
+                    CollectionReference signupsColl = doc.getReference().collection("signups");
+                    Query getsignups = signupsColl.count().getQuery();
+                    getsignups.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        @Override
+                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                            signupCount[0] = queryDocumentSnapshots.size();
+                            Log.d("EVENT SIGNUPS QUERY", "Found " + signupCount[0] + " events in collection.");
+                            if (signupCount[0] > 0) {
+                                Log.d("EVENT INFO", "Max capacity is " + event.getMaxCapacity());
+                                if ((event.getMaxCapacity() != -1) && signupCount[0] >= event.getMaxCapacity()) {
+                                    Log.d("EVENT INFO", "Event id: " + eventId + " is at capacity " + event.getMaxCapacity());
+                                    canAdd[0] = false;
+                                }
+                            }
+                        }
+                    });
+                }
+            }
+        });
+
+        if(!canAdd[0]){
+            Toast.makeText(getActivity(), "Can't add event! Event full.", Toast.LENGTH_SHORT).show();
+        }
+
         ProfileController profileController = new ProfileController();
         profileController.getProfileUsernameByDeviceId(userID, new OnCompleteListener<DocumentSnapshot>() {
             @Override
@@ -217,14 +264,24 @@ public class EventInfoFragment extends Fragment {
                             }
 
                         }else{
-                            signedUpEvents.add(eventId);
-                            profileController.signedUpEventsUpdater(userID,signedUpEvents);
-                        }
-                        String userName = doc.getString("username");
+                            if(canAdd[0]){
+                                signedUpEvents.add(eventId);
+                                profileController.signedUpEventsUpdater(userID,signedUpEvents);
+                            }
+                            else{
+                                Log.d("EVENT SIGNUP ERROR", "Cannot sign up: event full");
+                            }
 
-                        EventController eventController = new EventController();
-                        SignUp signUp = new SignUp(userID, userName);
-                        eventController.signUserUpForEvent(eventId,signUp);
+                        }
+                        if(canAdd[0]){
+                            String userName = doc.getString("username");
+                            EventController eventController = new EventController();
+                            SignUp signUp = new SignUp(userID, userName);
+                            eventController.signUserUpForEvent(eventId,signUp);
+                        }else{
+                            Log.d("EVENT SIGNUP ERROR", "Cannot sign up: event full");
+                        }
+
                     }
                 }else {
                     Log.d("DEBUG", "Error in getting the username");
