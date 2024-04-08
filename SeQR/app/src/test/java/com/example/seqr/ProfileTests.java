@@ -118,6 +118,9 @@ public class ProfileTests {
         mockNOTIF.add("Mock NOTIF 1");
         mockNOTIF.add("Mock NOTIF 2");
         mockProfile.setNotifications(mockNOTIF);
+        ArrayList<String> mockSIGNUPS = new ArrayList<>();
+        mockSIGNUPS.add("Mock MY Signup 1");
+        mockProfile.setSignedUpEvents(mockSIGNUPS);
 
         String rEMAILres = mockProfile.getEmail();
         String rNAMEres = mockProfile.getUsername();
@@ -133,7 +136,7 @@ public class ProfileTests {
         assertEquals(mockNAME, rNAMEres);
         assertEquals(mockWEB, rHTTPres);
         assertEquals(mockID, rIDres);
-        assertEquals(mockEVENTS.get(0), rMYEVENTres.get(0));
+        assertEquals(mockSIGNUPS.get(0), rMYEVENTres.get(0));
         assertEquals(mockNOTIF.get(0), rNOTIFres.get(0));
         assertEquals(mockFCM, rFCMres);
         assertEquals(mockPICURI, rPICURIres);
