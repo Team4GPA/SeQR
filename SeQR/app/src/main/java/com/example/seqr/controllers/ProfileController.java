@@ -72,7 +72,13 @@ public class ProfileController {
      * @param onCompleteListener Listener to be invoked when the data retrieval is complete.
      */
     public void getAllProfiles(OnCompleteListener<QuerySnapshot> onCompleteListener){
-        profileCollection.get().addOnCompleteListener(onCompleteListener);
+        profileCollection.get().addOnCompleteListener(onCompleteListener)
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("DEBUG","issue with getting all profiles from firebase");
+                    }
+                });
     }
 
     /**

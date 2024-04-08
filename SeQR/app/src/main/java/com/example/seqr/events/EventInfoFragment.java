@@ -83,6 +83,11 @@ public class EventInfoFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 onSignUpPressed(eventId, getContext());
+                try {
+                    Thread.sleep(1350);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 Toast.makeText(getContext(), "Added \""+eventNameText.getText().toString()+"\" to your collection!", Toast.LENGTH_SHORT).show();
                 BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
                 FragmentManager frgMgr = getParentFragmentManager();
@@ -97,12 +102,19 @@ public class EventInfoFragment extends Fragment {
         cancelButton.setVisibility(View.INVISIBLE);
         cancelButton.setOnClickListener(v -> {
             onCancelSignUp(eventId, getContext());
+            try {
+                Thread.sleep(1350);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
             AttendeeFragment attendeeFragment = new AttendeeFragment();
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fire = fragmentManager.beginTransaction();
             fire.replace(R.id.fragment_container, attendeeFragment);
             fire.addToBackStack(null);
             fire.commit();
+            BottomNavigationView bnav = getActivity().findViewById(R.id.bottom_nav);
+            bnav.setSelectedItemId(R.id.bottom_attendee);
         });
 
 

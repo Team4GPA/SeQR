@@ -84,6 +84,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String uuid = ID.getProfileId(getBaseContext());
         System.out.println(uuid);
+        if (uuid != null){
+            ProfileController profileController = new ProfileController();
+            profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()){
+                        DocumentSnapshot profileDoc = task.getResult();
+                        if (!profileDoc.exists() || profileDoc == null){
+                            ID.removeProfileID(getBaseContext());
+                        }
+                    }else {
+                        Log.d("DEBUG","User is still valid in firebase");
+                    }
+                }
+            });
+        }
+
+
 
         if (uuid == null) {
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -142,7 +160,6 @@ public class MainActivity extends AppCompatActivity {
         });
             Button adminButton = findViewById(R.id.admin_button);
             profileImageView = findViewById(R.id.profile_picture);
-            if (firstTime) {
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
             Picasso.get().invalidate(imageUrl);

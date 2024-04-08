@@ -24,6 +24,7 @@ import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.storage.StorageReference;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -112,6 +113,7 @@ public class EventController {
 
                     deleteSubcollectionDocuments(signupsRef);
                     deleteSubcollectionDocuments(checkInsRef);
+                    deleteAnnouncementsAndNotifications(eventID);
 
 
 
@@ -193,6 +195,54 @@ public class EventController {
                     }
                 });
     }
+
+    public void deleteAnnouncementsAndNotifications(String eventID){
+        AnnouncementController announcementController = new AnnouncementController();
+        announcementController.getAnnouncementsByEvent(eventID, new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()){
+                    for (DocumentSnapshot announcementDoc: task.getResult()){
+                        String announcementID = announcementDoc.getId();
+                        removeAnnouncement(announcementID);
+                        removeNotification(announcementID);
+                    }
+                } else{
+                    Log.d("DEBUG","Couldn't get announcements from firebase");
+                }
+            }
+        });
+    }
+
+    public void removeAnnouncement(String announcementID){
+        AnnouncementController announcementController = new AnnouncementController();
+        announcementController.removeAnnouncementByID(announcementID);
+    }
+
+    public void removeNotification(String announcementID){
+        ProfileController profileController = new ProfileController();
+        profileController.getAllProfiles(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()){
+                    for (DocumentSnapshot profileDoc: task.getResult()){
+                        List<String> notifications = (List<String>) profileDoc.get("notifications");
+                        if (notifications != null && notifications.contains(announcementID) ){
+                            notifications.remove(announcementID);
+                            profileController.getProfileDocument(profileDoc.getId()).update("notifications",notifications);
+                        } else {
+                            Log.d("DEBUG","notifcations is empty and or doesnt containthe announcementID");
+                        }
+                    }
+                } else{
+                    Log.d("DEBUG","issue with getting the profiles from firebase");
+                }
+            }
+        });
+
+    }
+
+
     /**
      * Retrieves all events from database.
      *
@@ -201,6 +251,8 @@ public class EventController {
     public void getAllEvents(OnCompleteListener<QuerySnapshot> onCompleteListener){
         eventCollection.get().addOnCompleteListener(onCompleteListener);
     }
+
+
 
     /**
      * Retrieves events from database by organizer UUID (only for the specific organizer).

@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -24,6 +25,8 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,6 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventMapFragment extends Fragment implements OnMapReadyCallback {
 
@@ -42,6 +46,7 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
     private String eventName;
 
     private FirebaseFirestore db;
+    private Button backButton;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +59,15 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
         }
 
         db = Database.getFireStore();
+        backButton = view.findViewById(R.id.map_back_button);
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getParentFragmentManager().popBackStack();
+            }
+        });
+
         return view;
     }
 
@@ -72,7 +86,7 @@ public class EventMapFragment extends Fragment implements OnMapReadyCallback {
                     LatLng eventLocation = new LatLng(latitude,longitude);
                     map.addMarker(new MarkerOptions().position(eventLocation).title(eventName));
                     pinCheckins();
-                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocation, 14.0f));
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocation, 7.0f));
                 } else {
                     Log.d("DEBUG", "DOCUMENT DOES NOT EXIST");
                 }
