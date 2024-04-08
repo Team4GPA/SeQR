@@ -86,23 +86,22 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         String uuid = ID.getProfileId(getBaseContext());
         System.out.println(uuid);
-        if (uuid != null){
+        if (uuid != null) {
             ProfileController profileController = new ProfileController();
             profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         DocumentSnapshot profileDoc = task.getResult();
-                        if (!profileDoc.exists() || profileDoc == null){
+                        if (!profileDoc.exists() || profileDoc == null) {
                             ID.removeProfileID(getBaseContext());
                         }
-                    }else {
-                        Log.d("DEBUG","User is still valid in firebase");
+                    } else {
+                        Log.d("DEBUG", "User is still valid in firebase");
                     }
                 }
             });
         }
-
 
 
         if (uuid == null) {
@@ -125,9 +124,9 @@ public class MainActivity extends AppCompatActivity {
             }
 
             profileController.getProfileUsernameByDeviceId(uuid, new OnCompleteListener<DocumentSnapshot>() {
-            @Override
+                @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                    if(task.isSuccessful()){
+                    if (task.isSuccessful()) {
                         DocumentSnapshot documentSnapshot = task.getResult();
                         if (documentSnapshot != null && documentSnapshot.exists()) {
                             boolean geoLocationEnabled = documentSnapshot.getBoolean("geoLocation");
@@ -138,34 +137,34 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
 
-        // Request to enable permissions on app startup
-        String[] permission = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
-        if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            requestPermissions(permission,1);
-        }
-            // Add an event listener to the checkbox
-        enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                // Update the geolocation setting in Firestore for the current user
-                String uuid = ID.getProfileId(MainActivity.this);
-                if (uuid != null) {
-                    ProfileController profileController = new ProfileController();
-                    profileController.updateGeoLocation(uuid, isChecked);
-                }
-
-                // Request to enable permissions when checkbox is marked but permissions are not enabled
-                if (isChecked && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-                    requestPermissions(permission,1);
-                }
+            // Request to enable permissions on app startup
+            String[] permission = {Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION};
+            if (ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(permission, 1);
             }
-        });
+            // Add an event listener to the checkbox
+            enableGeoLocationCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    // Update the geolocation setting in Firestore for the current user
+                    String uuid = ID.getProfileId(MainActivity.this);
+                    if (uuid != null) {
+                        ProfileController profileController = new ProfileController();
+                        profileController.updateGeoLocation(uuid, isChecked);
+                    }
+
+                    // Request to enable permissions when checkbox is marked but permissions are not enabled
+                    if (isChecked && ContextCompat.checkSelfPermission(getBaseContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        requestPermissions(permission, 1);
+                    }
+                }
+            });
             Button adminButton = findViewById(R.id.admin_button);
             profileImageView = findViewById(R.id.profile_picture);
             String path = Uri.encode("ProfilePictures/" + uuid + ".jpg");
             String imageUrl = "https://firebasestorage.googleapis.com/v0/b/seqr-177ac.appspot.com/o/" + path + "?alt=media";
             Picasso.get().invalidate(imageUrl);
-            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);}
+            Picasso.get().load(imageUrl).error(R.drawable.profile_picture_drawer_navigation_icon).into(profileImageView);
 
             //setup the main fragment view stuff
             FragmentManager fragMgr = getSupportFragmentManager();
@@ -261,7 +260,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     EnterPasswordFragment enterPasswordFragment = new EnterPasswordFragment();
-                    enterPasswordFragment.show(fragMgr,"EnterPasswordFragment");
+                    enterPasswordFragment.show(fragMgr, "EnterPasswordFragment");
                     drawerLayout.closeDrawer(Gravity.LEFT);
 
                 }
@@ -303,8 +302,7 @@ public class MainActivity extends AppCompatActivity {
                             .replace(R.id.fragment_container, announcementDetailFragment)
                             .addToBackStack(null) // Add the fragment transaction to the back stack
                             .commit();
-                }
-                else {
+                } else {
                     Log.d("notfi", "It is a milestone.");
                     // milestone code
                     Bundle bundle = new Bundle();
@@ -320,6 +318,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 //
 //    //==============================================================================================
 //    //End of onCreate() override
