@@ -253,26 +253,59 @@ public class Event {
         this.eventStartTime = eventStartTime;
     }
 
+    /**
+     * Gets the milestone Alert
+     * @return an integer representing the milestone alert
+     */
     public int getMilestoneAlert() {
         return milestoneAlert;
     }
 
+    /**
+     * Sets the milestone alert
+     * @param milestoneAlert the milestone alert
+     */
     public void setMilestoneAlert(int milestoneAlert) {
         this.milestoneAlert = milestoneAlert;
     }
 
+    /**
+     * gets the timestamp of when the event was made
+     * @return when the event was created
+     */
     public Timestamp getCreatedTime() {
         return createdTime;
     }
 
+    /**
+     * sets the time the event was created
+     * @param createdTime a timestamp of when the event was created
+     */
     public void setCreatedTime(Timestamp createdTime) {
         this.createdTime = createdTime;
     }
 
+    /**
+     *  gets the latitude of an event
+     * @return double representing the latitude of the event
+     */
     public double getLatitude(){return latitude;}
 
+    /**
+     * gets the longitude of the event
+     * @return double representing the longitude of the event
+     */
     public double getLongitude() {return longitude;}
 
+    /**
+     * sets the latitude of the event
+     * @param lat the latitude
+     */
     public void setLatitude(double lat) {this.latitude = lat;}
+
+    /**
+     * sets the longitude of the event
+     * @param lng the longitude
+     */
     public void setLongitude(double lng) {this.longitude = lng;}
 }

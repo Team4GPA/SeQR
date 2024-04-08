@@ -8,7 +8,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * A helper class for handling Bitmap Operations
+ */
 public class BitmapUtils {
+    /**
+     * Converts a Bitmap image to a Uri.
+     *
+     * @param context The context to access resources or application-specific information.
+     * @param bitmap The Bitmap image to be converted.
+     * @return The Uri of the converted Bitmap image.
+     */
     public static Uri bitmapToUri(Context context, Bitmap bitmap) {
         // Create a file to save the bitmap
         File file = new File(context.getCacheDir(), "image.jpg");

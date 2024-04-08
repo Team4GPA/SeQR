@@ -156,6 +156,11 @@ public class ProfileController {
         return profileCollection.document(deviceId);
     }
 
+    /**
+     * Method to delete a user's profile in firebase
+     *
+     * @param userID string representing the ID of the user
+     */
     public void deleteProfile(String userID){
         profileCollection.document(userID).delete()
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -174,6 +179,11 @@ public class ProfileController {
                 });
     }
 
+    /**
+     * Deletes a user's profile picture in firebase
+     *
+     * @param userID string representing the ID of the user
+     */
     public void deleteProfilePicture(String userID){
         StorageReference profilePicReference = Database.getStorage().getReference().child("ProfilePictures/" + userID + ".jpg");
         profilePicReference.delete().addOnFailureListener(new OnFailureListener() {
@@ -184,6 +194,11 @@ public class ProfileController {
         });
     }
 
+    /**
+     * removes a user from all events they are signed up for in firebase
+     *
+     * @param userID string representing the ID of the user
+     */
     private void removeUserFromEventSignups(String userID){
         db.collection("Events").whereArrayContains("signups", userID).get()
                 .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
@@ -231,6 +246,12 @@ public class ProfileController {
                 });
     }
 
+    /**
+     * Updates a profile's list of notifications
+     *
+     * @param uuid string representing the ID of the user
+     * @param notifications list of strings that represent notifications sent to the user
+     */
     public void notificationsUpdater(String uuid, List<String> notifications) {
         profileCollection.document(uuid)
                 .update("notifications", notifications)
@@ -247,6 +268,11 @@ public class ProfileController {
                     }
                 });
     }
+
+    /**
+     * Updates the FCM token for a user
+     * @param uuid string representing the ID of the user
+     */
     public void updateFCMToken(String uuid) {
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
             @Override
@@ -274,13 +300,19 @@ public class ProfileController {
 
     /**
      * Gets a profile By a given ID
-     * @param uuid
-     * @param onCompleteListener
+     * @param uuid string representing the ID of the user
+     * @param onCompleteListener method to handle the profile
      */
     public void getProfileByUUID(String uuid, OnCompleteListener<DocumentSnapshot> onCompleteListener){
         profileCollection.document(uuid).get().addOnCompleteListener(onCompleteListener);
     }
 
+    /**
+     * Get all notification's for a user
+     *
+     * @param uuid string representing the ID of the user
+     * @param onCompleteListener method to handle the notifications
+     */
     public void getNotificationsByUUID(String uuid, OnCompleteListener<DocumentSnapshot> onCompleteListener) {
         profileCollection.document(uuid).get().addOnCompleteListener(onCompleteListener);
     }

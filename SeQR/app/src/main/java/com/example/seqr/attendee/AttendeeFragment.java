@@ -260,6 +260,9 @@ public class AttendeeFragment extends Fragment {
         });
     }
 
+    /**
+     * gets all the events a user has signed up for and puts them in the eventList (so they can be viewed by the user)
+     */
     public void retrieveSignedUpEvents(){
         String profileUUID = ID.getProfileId(getContext());
         ProfileController profileController = new ProfileController();
@@ -332,6 +335,11 @@ public class AttendeeFragment extends Fragment {
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
     }
 
+    /**
+     * confirms that the check in was successful and creates a toast to confirm that to the user
+     *
+     * @param QRData a string representing the raw qrData of the event the user tried to check into
+     */
     public void launchCheckInSuccess(String QRData){
         Log.d(DBTAG, "launch success method reached. Checking in Guest. ");
 
@@ -425,6 +433,9 @@ public class AttendeeFragment extends Fragment {
         parent.beginTransaction().replace(R.id.fragment_container, eventInfo).addToBackStack(null).commit();
     }
 
+    /**
+     * if the check in fails, this method sends the user back to the attendee fragment
+     */
     public void qrFailed(){
         Log.d(DBTAG, "qr code scan not successful: return to attendee view");
         Fragment attendee = new AttendeeFragment();
@@ -441,7 +452,12 @@ public class AttendeeFragment extends Fragment {
         getParentFragmentManager().beginTransaction().replace(R.id.fragment_container, attendee).commit();
     }
 
-
+    /**
+     * when given a service provider and callback, this returns the latitude and longitude of the device user
+     *
+     * @param provider the service provider which basically describes how to get the user's location
+     * @param callback where to send the latitude and longitude after this method is invoked
+     */
     public void getCoordinates(String provider, LocationCallback callback) {
         LocationManager locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         if (locationManager.isProviderEnabled(provider)) {

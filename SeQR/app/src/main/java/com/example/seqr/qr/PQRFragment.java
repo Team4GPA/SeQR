@@ -105,6 +105,12 @@ public class PQRFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Generates an image file based on a bitmap
+     * @param image
+     * @param emptyFile
+     * @throws IOException
+     */
     public void generateImageFile(Bitmap image, File emptyFile) throws IOException {
         ByteArrayOutputStream imageBytes = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.PNG, 0, imageBytes);

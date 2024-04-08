@@ -10,6 +10,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
+/**
+ * Helper class to share images
+ */
 public class ShareImages {
 
     /**

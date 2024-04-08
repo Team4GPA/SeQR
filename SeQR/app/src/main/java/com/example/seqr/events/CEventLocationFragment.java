@@ -20,6 +20,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import javax.annotation.Nullable;
 
+/**
+ * Fragment to select the location of an event
+ */
 public class CEventLocationFragment extends Fragment implements OnMapReadyCallback{
     private GoogleMap map;
     private Button backButton;
@@ -27,6 +30,19 @@ public class CEventLocationFragment extends Fragment implements OnMapReadyCallba
 
     private LatLng latLng;
 
+    /**
+     * Method to create fragment and handle any calculations done inside
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return returns the associated view of the fragment
+     */
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -68,6 +84,10 @@ public class CEventLocationFragment extends Fragment implements OnMapReadyCallba
         return view;
     }
 
+    /**
+     * Method to edit the map once it is loaded
+     * @param googleMap a map to load into the fragment
+     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
