@@ -31,6 +31,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.seqr.administrator.AdminFragment;
+import com.example.seqr.administrator.EnterPasswordFragment;
 import com.example.seqr.announcements.AnnouncementDetailFragment;
 import com.example.seqr.attendee.AttendeeFragment;
 import com.example.seqr.controllers.EventController;
@@ -41,6 +42,7 @@ import com.example.seqr.helpers.StartUpFragment;
 import com.example.seqr.models.ID;
 import com.example.seqr.notification.NotificationFragment;
 import com.example.seqr.organizer.OrganizerFragment;
+import com.example.seqr.profile.DeleteProfileFragment;
 import com.example.seqr.profile.EditProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -258,11 +260,8 @@ public class MainActivity extends AppCompatActivity {
             adminButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    AdminFragment adminFragment = new AdminFragment();
-                    FragmentTransaction transaction = fragMgr.beginTransaction();
-                    transaction.replace(R.id.fragment_container, adminFragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    EnterPasswordFragment enterPasswordFragment = new EnterPasswordFragment();
+                    enterPasswordFragment.show(fragMgr,"EnterPasswordFragment");
                     drawerLayout.closeDrawer(Gravity.LEFT);
 
                 }
