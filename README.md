@@ -61,14 +61,11 @@ Thanks for checking out SeQR!
 
 ### SeQR - A CMPUT301 Team Project for the University of Alberta Winter 2024 Term
 
-**WORKS CITED**
+### WORKS CITED
 
 - **Android Developers**. “CameraX Architecture | Android Media.” Accessed February 25, 2024. [Link](https://developer.android.com/media/camera/camerax/architecture).
 - **Android Developers**. “Communicate with Fragments.” Accessed March 7, 2024. [Link](https://developer.android.com/guide/fragments/communicate).
 - **Android Developers**. “Getting Started with CameraX.” Accessed February 25, 2024. [Link](https://developer.android.com/codelabs/camerax-getting-started).
-
-Google for Developers. “Google Code Scanner (Android Only) | ML Kit.” Accessed March 5, 2024. https://developers.google.com/ml-kit/vision/barcode-scanning/code-scanner.
-
-Ranch, Big Nerd. “Understanding Android’s LayoutInflater.Inflate().” Big Nerd Ranch, February 16, 2016. https://bignerdranch.com/blog/understanding-androids-layoutinflater-inflate/.
-
-“Scan Barcodes with ML Kit on Android | Google for Developers.” Accessed March 5, 2024. https://developers.google.com/ml-kit/vision/barcode-scanning/android.
+Google for Developers. “Google Code Scanner (Android Only) | ML Kit.” Accessed March 5, 2024. [Link](https://developers.google.com/ml-kit/vision/barcode-scanning/code-scanner).
+- **Ranch, Big Nerd**. “Understanding Android’s LayoutInflater.Inflate().” Big Nerd Ranch, February 16, 2016. [Link](https://bignerdranch.com/blog/understanding-androids-layoutinflater-inflate/).
+- **“Scan Barcodes with ML Kit on Android | Google for Developers.”** Accessed March 5, 2024. [Link](https://developers.google.com/ml-kit/vision/barcode-scanning/android).
