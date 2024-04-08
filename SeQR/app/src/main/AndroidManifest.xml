@@ -66,10 +66,10 @@
             android:value="barcode_ui" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
-            android:resource="@drawable/seqr_logo_icon" />
+            android:resource="@drawable/seqr_icon_foreground" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_color"
-            android:resource="@color/theme_secondary" />
+            android:resource="@color/theme_tertiary" />
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />

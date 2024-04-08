@@ -39,4 +39,5 @@
     <string name="as_notification">As notification?</string>
     <string name="confirm">Confirm</string>
     <string name="enter_the_date">Enter the date</string>
+    <string name="enter_a_username_or_leave_blank">Enter a Username (or leave blank!)</string>
 </resources>

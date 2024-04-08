@@ -3,29 +3,34 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="8dp">
+    android:background="@drawable/edit_text_rounded_corner"
+    android:elevation="5dp"
+    android:padding="8dp"
+    android:layout_margin="5dp">
 
     <ImageView
         android:id="@+id/event_image"
-        android:layout_width="200sp"
-        android:layout_height="200sp"
+        android:layout_width="120sp"
+        android:layout_height="120sp"
         android:layout_alignParentStart="true"
         android:layout_centerVertical="true"
-        android:background="#E0EAEF"
+        android:background="@drawable/edit_text_rounded_corner"
+        android:elevation="5dp"
         android:contentDescription="Image of event"
-        android:cropToPadding="true"
-        android:padding="5sp"
         android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/event_name"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
+        android:layout_margin="10dp"
         android:layout_toEndOf="@id/event_image"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-black"
         android:maxHeight="200sp"
-        android:padding="10sp"
+        android:maxLines="1"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="normal" />

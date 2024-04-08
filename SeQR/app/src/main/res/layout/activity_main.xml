@@ -2,6 +2,7 @@
 <androidx.drawerlayout.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/my_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -61,40 +62,20 @@
             android:layout_height="match_parent">
 
             <!-- Profile Image -->
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_picture"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/edit_text_rounded_corner"
+                android:elevation="5dp"
                 android:src="@drawable/profile_picture_drawer_navigation_icon"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@+id/edit_profile_button"
-                app:layout_constraintDimensionRatio="H,3:2"/>
-
-            <!-- Edit Profile Button -->
-            <Button
-                android:id="@+id/edit_profile_button"
-                android:layout_width="230dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="50dp"
-                app:layout_constraintTop_toBottomOf="@+id/profile_picture"
-                app:layout_constraintBottom_toTopOf="@+id/enable_geo_location_checkbox"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="Edit Profile" />
-
-            <!-- Checkbox for GeoLocation -->
-            <CheckBox
-                android:id="@+id/enable_geo_location_checkbox"
-                android:layout_width="180dp"
-                android:layout_height="60dp"
-                android:layout_marginTop="20dp"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/edit_profile_button"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                android:text="Enable GeoLocation" />
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_centerVertical="true"
+                app:shapeAppearanceOverlay="@style/circularImageView"
+                tools:srcCompat="@tools:sample/avatars"/>
 
             <!-- Your Name -->
             <TextView
@@ -105,21 +86,58 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 app:layout_constraintTop_toBottomOf="@+id/profile_picture"
-                app:layout_constraintStart_toStartOf="@id/profile_picture"
-                app:layout_constraintEnd_toEndOf="@id/profile_picture"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="8dp"/>
 
-            <!-- Admin Button -->
-            <Button
-                android:id="@+id/admin_button"
-                android:layout_width="230dp"
-                android:layout_height="60dp"
-                android:layout_marginBottom="80dp"
-                android:text="Admin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.495"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:background="@drawable/edit_text_rounded_corner"
+                android:elevation="5dp"
+                android:layout_margin="10dp"
+                app:layout_constraintTop_toBottomOf="@id/profile_name_textview"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <!-- Edit Profile Button -->
+                <Button
+                    android:id="@+id/edit_profile_button"
+                    android:layout_width="230dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="50dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:text="Edit Profile" />
+
+                <!-- Checkbox for GeoLocation -->
+                <CheckBox
+                    android:id="@+id/enable_geo_location_checkbox"
+                    android:layout_width="180dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="20dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_profile_button"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    android:text="Enable GeoLocation" />
+
+                <!-- Admin Button -->
+                <Button
+                    android:id="@+id/admin_button"
+                    android:layout_width="230dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="80dp"
+                    android:text="Admin"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintHorizontal_bias="0.495"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>

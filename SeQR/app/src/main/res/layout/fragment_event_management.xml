@@ -10,10 +10,9 @@
 
     <ScrollView
         android:id="@+id/event_management_title_holder"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15sp"
-        app:layout_constraintBottom_toTopOf="@id/EManagementPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,6 +21,9 @@
             android:id="@+id/EManagementName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/edit_text_rounded_corner"
+            android:elevation="5dp"
             android:text="Event Name"
             android:textSize="24sp"
             android:textStyle="bold" />
@@ -31,129 +33,132 @@
         android:id="@+id/EManagementPhoto"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:background="#E0EAEF"
+        android:background="@drawable/edit_text_rounded_corner"
         android:cropToPadding="true"
+        android:elevation="5dp"
         android:padding="5sp"
         android:scaleType="centerCrop"
+        android:layout_marginTop="10dp"
         android:src="@drawable/baseline_image_placeholder_24"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias=".15" />
-
-    <ImageButton
-        android:id="@+id/EManagementEditPosterButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="Poster edit"
-        android:cropToPadding="true"
-        android:foregroundGravity="center_vertical|center|center_horizontal"
-        android:src="@drawable/settings_icon"
-        app:layout_constraintBottom_toBottomOf="@+id/EManagementPhoto"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/EManagementPhoto"
-        app:layout_constraintTop_toTopOf="@+id/EManagementPhoto" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/button_container"
-        android:layout_width="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/event_management_title_holder" />
+    <ScrollView
+        android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="15sp"
-        android:isScrollContainer="true"
-        app:layout_constraintBottom_toTopOf="@id/EManagementBackButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/EManagementPhoto">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/EManagementPhoto"
+        app:layout_constraintBottom_toTopOf="@id/EManagementBackButton">
 
-        <Button
-            android:id="@+id/CQRButton"
-            android:layout_width="0dp"
-            android:layout_height="48sp"
-            android:layout_marginEnd="5sp"
-            android:includeFontPadding="true"
-            android:padding="4sp"
-            android:text="Check-in QR code"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@id/PQRButton"
-            app:layout_constraintStart_toStartOf="@+id/AnnouncementButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/PQRButton"
-            android:layout_width="0dp"
-            android:layout_height="48sp"
-            android:layout_marginStart="5sp"
-            android:includeFontPadding="true"
-            android:padding="4sp"
-            android:text="Promotion QR code"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/AnnouncementButton"
-            app:layout_constraintStart_toEndOf="@id/CQRButton"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <Button
-            android:id="@+id/AnnouncementButton"
-            android:layout_width="300dp"
-            android:layout_height="48sp"
-            android:text="Send an Announcement"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/SignedUpButton"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/button_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="15sp"
+            android:background="@drawable/edit_text_rounded_corner"
+            android:elevation="5dp"
+            android:isScrollContainer="true"
+            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/PQRButton"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintBottom_toBottomOf="parent">
 
-        <Button
-            android:id="@+id/SignedUpButton"
-            android:layout_width="300dp"
-            android:layout_height="48sp"
-            android:text="View Pre-registered Guests"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/CheckedInButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/AnnouncementButton" />
+            <Button
+                android:id="@+id/CQRButton"
+                android:layout_width="0dp"
+                android:layout_height="48sp"
+                android:includeFontPadding="true"
+                android:layout_margin="10dp"
+                android:padding="4sp"
+                android:text="Check-in QR code"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@id/PQRButton"
+                app:layout_constraintStart_toStartOf="@+id/AnnouncementButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/CheckedInButton"
-            android:layout_width="300dp"
-            android:layout_height="48sp"
-            android:text="View Checked-in Guests"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/GeoTrackingButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/SignedUpButton" />
+            <Button
+                android:id="@+id/PQRButton"
+                android:layout_width="0dp"
+                android:layout_height="48sp"
+                android:layout_margin="10dp"
+                android:includeFontPadding="true"
+                android:padding="4sp"
+                android:text="Promotion QR code"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/AnnouncementButton"
+                app:layout_constraintStart_toEndOf="@id/CQRButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            android:id="@+id/GeoTrackingButton"
-            android:layout_width="300dp"
-            android:layout_height="48sp"
-            android:text="View Geo-tracking Information"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toTopOf="@id/MilestoneButton"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/CheckedInButton" />
+            <Button
+                android:id="@+id/AnnouncementButton"
+                android:layout_width="300dp"
+                android:layout_height="48sp"
+                android:text="Send an Announcement"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toTopOf="@id/SignedUpButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/PQRButton"
+                app:layout_constraintVertical_bias="1.0" />
 
-        <Button
-            android:id="@+id/MilestoneButton"
-            android:layout_width="300dp"
-            android:layout_height="48sp"
-            android:text="View Milestones"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/SignedUpButton"
+                android:layout_width="300dp"
+                android:layout_height="48sp"
+                android:text="View Pre-registered Guests"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toTopOf="@id/CheckedInButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/AnnouncementButton" />
+
+            <Button
+                android:id="@+id/CheckedInButton"
+                android:layout_width="300dp"
+                android:layout_height="48sp"
+                android:text="View Checked-in Guests"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toTopOf="@id/GeoTrackingButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/SignedUpButton" />
+
+            <Button
+                android:id="@+id/GeoTrackingButton"
+                android:layout_width="300dp"
+                android:layout_height="48sp"
+                android:text="View Geo-tracking Information"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toTopOf="@id/MilestoneButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/CheckedInButton" />
+
+            <Button
+                android:id="@+id/MilestoneButton"
+                android:layout_width="300dp"
+                android:layout_height="48sp"
+                android:text="View Milestones"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_margin="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
 
     <Button
         android:id="@+id/EManagementBackButton"
