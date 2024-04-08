@@ -57,6 +57,15 @@ public class EventController {
         eventCollection = db.collection("Events");
     }
 
+    /**
+     * Constructor class only for testing purposes
+     * @param mockDatabase input a mock firebase firestore database to test this class
+     */
+    public EventController(FirebaseFirestore mockDatabase){
+        db = mockDatabase;
+        eventCollection = db.collection("Events");
+    }
+
 
     /**
      * Adds an event to database.
