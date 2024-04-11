@@ -164,8 +164,11 @@ public class CheckInsFragment extends Fragment {
                         }
 
                     } else{
+                    if (isAdded()){
                         attendeeCountTextView.setText(getString(R.string.number_of_attendees,0));
                         attendeeCountTextView.setVisibility(View.VISIBLE);
+
+                    }
                     }
             }
         });

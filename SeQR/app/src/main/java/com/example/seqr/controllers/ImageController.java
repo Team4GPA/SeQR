@@ -144,31 +144,9 @@ public class ImageController {
         // Below is from tutorial: https://firebase.google.com/docs/storage/android/upload-files#java
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        //compress images and resize to save space:
-        //scale if larger than 800x800
-        int targetLargestSide = 800;
-        int currentWidth = bitmap.getWidth();
-        int currentHeight = bitmap.getHeight();
-        int newHeight = 0;
-        int newWidth = 0;
+ 
 
-        if ((currentWidth > targetLargestSide) || (currentHeight > targetLargestSide)){
-            //cross-multiply:
-            //knownWidth / knownHeight = targetWidth (800) / unknownHeight
-            //(knownHeight x targetWidth) / knownWidth = unknownHeight;
 
-            newHeight = (currentHeight * targetLargestSide) / currentWidth;
-            float scaleFactor = newHeight/currentHeight;
-            newWidth = (int) scaleFactor * currentWidth;
-
-        }
-        else{
-            newHeight = currentHeight;
-            newWidth = currentWidth;
-        }
-
-        Bitmap.Config currConfig = bitmap.getConfig();
-        bitmap.reconfigure(newWidth, newHeight, currConfig);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 35, baos);
 
 
